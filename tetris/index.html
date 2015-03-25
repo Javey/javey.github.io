@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>canvas-tetris</title>
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        .game {
+            display: flex;
+            margin-top: 20px;
+        }
+        .view {
+            margin-right: 10px;
+        }
+        dd {
+            margin: 0;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        dt {
+            text-align: center;
+        }
+        .tip {
+            font-size: 12px;
+            color: #666;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="game">
+    <div class="view"></div>
+    <div class="info">
+        <div class="preview"></div>
+        <dl>
+            <dd>Score</dd>
+            <dt>0</dt>
+            <dd>Lines</dd>
+            <dt>0</dt>
+            <dd>Level</dd>
+            <dt>0</dt>
+        </dl>
+        <p class="tip">
+            Pause: &lt;Enter&gt;<br/>
+            Drop: &lt;Space&gt;<br/>
+            Rotate: &lt;Up&gt;
+        </p>
+    </div>
+</div>
+<script type="text/javascript" src="static/js/app.js"></script>
+</body>
+</html>
