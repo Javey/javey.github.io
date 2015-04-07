@@ -1,15 +1,15 @@
 "map <F9> :call SaveInputData()<CR>
-func! SaveInputData()
-	exec "tabnew"
-	exec 'normal "+gP'
-	exec "w! /tmp/input_data"
-endfunc
+"func! SaveInputData()
+"	exec "tabnew"
+"	exec 'normal "+gP'
+"	exec "w! /tmp/input_data"
+"endfunc
 
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set nocp
+"set nocp
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -21,13 +21,24 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'taglist.vim'
-Plugin 'SuperTab'
+"Plugin 'SuperTab'
 Plugin 'winmanager'
 Plugin 'minibufexpl.vim'
 Plugin 'bufexplorer.zip'
 Plugin 'The-NERD-tree'
 Plugin 'Markdown'
 Plugin 'omnicppcomplete'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'delimitMate.vim'
+Plugin 'snipMate'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'othree/tern_for_vim_coffee'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'wavded/vim-stylus'
+"Plugin 'HTML.zip'
+
+" coffee
+let coffee_watch_vert = 1
 
 let g:miniBufExplMapWindowNavVim = 1 
 let g:miniBufExplMapWindowNavArrows = 1 
@@ -228,6 +239,9 @@ let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype  in popup window
 let OmniCpp_GlobalScopeSearch=1
 let OmniCpp_DisplayMode=1
 
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
 "允许插件  
 filetype plugin on
 "共享剪贴板  
@@ -266,7 +280,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 " 不要用空格代替制表符
-set noexpandtab
+set expandtab
 " 在行和段开始处使用制表符
 set smarttab
 " 显示行号
@@ -334,14 +348,14 @@ set smartindent
 " 高亮显示普通txt文件（需要txt.vim脚本）
 au BufRead,BufNewFile *  setfiletype txt
 "自动补全
-:inoremap ( ()<ESC>i
-:inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {<CR>}<ESC>O
-:inoremap } <c-r>=ClosePair('}')<CR>
-:inoremap [ []<ESC>i
-:inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
+":inoremap ( ()<ESC>i
+":inoremap ) <c-r>=ClosePair(')')<CR>
+":inoremap { {<CR>}<ESC>O
+":inoremap } <c-r>=ClosePair('}')<CR>
+":inoremap [ []<ESC>i
+":inoremap ] <c-r>=ClosePair(']')<CR>
+":inoremap " ""<ESC>i
+":inoremap ' ''<ESC>i
 function! ClosePair(char)
 	if getline('.')[col('.') - 1] == a:char
 		return "\<Right>"
@@ -349,13 +363,14 @@ function! ClosePair(char)
 		return a:char
 	endif
 endfunction
+
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
+
 filetype plugin indent on 
 "打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
 
 
 
@@ -370,6 +385,12 @@ let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=31
+let NERDTreeQuitOpen = 1
+" Start NERDTree
+autocmd VimEnter * NERDTree
+" Go to previous (last accessed) window.
+autocmd VimEnter * wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 
 " Disable valadoc syntax highlight
@@ -418,3 +439,12 @@ map <F9> :WMToggle<cr>
 
 " 去掉自动注释
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" for ycm
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
+let g:ycm_global_ycm_extra_conf = '/home/javey/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <F4> :YcmDiags<CR>
