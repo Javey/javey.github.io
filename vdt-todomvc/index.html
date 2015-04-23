@@ -57,7 +57,7 @@
                     <a className={filterType === 'completed' ? 'selected' : ''} href="#/completed">Completed</a>
                 </li>
             </ul>
-            <button className="clear-completed">Clear completed</button>
+            {list.length && list.length !== remaining ? <button className="clear-completed">Clear completed</button> : null}
         </footer>
     </section>
 </script>
