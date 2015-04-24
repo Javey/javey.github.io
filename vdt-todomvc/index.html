@@ -44,21 +44,29 @@
                 })}
             </ul>
         </section>
-        <footer className="footer">
-            <span className="todo-count"><strong>{remaining}</strong> item{remaining > 1 ? 's' : ''} left</span>
-            <ul className="filters">
-                <li>
-                    <a className={filterType === 'all' ? 'selected' : ''} href="#/">All</a>
-                </li>
-                <li>
-                    <a className={filterType === 'active' ? 'selected' : ''} href="#/active">Active</a>
-                </li>
-                <li>
-                    <a className={filterType === 'completed' ? 'selected' : ''} href="#/completed">Completed</a>
-                </li>
-            </ul>
-            {list.length && list.length !== remaining ? <button className="clear-completed">Clear completed</button> : null}
-        </footer>
+        {(function() {
+            if (list.length) {
+                return (
+                    <footer className="footer">
+                        <span className="todo-count"><strong>{remaining}</strong> item{remaining !== 1 ? 's' : ''} left</span>
+                        <ul className="filters">
+                            <li>
+                                <a className={filterType === 'all' ? 'selected' : ''} href="#/">All</a>
+                            </li>
+                            <li>
+                                <a className={filterType === 'active' ? 'selected' : ''} href="#/active">Active</a>
+                            </li>
+                            <li>
+                                <a className={filterType === 'completed' ? 'selected' : ''} href="#/completed">Completed</a>
+                            </li>
+                        </ul>
+                        {list.length !== remaining ? <button className="clear-completed">Clear completed</button> : null}
+                    </footer>
+                )
+            } else {
+                return null;
+            }
+        })()}
     </section>
 </script>
 <footer class="info">
@@ -68,7 +76,7 @@
 </footer>
 <!--<script src="node_modules/todomvc-common/base.js"></script>-->
 <script src="node_modules/jquery/dist/jquery.js"></script>
-<script src="node_modules/vdt.js/dist/vdt.min.js"></script>
+<script src="node_modules/vdt.js/dist/vdt.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
