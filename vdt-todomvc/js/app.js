@@ -87,7 +87,7 @@
 
             this._setFilterType();
 
-            this.$el = $(this.vdt(Model));
+            this.$el = $(this.vdt.render(Model));
             $template.after(this.$el);
 
             this._bindEvent();
