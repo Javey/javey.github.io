@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: '../',
+    baseUrl: '/VdWidget-Demo',
 
     paths: {
         vdt: 'bower_components/vdt/dist/vdt',
