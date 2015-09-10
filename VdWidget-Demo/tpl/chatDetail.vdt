@@ -1,0 +1,17 @@
+var layout = require('rvdt!tpl/layout.vdt');
+
+<t:layout navIndex="chats" showBack={true}>
+    <b:header>
+        {this.get('chat').name}
+    </b:header>
+    <b:body>
+        <Animate class="body">
+            <Animate key="chatDetail" class="padding content">
+                <img src={this.get('chat').face} style={{width: '64px', height: '64px'}}/>
+                <p>
+                    {this.get('chat').lastText}
+                </p>
+            </Animate>
+        </Animate>
+    </b:body>
+</t:layout>

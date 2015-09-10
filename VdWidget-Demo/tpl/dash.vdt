@@ -1,0 +1,29 @@
+var layout = require('rvdt!tpl/layout.vdt');
+
+<t:layout navIndex="dash">
+    <b:header>
+        Dashboard
+    </b:header>
+    <b:body>
+        <div key="dash" class="padding">
+            <div class="list card">
+                <div class="item item-divider">Recent Updates</div>
+                <div class="item item-body">
+                    There is a fire in <b>sector 3</b>
+                </div>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Health</div>
+                <div class="item item-body">
+                    You ate an apple today!
+                </div>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Upcoming</div>
+                <div class="item item-body">
+                    You have <b>29</b> meetings on your calendar tomorrow.
+                </div>
+            </div>
+        </div>
+    </b:body>
+</t:layout>

@@ -1,0 +1,20 @@
+var layout = require('rvdt!tpl/layout.vdt');
+
+<t:layout navIndex="account">
+    <b:header>
+        Account
+    </b:header>
+    <b:body>
+        <div class="list">
+            <div class="item item-toggle toggle-small">
+                <div>Enable Friends</div>
+                <label class="toggle disable-user-behavior">
+                    <input type="checkbox" checked={this.get('settings').enableFriends} ev-change={this._change.bind(this)}/>
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </b:body>
+</t:layout>

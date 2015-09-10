@@ -1,0 +1,34 @@
+{
+  "name": "vdt",
+  "homepage": "https://github.com/Javey/vdt.js",
+  "authors": [
+    "Javey <jiawei23716@sina.com>"
+  ],
+  "description": "A template engine based on virtual-dom",
+  "main": "dist/vdt.js",
+  "keywords": [
+    "template",
+    "virtual-dom",
+    "vdt",
+    "vdt.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "package.json",
+    "benchmark"
+  ],
+  "_release": "f6d6dc57a7",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f6d6dc57a7ac04725a4e7a8cb4e48ffa25367845"
+  },
+  "_source": "git://github.com/Javey/vdt.js.git",
+  "_target": "*",
+  "_originalSource": "vdt"
+}

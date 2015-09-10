@@ -1,0 +1,28 @@
+<div>
+    <Animate tagName="header">
+        <Animate key={location.hash} transition="fade" class="title">
+            {typeof showBack !== 'undefined' && showBack ? <button class="button back-button buttons button-clear header-item" ev-click={function() {history.back()}}>
+                <i class="icon ion-android-arrow-back"></i>
+                <span class="back-text"></span>
+            </button> : null}
+            <b:header />
+        </Animate>
+    </Animate>
+    <section class="main">
+        <nav>
+            <a class={"nav-item" + (navIndex === 'dash' ? ' nav-item-active' : '')} href="#/dash">
+                <i class="icon ion-ios-pulse"></i>
+                <span class="nav-title">Status</span>
+            </a>
+            <a class={"nav-item" + (navIndex === 'chats' ? ' nav-item-active' : '')} href="#/chats">
+                <i class="icon ion-ios-chatboxes"></i>
+                <span class="nav-title">Chats</span>
+            </a>
+            <a class={"nav-item" + (navIndex === 'account' ? ' nav-item-active' : '')} href="#/account">
+                <i class="icon ion-ios-gear-outline"></i>
+                <span class="nav-title">Account</span>
+            </a>
+        </nav>
+        <b:body />
+    </section>
+</div>

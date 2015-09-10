@@ -1,0 +1,23 @@
+var layout = require('rvdt!tpl/layout.vdt');
+
+<t:layout navIndex="chats">
+    <b:header>
+        Chats
+    </b:header>
+    <b:body>
+        <Animate class="body">
+            <Animate tagName="ul" class="list content" key="chats" >
+                {this.get('chats').map(function(chat) {
+                    return <Animate tagName="li" class="item-remove-animate item-avatar item-icon-right item item-complex item-right-editable" key={chat.name}>
+                        <a class="item-content" href={"#/chats/" + chat.id}>
+                            <img src={chat.face} />
+                            <h2>{chat.name}</h2>
+                            <p>{chat.lastText}</p>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </a>
+                    </Animate>
+                })}
+            </Animate>
+        </Animate>
+    </b:body>
+</t:layout>
