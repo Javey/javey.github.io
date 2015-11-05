@@ -26,6 +26,7 @@ Plugin 'winmanager'
 Plugin 'minibufexpl.vim'
 Plugin 'bufexplorer.zip'
 Plugin 'The-NERD-tree'
+Plugin 'The-NERD-Commenter'
 Plugin 'Markdown'
 Plugin 'omnicppcomplete'
 Plugin 'Valloric/YouCompleteMe'
@@ -35,7 +36,34 @@ Plugin 'marijnh/tern_for_vim'
 Plugin 'othree/tern_for_vim_coffee'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'wavded/vim-stylus'
+Plugin 'DoxygenToolkit.vim'
+Plugin 'lepture/vim-velocity'
+Plugin 'git://github.com/mxw/vim-jsx.git'
+Plugin 'git://github.com/blockloop/vim-swigjs.git'
 "Plugin 'HTML.zip'
+
+autocmd BufNewFile,BufRead *.vdt set filetype=javascript.jsx
+
+"doxygen toolkit 
+"let g:DoxygenToolkit_briefTag_pre="@synopsis  "
+"let g:DoxygenToolkit_paramTag_pre="@param "
+"let g:DoxygenToolkit_returnTag="@returns   "
+"let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
+"let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------"
+"let g:DoxygenToolkit_authorName="Drunkedcat"
+let g:DoxygenToolkit_licenseTag="GPL 2.0"
+
+let g:DoxygenToolkit_authorName="Javey, jiawei23716@sina.com" 
+"let s:licenseTag = "Copyright(C)\<enter>"
+"let s:licenseTag = s:licenseTag . "For free\<enter>"
+"let s:licenseTag = s:licenseTag . "All right reserved\<enter>"
+"let g:DoxygenToolkit_licenseTag = s:licenseTag
+"let g:DoxygenToolkit_briefTag_funcName="yes"
+"let g:doxygen_enhanced_color=1
+nmap <leader>da :DoxAuthor<cr>
+nmap <leader>df :Dox<cr>
+nmap <leader>db :DoxBlock<cr>
+nmap <leader>dc O/** */<Left><Left>
 
 " coffee
 let coffee_watch_vert = 1
@@ -101,7 +129,7 @@ set showcmd         " 输入的命令显示出来，看的清楚些
 set novisualbell    " 不要闪烁(不明白)  
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
 set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
-set foldenable      " 允许折叠  
+"set foldenable      " 允许折叠  
 set foldmethod=manual   " 手动折叠  
 "set background=dark "背景使用黑色 
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
@@ -127,8 +155,8 @@ func SetTitle()
 	if &filetype == 'sh' 
 		call setline(1,"\#########################################################################") 
 		call append(line("."), "\# File Name: ".expand("%")) 
-		call append(line(".")+1, "\# Author: ma6174") 
-		call append(line(".")+2, "\# mail: ma6174@163.com") 
+		call append(line(".")+1, "\# Author: Javey") 
+		call append(line(".")+2, "\# mail: jiawei23716@sina.com") 
 		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
 		call append(line(".")+4, "\#########################################################################") 
 		call append(line(".")+5, "\#!/bin/bash") 
@@ -136,8 +164,8 @@ func SetTitle()
 	else 
 		call setline(1, "/*************************************************************************") 
 		call append(line("."), "	> File Name: ".expand("%")) 
-		call append(line(".")+1, "	> Author: ma6174") 
-		call append(line(".")+2, "	> Mail: ma6174@163.com ") 
+		call append(line(".")+1, "	> Author: Javey") 
+		call append(line(".")+2, "	> Mail: jiawei23716@sina.com ") 
 		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
 		call append(line(".")+4, " ************************************************************************/") 
 		call append(line(".")+5, "")
@@ -178,7 +206,7 @@ nnoremap <C-F2> :vert diffsplit
 "新建标签  
 map <M-F2> :tabnew<CR>  
 "列出当前目录文件  
-map <F3> :tabnew .<CR>  
+"map <F3> :tabnew .<CR>  
 "打开树状文件目录  
 map <C-F3> \be  
 "C，C++ 按F5编译运行
@@ -259,14 +287,15 @@ set guioptions-=T           " 隐藏工具栏
 set guioptions-=m           " 隐藏菜单栏
 "set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\
 " 设置在状态行显示的信息
-set foldcolumn=0
-set foldmethod=indent 
-set foldlevel=3 
-set foldenable              " 开始折叠
+"set foldcolumn=0
+"set foldmethod=indent 
+"set foldlevel=3 
+"set foldenable              " 开始折叠
 " 不要使用vi的键盘模式，而是vim自己的
 set nocompatible
 " 语法高亮
-set syntax=on
+"set syntax=on
+set syntax=cpp.doxygen
 " 去掉输入错误的提示声音
 set noeb
 " 在处理未保存或只读文件的时候，弹出确认
