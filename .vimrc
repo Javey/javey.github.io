@@ -41,6 +41,8 @@ Plugin 'lepture/vim-velocity'
 Plugin 'git://github.com/mxw/vim-jsx.git'
 Plugin 'git://github.com/blockloop/vim-swigjs.git'
 "Plugin 'HTML.zip'
+" 语法检测插件
+Plugin 'git://github.com/scrooloose/syntastic.git'
 
 autocmd BufNewFile,BufRead *.vdt set filetype=javascript.jsx
 
@@ -358,6 +360,7 @@ set wildmenu
 set backspace=2
 " 允许backspace和光标键跨越行边界
 set whichwrap+=<,>,h,l
+set nowrap
 " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
 set mouse=a
 set selection=exclusive
@@ -401,7 +404,7 @@ filetype plugin indent on
 set completeopt=longest,menu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+let g:NERDSpaceDelims=1
 
 "NERDtee设定
 let NERDChristmasTree=1
@@ -477,3 +480,13 @@ nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
+
+" 语法检测
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
