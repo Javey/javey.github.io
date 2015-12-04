@@ -1,0 +1,16 @@
+var layout = require('rvdt!tpl/layoutAnimateBody.vdt');
+
+<t:layout navIndex="chats" showBack={true}>
+    <b:header>
+        {this.loaded ? <Animate tagName="span" transition="fade">{this.get('chat').name}</Animate> : undefined}
+    </b:header>
+
+    <b:animateClass>padding content</b:animateClass>
+    <b:animateKey>chatDetail</b:animateKey>
+    <b:animateBody>
+        <img src={this.get('chat').face} style={{width: '64px', height: '64px'}}/>
+        <p>
+            {this.get('chat').lastText}
+        </p>
+    </b:animateBody>
+</t:layout>

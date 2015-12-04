@@ -1,0 +1,12 @@
+var layout = require('rvdt!tpl/layout.vdt');
+
+<t:layout contentKey="sector" showBack={true}>
+    <b:header>
+        Sector
+    </b:header>
+    <b:main>
+        <div class="padding">
+            sector 3
+        </div>
+    </b:main>
+</t:layout>

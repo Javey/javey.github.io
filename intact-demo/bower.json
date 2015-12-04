@@ -1,0 +1,10 @@
+{
+  "name": "VdWidget-Demo",
+  "dependencies": {
+    "intact": "*",
+    "director": "~1.2.8",
+    "text": "~2.0.14",
+    "vdt": "*",
+    "bluebird": "~3.0.6"
+  }
+}

@@ -1,0 +1,12 @@
+var layout = require('rvdt!tpl/layout.vdt'),
+    Animate = this.Animate;
+
+<t:layout arguments>
+    <b:body>
+        <Animate class="body">
+            <Animate class={<b:animateClass />[0]} key={<b:animateKey />[0]}>
+                {this.loaded ? <b:animateBody /> : <div class="sk-rotating-plane"></div>}
+            </Animate>
+        </Animate>
+    </b:body>
+</t:layout>
