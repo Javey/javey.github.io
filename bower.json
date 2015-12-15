@@ -1,0 +1,11 @@
+{
+  "name": "javey-blog",
+  "dependencies": {
+    "intact": "~1.0.0",
+    "director": "~1.2.8",
+    "text": "~2.0.14",
+    "bluebird": "~3.0.6",
+    "bootstrap": "~3.3.6",
+    "marked": "~0.3.5"
+  }
+}

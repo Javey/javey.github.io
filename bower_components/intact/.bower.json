@@ -1,0 +1,44 @@
+{
+  "name": "intact",
+  "version": "1.0.2",
+  "homepage": "https://github.com/Javey/Intact",
+  "authors": [
+    "Javey <jiawei23716@sina.com>"
+  ],
+  "description": "A very lightweight data-binding library to create rich web application",
+  "main": "src/intact.js",
+  "keywords": [
+    "template",
+    "virtual-dom",
+    "vdt",
+    "vdt.js",
+    "vdwidget",
+    "intact",
+    "intact.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "package.json",
+    "benchmark"
+  ],
+  "dependencies": {
+    "vdt": "~0.4.0",
+    "underscore": "~1.8.3",
+    "jquery": "~2.1.4",
+    "requirejs": "~2.1.18"
+  },
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.2",
+    "commit": "c14e213f76ad8de8c8111405a68ed85ab10bd02d"
+  },
+  "_source": "git://github.com/Javey/Intact.git",
+  "_target": "~1.0.0",
+  "_originalSource": "intact"
+}

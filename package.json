@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "express": "^4.13.3",
+    "highlight.js": "^9.0.0"
+  }
+}
