@@ -18,8 +18,12 @@ var nav = [
         title: 'GUIDES',
         subNav: [
             {
-                title: 'addd',
-                href: 'aa'
+                title: 'Properties',
+                href: 'properties'
+            },
+            {
+                title: 'The Key Property',
+                href: 'key'
             }
         ]
     }

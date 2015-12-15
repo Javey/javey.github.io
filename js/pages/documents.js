@@ -18,7 +18,7 @@ define([
         _init: function() {
             var self = this;
             return Utils.ajax('/tpl/pages/documents/' + self.get('index') + '.md').done(function(md) {
-                self.set('content', marked(md));
+                self.set('content', marked(md) || 'To be continued...');
             });
         },
 
