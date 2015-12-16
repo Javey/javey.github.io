@@ -2,61 +2,6 @@ var layout = require('rvdt!tpl/layout.vdt');
 
 <t:layout navIndex="home" showBanner={true}>
     <b:main>
-        <h2>Getting Started</h2>
-
-        <h4>Step 1</h4>
-        <p>Including the script. You can install it by <code>npm</code>, <code>bower</code> or downloading it directly.</p>
-        <pre><code class="hljs html">{'<!DOCTYPE html>\n\
-<html>\n\
-<head>\n\
-    <meta charset="utf-8" />\n\
-    <title>Hello Vdt</title>\n\
-    <script type="text/javasciprt" src="dist/vdt.js"></script>\n\
-</head>\n\
-<body>\n\
-    <div id="example"></div>\n\
-</body>\n\
-</html>'}
-        </code></pre>
-
-        <h4>Step 2</h4>
-        <p>Define a vdt template.</p>
-        <pre><code class="hljs html">{'<script type="text/vdt" id="example_template">\n\
-    <div>\n\
-        <p>Hello {name}</p>\n\
-        <p>Now: {time}</p>\n\
-    </div>\n\
-</script>'}
-        </code></pre>
-    
-        <h4>Step 3</h4>
-        <p>Render template and append to <code>div#example</code>.</p>
-        <pre><code class="hljs html">{'<script type="text/javascript">\n\
-    var template = document.getElementById("example_template").innerHTML,\n\
-        vdt = Vdt(template),\n\
-        dom = vdt.render({name: "Vdt", time: new Date().toLocaleTimeString()});\n\
-    \n\
-    document.getElementById("example").appendChild(dom);\n\
-</script>'}
-        </code></pre>
-
-        <h4>Step 4</h4>
-        <p>Update template by calling <code>update</code> method.</p>
-        <pre><code class="hljs html">{'<script type="text/javascript">\n\
-    setInterval(function() {\n\
-        vdt.data.time = new Date().toLocaleTimeString();\n\
-        vdt.update();\n\
-    }, 1000);\n\
-</script>'}
-        </code></pre>
-
-        <h4>Result</h4>
-        <div id="example"></div>
-        <script type="text/vdt" id="example_template">
-            {"<div>\
-                <p>Hello {name}</p>\
-                <p>Now: {time}</p>\
-            </div>"}
-        </script>
+        <div innerHTML={this.get('content')}></div>
     </b:main>
 </t:layout>

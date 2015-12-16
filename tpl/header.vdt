@@ -8,12 +8,12 @@ var menu = [
         title: 'Documents',
         href: '/documents',
         index: 'documents'
-    },
-    {
-        title: 'Examples',
-        href: '/examples',
-        index: 'examples'
     }
+    // {
+        // title: 'Examples',
+        // href: '/examples',
+        // index: 'examples'
+    // }
 ];
 var showBanner = typeof showBanner === 'undefined' ? false : true;
 
@@ -28,6 +28,6 @@ var showBanner = typeof showBanner === 'undefined' ? false : true;
     </div>
     {showBanner ? <header class="inner">
         <h1 id="project_title">Vdt</h1>
-        <h2 id="project_tagline">A powerful template engine</h2>
+        <h2 id="project_tagline">A powerful template engine based on virtual dom</h2>
     </header> : undefined}
 </div>

@@ -1,6 +1,6 @@
 define([
     'intact', 
-    'rvdt!tpl/pages/documents/index.vdt',
+    'rvdt!tpl/pages/documents.vdt',
     'vdt',
     'bower_components/marked/lib/marked',
     'js/lib/utils',

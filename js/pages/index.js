@@ -16,13 +16,13 @@ define([
 
         _init: function() {
             var self = this;
-            return Utils.ajax('/tpl/pages/documents/index.md').done(function(md) {
+            return Utils.ajax('/tpl/pages/documents/home.md').done(function(md) {
                 self.set('content', marked(md) || 'To be continued...');
             });
         },
 
-        _create: function() {
-            _.each(this.element.querySelectorAll('.hljs'), function(item) {
+        _update: function() {
+            _.each(this.element.querySelectorAll('pre code'), function(item) {
                 hljs.highlightBlock(item);
             });
 
@@ -30,16 +30,12 @@ define([
                 vdt = Vdt(template),
                 dom = vdt.render({name: "Vdt", time: new Date().toLocaleTimeString()});
 
-            this.element.querySelector('#example').appendChild(dom);
+            this.element.querySelector('#example_container').appendChild(dom);
 
             this.timer = setInterval(function() {
                 vdt.data.time = new Date().toLocaleTimeString();
                 vdt.update();
             }, 1000);
-        },
-
-        _update: function() {
-            this._create();
         },
 
         _destroy: function() {

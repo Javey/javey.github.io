@@ -1,0 +1,71 @@
+var layout = require('rvdt!tpl/layout.vdt');
+
+var nav = [
+    {
+        title: 'QUICK START',
+        subNav: [
+            {
+                title: 'Getting Started',
+                href: 'getting-started'
+            },
+            {
+                title: 'Tutorial',
+                href: 'tutorial'
+            }
+        ]
+    },
+    {
+        title: 'GUIDES',
+        subNav: [
+            {
+                title: 'Properties',
+                href: 'properties'
+            },
+            {
+                title: 'The Key Property',
+                href: 'key'
+            },
+            {
+                title: 'Escape & Unescape',
+                href: 'escape-unescape'
+            },
+            {
+                title: 'Middleware for Express',
+                href: 'middleware'
+            },
+            {
+                title: 'Extend & Include',
+                href: 'extend-include'
+            }
+        ]
+    }
+];
+var self = this,
+    article = this.get('article'),
+    subNav = {};
+
+<t:layout navIndex="documents">
+    <b:main>
+        <aside>
+            {_.map(nav, function(item) {
+                return <div class="nav-docs-section">
+                    <h5>{item.title}</h5>
+                    <ul>
+                        {_.map(item.subNav, function(sub) {
+                            var className;
+                            if (sub.href === self.get('index')) {
+                                className = 'active';
+                                subNav = sub;
+                            }
+                            return <li class={className}><a href={'#/documents/' + sub.href}>{sub.title}</a></li>
+                        })}
+                    </ul>
+                </div>
+            })}
+        </aside>
+        <article key={this.get('index')}>
+            <h2>{subNav.title}</h2>
+            <div innerHTML={this.get('content')}></div>
+        </article>
+    </b:main>
+</t:layout>

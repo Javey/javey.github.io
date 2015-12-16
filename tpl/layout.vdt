@@ -3,9 +3,9 @@ var header = require('rvdt!tpl/header.vdt');
 <div>
     <t:header arguments/>
     <div id="main_content_wrap" class="outer">
-        <section id="main_content" class="inner clearfix">
+        <article id="main_content" class="inner clearfix">
             <b:main /> 
-        </section>
+        </article>
     </div>
 
     <div id="footer_wrap" class="outer">
