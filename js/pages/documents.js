@@ -27,14 +27,17 @@ define([
                 hljs.highlightBlock(item);
             });
 
-            var example = this.element.querySelector('#example_template'),
-                template,
-                vdt,
-                dom;
+            this._updateGettingStarted();
+            this._updateTutorial();
+            this._updateKey();
+        },
+
+        _updateGettingStarted: function() {
+            var example = this.element.querySelector('#example_template');
             if (example) {
-                template = example.innerHTML;
-                vdt = Vdt(template);
-                dom = vdt.render({name: "Vdt", time: new Date().toLocaleTimeString()});
+                var template = example.innerHTML,
+                    vdt = Vdt(template),
+                    dom = vdt.render({name: "Vdt", time: new Date().toLocaleTimeString()});
 
                 this.element.querySelector('#example').appendChild(dom);
 
@@ -43,6 +46,9 @@ define([
                     vdt.update();
                 }, 1000);
             }
+        },
+
+        _updateTutorial: function() {
             var search = this.element.querySelector('#todo_template');
             if (search) {
                 var model = {
@@ -67,12 +73,40 @@ define([
                         vdt.update();
                     }
                 };
-                template = search.innerHTML;
-                vdt = Vdt(template);
-                dom = vdt.render(model);
+                var template = search.innerHTML,
+                    vdt = Vdt(template),
+                    dom = vdt.render(model);
 
                 document.getElementById('todo_demo').appendChild(dom);
             }
+        },
+
+        _updateKey: function() {
+            var self = this;
+            function init(id) {
+                var template = self.element.querySelector('#' + id + '_template');
+                if (template) {
+                    var list = ['book', 'food', 'cook'],
+                        vdt = Vdt(template.innerHTML),
+                        dom = vdt.render({
+                            list: list, 
+                            isRemoved: false,
+                            remove: function() {
+                                list.splice(1, 1);
+                                this.isRemoved = true;
+                                vdt.update();
+                            },
+                            addText: function() {
+                                dom.querySelectorAll('li')[1].appendChild(document.createTextNode(" text"));
+                            }
+                        });
+                    self.element.querySelector('#' + id).appendChild(dom);
+                }
+
+            }
+
+            init('with_key');
+            init('without_key');
         },
 
         _destroy: function() {

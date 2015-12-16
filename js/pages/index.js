@@ -3,10 +3,23 @@ define([
     'rvdt!tpl/pages/index.vdt', 
     'underscore', 
     'vdt',
-    'hljs'
-], function(Intact, template, _, Vdt, hljs) {
+    'hljs',
+    'bower_components/marked/lib/marked',
+    'js/lib/utils'
+], function(Intact, template, _, Vdt, hljs, marked, Utils) {
     return Intact.extend({
+        defaults: {
+            content: ''
+        },
+
         template: template,
+
+        _init: function() {
+            var self = this;
+            return Utils.ajax('/tpl/pages/documents/index.md').done(function(md) {
+                self.set('content', marked(md) || 'To be continued...');
+            });
+        },
 
         _create: function() {
             _.each(this.element.querySelectorAll('.hljs'), function(item) {

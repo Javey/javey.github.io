@@ -53,10 +53,10 @@ var layout = require('rvdt!tpl/layout.vdt');
         <h4>Result</h4>
         <div id="example"></div>
         <script type="text/vdt" id="example_template">
-            <div>
-                <p>Hello {'{name}'}</p>
-                <p>Now: {'{time}'}</p>
-            </div>
+            {"<div>\
+                <p>Hello {name}</p>\
+                <p>Now: {time}</p>\
+            </div>"}
         </script>
     </b:main>
 </t:layout>
