@@ -14,7 +14,7 @@ In this tutorial, we're going to implement a simple todo-list demo like below.
 
 #### Define a model
 
-Firstly, we define a model which will be rendered to template. There is an array `todos` in this model
+Firstly, define a model which will be rendered to template. There is an array `todos` in this model
 
 ```js
 var model = {
@@ -43,7 +43,7 @@ But we must wrap all element as one. Because only the last element will be retur
 ##### Dynamic template
 
 Preceding template just a static template. Mostly we need render dynamic data to template.
-In this demo, we need do something below 
+In this demonstration, we need do following things.
 
 1. Output a variable
 2. Traverse todos list and output `li` element
@@ -51,9 +51,10 @@ In this demo, we need do something below
 
 Only `String`, `Number` and `Template` can be ouputted. Moreover an array which only contains values belongs to preceding types can also be outputted.
 You can't ouput a object even if it can be stringified.
-When output something, use brace `{}` wrap it.
+When output something, use brace `{}` to wrap it.
 
-As was mentioned above, we can output an array which contains `Template` values when traverse todos list. Any javascript code can be written before the element will be returned.
+As was mentioned above, we can output an array which contains `Template` values. So traverse `todos` list and create a `Template` array.
+Any javascript code can be written before the element which will be returned.
 
 ```js
 var lis = [];
@@ -66,8 +67,8 @@ for (var index = 0, l = todos.length; index < l; index++) {
 </div>
 ```
 
-With the aid of `map` method, things will be simple. The `map` method which provided in es5 or underscore/lodash will return an `array`.
-This is different from `each/forEach` method which will return `undefined`.
+With the aid of `map()` method, things will be simple. The `map()` method which provided in es5 or `underscore/lodash` will return an `array`.
+This is different from `each()/forEach()` method which will return `undefined`.
 
 ```js
 <div class="todos">
@@ -133,9 +134,9 @@ var model = {
 
 #### Compile template
 
-Call `Vdt.compile` method to compile a template. The method will return a template function. When you call the function directly a `vnode` will be returned.
-`vnode` is a concept of `virtual-dom`. We may use the vnode sometimes. Call `Vdt` method to create a vdt object. The method can take a template string
-or a template function as parameter. It will call `Vdt.compile` method when a template string passed in.
+Call `Vdt.compile()` method to compile a template. The method will return a template function. When you call the function directly a `vnode` will be returned.
+`vnode` is a concept of `virtual-dom`. The `vnode` is useful sometimes, we can pass it to another template. Call `Vdt()` method to create a vdt object. The method can take a template string
+or a template function as parameter. It will call `Vdt.compile()` method when a template string passed in.
 
 ```js
 var source = document.getElementById("#template").innerHTML,
@@ -145,7 +146,7 @@ var source = document.getElementById("#template").innerHTML,
 
 #### Render template
 
-Call `vdt.render` method to render a template. The method will return a dom. It differs from other template engine which return a html string.
+Call `vdt.render()` method to render a template. The method will return a dom. It differs from other template engine which return a html string.
 So we can update it easily and efficiently.
 
 ```js
@@ -156,7 +157,7 @@ var dom = vdt.render(model);
 #### Update template
 
 We can modify the data which rendered to template by modifing `vdt.data` directly. But the template does not update ui when you modified the data automatically like mvvm framework.
-Call `vdt.update` will update ui. So we must alter the event callback method in preceding model to make ui update.
+Call `vdt.update()` to update ui. So we must alter the event callback method in preceding model to make ui update.
 
 ```js
 var model = {

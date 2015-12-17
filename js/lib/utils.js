@@ -36,22 +36,30 @@ define(['underscore', 'bower_components/bluebird/js/browser/bluebird.core'], fun
             });
         },
 
-        ajax: function(options) {
-            var self = this;
-            options || (options = {});
-            _.isString(options) && (options = {url: options});
-            return new Promise(function(resolve, reject) {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        resolve(xhr.response);
-                    }
-                };
+        ajax: (function() {
+            var cache = {};
+            return function(options) {
+                var self = this;
+                options || (options = {});
+                _.isString(options) && (options = {url: options});
+                return new Promise(function(resolve, reject) {
+                    if (cache[options.url]) {
+                        resolve(cache[options.url]);
+                    } else {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) {
+                                cache[options.url] = xhr.response;
+                                resolve(xhr.response);
+                            }
+                        };
 
-                xhr.open('GET', options.url, true);
-                xhr.send(self.param(options.data));
-            });
-        },
+                        xhr.open('GET', options.url, true);
+                        xhr.send(self.param(options.data));
+                    }
+                });
+            };
+        })(),
 
         param: function(obj) {
             return _.map(obj, function(value, key) {

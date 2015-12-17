@@ -505,6 +505,10 @@ article {
 .nav-docs-section .active a {
     color: #e96900;
 }
+.nav-docs-section li {
+    list-style: none;
+    margin-left: 0;
+}
 
 .todo-item.even {
     background: #fff;

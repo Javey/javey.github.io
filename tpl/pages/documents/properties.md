@@ -4,13 +4,13 @@ As mentioned in [Vitrual-Dom VNode](https://github.com/Matt-Esch/virtual-dom/blo
 
 In HTML, most attributes have two face: the `content attribute` and the `IDL attribute`.
 
-The content attribute can be setted or getted via `element.setAttribute()` or `element.getAttribute()`. While the IDL attribute can be setted or getted like javascript object, e.g. `element.foo`.
+The content attribute can be setted or getted via `element.setAttribute()` or `element.getAttribute()`. While the IDL attribute can be setted or getted like javascript object, i.e. `element.foo`.
 
 ##### Available attributes can be rendered to html.
 
 Refer to [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) ([HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement) for example).
 
-So attribute's name must be `lowerCamlCase` style instead of `lowercase` style. Such as `maxLength` instead of `maxlength` in input element. However `class` attribute is an exception.
+Attribute's name must be `lowerCamlCase` style instead of `lowercase` style, such as `maxLength` instead of `maxlength` in input element. However `class` attribute is an exception.
 You can use `class` instead of `className`. `className` is also right of course.
 
 ```js
@@ -21,7 +21,7 @@ You can use `class` instead of `className`. `className` is also right of course.
 
 ##### Properties.attributes can be rendered to html.
 
-Everythin in the `properties.attributes` object will be rendered to html. So you can set custom attributes in the object.
+Everything in the `properties.attributes` object will be rendered to html. So you can set custom attributes in this object.
 For example:
 
 ```js
@@ -45,13 +45,13 @@ So the fllowing examples don't work.
 <input readOnly="false" />
 ```
 
-or
+and
 
 ```js
 <input attributes={{readonly: false}} />
 ```
 
-will be rendered
+They will be all rendered to:
 
 ```html
 <input readonly="false" /> <!-- readonly is true as long as defined the attribute -->

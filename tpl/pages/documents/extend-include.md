@@ -134,7 +134,7 @@ Assume that we have a file named `header.vdt` like below.
 <header>title</header>
 ```
 
-In the preceding sub-template, we include the file.
+We include the file in the preceding sub-template like below.
 
 ```js
 var layout = require('layout'),

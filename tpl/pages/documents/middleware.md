@@ -29,4 +29,4 @@ If true, vdt will force compile vdt file whether the file has been modified or n
 
 #### options.autoReturn = true
 
-In `vdt`, the last element will be returned by add `return` keyword before it automatically. If you add `return` manually, you must set `autoReturn` to `false`.
+In `vdt`, the last element will be returned by add `return` keyword before it automatically. If you have added `return` keyword manually, you must set `autoReturn` to `false`.

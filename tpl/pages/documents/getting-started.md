@@ -18,8 +18,8 @@ Including the script. You can install it by `npm`, `bower` or downloading it dir
 
 #### Step 2
 
-Define a vdt template. Template is string, so you can define it in html with script tag like below. 
-We'll compile it in browser later. You should precompile it when in production environment.
+Define a vdt template. Template is a string, so you can define it in html with script tag like below. 
+We'll compile it in browser later. You'd better to precompile it when in production environment.
 
 ```html
 <script type="text/vdt" id="example_template">
@@ -46,7 +46,7 @@ Compile the template and render it. The rendered result is a dom rather than a h
 
 #### Step 4
 
-Modify the data `vdt.data`, rendered to the template, then update the template by calling `update` method.
+Modify the data `vdt.data` rendered to the template, then update the template by calling `vdt.update()` method.
 
 ```html
 <script type="text/javascript">

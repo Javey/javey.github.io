@@ -1,15 +1,17 @@
-Every element has a property named `key`. If you specified it, it must be different between siblings. The property of `key` can identify every sibling and
+Every element has a property named `key`. If you specified it, it must be different between siblings. The `key` property can be used to identify every sibling and
 increase efficiency when differing two elements.
 
 Let's take a look at the problem: how to change an array `[1, 2, 3]` to `[1, 3]`?
 
-1. Replace the second value `2` with `3`, then remove the last value `3`. e.g. `[1, 2, 3]` -> `[1, 3, 3]` -> `[1, 3]`.
-2. Remove the second value `2` directly. e.g. `[1, 2, 3]` -> `[1, 3]`.
+We have two following methods.
 
-Obviously the second method is more efficient. With the property of `key`, virtual dom will update element via the second method.
+1. Replace the second value `2` with `3`, then remove the last value `3`. i.e. `[1, 2, 3]` -> `[1, 3, 3]` -> `[1, 3]`.
+2. Remove the second value `2` directly. i.e. `[1, 2, 3]` -> `[1, 3]`.
+
+Obviously the second method is more efficient. With the `key` property, virtual dom will update element via the second method. Otherwise the first one will be taken.
 
 Because `vdt` will remove the element when the `key` is not in the next siblings, and add an element when the `key` is not in the previous siblings, 
-it can be very useful when you want to remove or add an element, especially when you modified dom directly. 
+it can be very useful when you want to remove or add an element, especially when you have modified dom directly. 
 
 The fllowing demonstration will show that. Assume that you have the fllowing usage.
 
@@ -47,7 +49,7 @@ The output
 </ul>
 ```
 
-If you has removed the value of `food` and want remove the `li` element of it like below. 
+If you have removed the value of `food` and want remove the corresponding `li` element. 
 
 ```js
 list.splice(1, 1);

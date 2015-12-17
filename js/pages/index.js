@@ -26,16 +26,19 @@ define([
                 hljs.highlightBlock(item);
             });
 
-            var template = this.element.querySelector('#example_template').innerHTML,
-                vdt = Vdt(template),
-                dom = vdt.render({name: "Vdt", time: new Date().toLocaleTimeString()});
+            var template = this.element.querySelector('#example_template');
+            if (template) {
+                template = template.innerHTML;
+                var vdt = Vdt(template),
+                    dom = vdt.render({name: "Vdt", time: new Date().toLocaleTimeString()});
 
-            this.element.querySelector('#example_container').appendChild(dom);
+                this.element.querySelector('#example_container').appendChild(dom);
 
-            this.timer = setInterval(function() {
-                vdt.data.time = new Date().toLocaleTimeString();
-                vdt.update();
-            }, 1000);
+                this.timer = setInterval(function() {
+                    vdt.data.time = new Date().toLocaleTimeString();
+                    vdt.update();
+                }, 1000);
+            }
         },
 
         _destroy: function() {
