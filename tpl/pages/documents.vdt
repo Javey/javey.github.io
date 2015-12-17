@@ -46,6 +46,7 @@ var self = this,
 
 <t:layout navIndex="documents">
     <b:main>
+        <div><em>Please Help Me To Make The Document More Readable</em></div>
         <aside>
             {_.map(nav, function(item) {
                 return <div class="nav-docs-section">
@@ -64,7 +65,7 @@ var self = this,
             })}
         </aside>
         <article key={this.get('index')}>
-            <h2>{subNav.title}</h2>
+            <h2>{subNav.title} <a target="_blank" class="edit-link" href={"https://github.com/Javey/javey.github.io/tree/master/tpl/pages/documents/" + this.get('index') + '.md'}>Edit on Github</a> </h2>
             <div innerHTML={this.get('content')}></div>
         </article>
     </b:main>

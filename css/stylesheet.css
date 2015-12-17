@@ -513,3 +513,10 @@ article {
 .todo-item.even {
     background: #fff;
 }
+.edit-link {
+    float: right;
+    font-size: 16px;
+    font-weight: normal;
+    margin-right: 20px;
+    line-height: 58px;
+}
