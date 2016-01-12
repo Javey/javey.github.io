@@ -36,6 +36,10 @@ var nav = [
             {
                 title: 'Extend & Include',
                 href: 'extend-include'
+            },
+            {
+                title: 'Render in NodeJs',
+                href: 'render-in-nodejs'
             }
         ]
     }
