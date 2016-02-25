@@ -26,6 +26,10 @@ var nav = [
                 href: 'key'
             },
             {
+                title: 'Event',
+                href: 'event'
+            },
+            {
                 title: 'Escape & Unescape',
                 href: 'escape-unescape'
             },
