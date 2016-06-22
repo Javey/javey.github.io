@@ -43,6 +43,7 @@ Plugin 'git://github.com/blockloop/vim-swigjs.git'
 "Plugin 'HTML.zip'
 " 语法检测插件
 Plugin 'git://github.com/scrooloose/syntastic.git'
+Plugin 'isRuslan/vim-es6'
 
 autocmd BufNewFile,BufRead *.vdt set filetype=javascript.jsx
 
@@ -103,6 +104,7 @@ filetype plugin indent on    " required
 colorscheme ron
 
 "set paste 
+set pastetoggle=<F10>
 
 
 "set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
@@ -490,3 +492,8 @@ let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" cuda
+" au BufNewFile,BufRead *.cu set ft=cuda
+" au BufNewFile,BufRead *.cuh set ft=cuda
+au BufNewFile,BufRead *.conf set filetype=conf
