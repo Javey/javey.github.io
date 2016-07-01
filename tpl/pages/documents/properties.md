@@ -36,7 +36,7 @@ will be rendered
 
 #### How to set `Boolean` type attribute?
 
-1. `"true"/"false"` is doesn't work. Because as to `String`, `"ture"` and `"false"` are all `true`.
+1. `"true"/"false"` is doesn't work. Because as to `String`, `"true"` and `"false"` are all `true`.
 2. Setting in attributes object is doesn't work. Because every value in attributes object will be converted to `String`.
 
 So the fllowing examples don't work.
