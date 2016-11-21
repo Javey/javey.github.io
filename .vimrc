@@ -14,38 +14,64 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'taglist.vim'
-"Plugin 'SuperTab'
-Plugin 'winmanager'
-Plugin 'minibufexpl.vim'
-Plugin 'bufexplorer.zip'
-Plugin 'The-NERD-tree'
-Plugin 'The-NERD-Commenter'
-Plugin 'Markdown'
-Plugin 'omnicppcomplete'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'delimitMate.vim'
-Plugin 'snipMate'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'othree/tern_for_vim_coffee'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'wavded/vim-stylus'
-Plugin 'DoxygenToolkit.vim'
-Plugin 'lepture/vim-velocity'
-Plugin 'git://github.com/mxw/vim-jsx.git'
-Plugin 'git://github.com/blockloop/vim-swigjs.git'
-"Plugin 'HTML.zip'
-" 语法检测插件
-Plugin 'git://github.com/scrooloose/syntastic.git'
-Plugin 'isRuslan/vim-es6'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
 
-autocmd BufNewFile,BufRead *.vdt set filetype=javascript.jsx
+call plug#begin('~/.vim/plugged')
+
+    Plug 'taglist.vim'
+    Plug 'SuperTab'
+    Plug 'winmanager'
+    Plug 'minibufexpl.vim'
+    Plug 'bufexplorer.zip'
+    Plug 'scrooloose/nerdtree'
+    Plug 'The-NERD-Commenter'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    " Plugin 'jistr/vim-nerdtree-tabs'
+    Plug 'Markdown'
+
+    function! BuildYCM(info)
+	  " info is a dictionary with 3 fields
+	  " - name:   name of the plugin
+	  " - status: 'installed', 'updated', or 'unchanged'
+	  " - force:  set on PlugInstall! or PlugUpdate!
+	  if a:info.status == 'installed' || a:info.force
+		!./install.py --clang-completer --tern-completer 
+	  endif
+	endfunction
+
+    Plug 'Valloric/YouCompleteMe', {'do': function('BuildYCM')}
+    Plug 'delimitMate.vim'
+    Plug 'snipMate'
+    Plug 'marijnh/tern_for_vim'
+    Plug 'ternjs/tern_for_vim'
+    Plug 'othree/tern_for_vim_coffee'
+    Plug 'kchmck/vim-coffee-script'
+    Plug 'wavded/vim-stylus'
+    Plug 'DoxygenToolkit.vim'
+    Plug 'lepture/vim-velocity'
+    Plug 'git://github.com/mxw/vim-jsx.git'
+    Plug 'git://github.com/blockloop/vim-swigjs.git'
+    " 语法检测插件
+    Plug 'git://github.com/scrooloose/syntastic.git'
+    Plug 'isRuslan/vim-es6'
+    Plug 'Shougo/neocomplete.vim'
+
+    " haskell
+    Plug 'git://github.com/bitc/vim-hdevtools.git'
+    Plug 'eagletmt/ghcmod-vim'
+    Plug 'eagletmt/neco-ghc'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'itchyny/vim-haskell-indent'
+
+call plug#end()
+
+autocmd BufNewFile,BufRead *.vdt set filetype=javascript
+
+let g:nerdtree_tabs_open_on_console_startup=1
 
 "doxygen toolkit 
 "let g:DoxygenToolkit_briefTag_pre="@synopsis  "
@@ -64,9 +90,16 @@ let g:DoxygenToolkit_authorName="Javey, jiawei23716@sina.com"
 "let g:DoxygenToolkit_briefTag_funcName="yes"
 "let g:doxygen_enhanced_color=1
 nmap <leader>da :DoxAuthor<cr>
-nmap <leader>df :Dox<cr>
+nmap <leader>df :call MyDox()<cr>
 nmap <leader>db :DoxBlock<cr>
-nmap <leader>dc O/** */<Left><Left>
+" nmap <leader>dc :filetype plugin indent off<cr> :filetype indent off<cr> O/*  */<Left><Left><Left>
+nmap <leader>dc O/*  */<Left><Left><Left>
+func! MyDox()
+	exec "set paste"
+	exec "Dox"
+	exec "set nopaste"
+endfunc
+
 
 " coffee
 let coffee_watch_vert = 1
@@ -79,11 +112,12 @@ let g:miniBufExplMoreThanOne=0
 
 "let g:SuperTabDefaultCompletionType='context'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+
 filetype plugin indent on    " required
+" 为特定文件类型载入相关缩进文件
+" filetype indent on
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -100,7 +134,7 @@ filetype plugin indent on    " required
 "colorscheme murphy
 "colorscheme desert 
 "colorscheme desert 
-"colorscheme elflord
+" colorscheme elflord
 colorscheme ron
 
 "set paste 
@@ -260,6 +294,7 @@ let Tlist_Use_Right_Window=1
 set autoread
 " quickfix模式
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
+
 "代码补全 
 set completeopt=preview,menu 
 let OmniCpp_MayCompleteDot = 1 " autocomplete with .
@@ -346,10 +381,6 @@ set laststatus=2
 set cmdheight=2
 " 侦测文件类型
 filetype on
-" 载入文件类型插件
-filetype plugin on
-" 为特定文件类型载入相关缩进文件
-filetype indent on
 " 保存全局变量
 set viminfo+=!
 " 带有如下符号的单词不要被换行分割
@@ -401,7 +432,6 @@ endfunction
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
-filetype plugin indent on 
 "打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -471,8 +501,13 @@ map <F9> :WMToggle<cr>
 
 "execute ":source " . "%{share}%/vim/syntax/ocp-indent.vim"
 
+let g:neocomplete#enable_at_startup = 1
+
 " 去掉自动注释
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " for ycm
 let g:ycm_error_symbol = '>>'
@@ -482,6 +517,7 @@ nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
+let g:ycm_filetype_blacklist = { 'haskell': 1 }
 
 " 语法检测
 set statusline+=%#warningmsg#
@@ -492,8 +528,15 @@ let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" let g:syntastic_debug = 1
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:ycm_confirm_extra_conf = 0
 
 " cuda
 " au BufNewFile,BufRead *.cu set ft=cuda
 " au BufNewFile,BufRead *.cuh set ft=cuda
 au BufNewFile,BufRead *.conf set filetype=conf
+
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
