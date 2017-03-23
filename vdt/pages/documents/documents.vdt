@@ -1,0 +1,144 @@
+var nav = [
+    {
+        title: 'QUICK START',
+        subNav: [
+            {
+                title: '开始',
+                href: 'getting-started'
+            }
+        ]
+    },
+    {
+        title: 'GUIDES',
+        subNav: [
+            {
+                title: '模板语法',
+                href: 'template'
+            },
+            {
+                title: '下拉菜单',
+                href: 'select'
+            },
+            {
+                title: '组合框',
+                href: 'combobox'
+            },
+            {
+                title: '表格',
+                href: 'table'
+            },
+            {
+                title: '弹窗',
+                href: 'dialog'
+            },
+            {
+                title: '翻页',
+                href: 'pagination'
+            },
+            {
+                title: '滑动条',
+                href: 'slider'
+            },
+            {
+                title: '弹出菜单',
+                href: 'dropmenu'
+            },
+            {
+                title: '编辑框',
+                href: 'editable'
+            },
+            {
+                title: '开关',
+                href: 'switch'
+            },
+            {
+                title: '提示框',
+                href: 'tooltip'
+            },
+            {
+                title: '微调器',
+                href: 'spinner'
+            },
+            {
+                title: '图表',
+                href: 'chart'
+            },
+            {
+                title: '单选框',
+                href: 'radio'
+            },
+            {
+                title: '复选框',
+                href: 'checkbox'
+            },
+            {
+                title: '标签',
+                href: 'tab'
+            }
+        ]
+    },
+    {
+        title: 'REFERENCE',
+        subNav: [
+            {
+                title: '工具函数（kpc.utils）',
+                href: 'utils'
+            },
+            {
+                title: '顶级组件（App）',
+                href: 'app'
+            },
+            {
+                title: '表单验证',
+                href: 'validate'
+            },
+            {
+                title: 'KOP接口签名',
+                href: 'signer'
+            },
+            {
+                title: '构建',
+                href: 'build'
+            },
+            {
+                title: '第三方依赖',
+                href: 'third'
+            }
+        ]
+    },
+    {
+        title: 'UPGRADE',
+        subNav: [
+            {
+                title: '迁移到2.0',
+                href: 'upgrade2.0'
+            }
+        ]
+    }
+];
+
+var currentNav = {};
+
+<div class="c-flex-1">
+    <aside>
+        <div class="nav-docs-section" v-for={{ nav }}>
+            <h5>{{ value.title }}</h5>
+            <ul>
+                <li v-for={{ value.subNav }} class={{ {active: value.href === self.get('index'), 'c-ellipsis': true} }}>
+                    {{ (function() { value.href === self.get('index') && (currentNav = value)})() }}
+                    <a href={{ '#/documents/' + value.href }}>{{ value.title }}</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <article class="c-bg-white">
+        <div class="article-head c-clearfix">
+            <h1>{{ currentNav.title }}</h1>
+            <a class="edit-link" target="_blank" 
+                v-if={{ self.get('version') }}
+                href={{ "http://git.op.ksyun.com/ksc-console/kpc/blob/" + self.get('version') + "/docs/" + self.get('index') + '.md' }}
+            >Edit on Gitlab</a>
+        </div>
+        <div innerHTML={{ self.get('content') }}></div>
+    </article>
+</div>
