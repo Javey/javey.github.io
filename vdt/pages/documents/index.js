@@ -45,23 +45,55 @@ export default Intact.extend({
         var delimiters = Vdt.getDelimiters();
         Vdt.setDelimiters(['{', '}']);
         eval($(this.element).find('script[type="text/javascript"]').html());
-        Vdt.setDelimiters(delimiters);
+
         // 自动运行示例
-        var promises = [];
+        var promises = [],
+            __TEMPLATE = {};
+        window.require = function(path) {
+            return __TEMPLATE[path];
+        };
         $(this.element).find('.example').each(function() {
             var $this = $(this),
-                $template = $this.next('pre').find('.lang-jsx');
-            if ($template.length) {
-                var templateStr = $template.text(),
-                    jsStr,
-                    // 是否存在js
-                    $js = $template.parent().next('pre').find('.lang-js');
-                if ($js.length) {
-                    jsStr = $js.text();
+                $template = $this.find('.example-template pre');
+            $template.each(function(index, pre) {
+                var code = $(pre).text(),
+                    template = Vdt.compile(code),
+                    matches = code.match(/@file ([^\s]+)/);
+                if (matches) {
+                    __TEMPLATE[matches[1]]  = template;
+                } else {
+                    var vdt = Vdt(template),
+                        data = {},
+                        $json = $this.find('.example-js .language-json');
+                    if ($json.length) {
+                        data = JSON.parse($json.text());
+                    }
+                    var html = vdt.renderString(data);
+                    var $result = $this.find('.example-result');
+                    if (!$result.length) {
+                        $result = $(`<li class="example-result">
+                            <pre><code class="language-html"></code></pre>
+                        </li`).appendTo($this);
+                    }
+                    $result.find('code').text(html);
                 }
-                promises.push(utils.run(templateStr, this, jsStr, self.components));
-            }
+            });
+
+            // if ($template.length) {
+                // var templateStr = $template.text(),
+                    // jsStr,
+                    // // 是否存在js
+                    // $js = $template.parent().next('pre').find('.lang-js');
+                // if ($js.length) {
+                    // jsStr = $js.text();
+                // }
+                // promises.push(utils.run(templateStr, this, jsStr, self.components));
+            // }
+
         });
+
+        Vdt.setDelimiters(delimiters);
+
         $(this.element).find('.lang-css').each(function() {
             var css = $(this).text();
             $(this).after('<style>' + css + '</style>');
