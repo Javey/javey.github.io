@@ -53,7 +53,7 @@ export default Intact.extend({
 
         // 自动运行示例
         var promises = [];
-        $(this.element).find('.example').each(function() {
+        $(this.element).find('.example').not('.silent').each(function() {
             var $this = $(this),
                 $template = $this.find('.example-template pre');
             $template.each(function(index, pre) {

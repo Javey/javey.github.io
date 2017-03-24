@@ -14,66 +14,6 @@ var nav = [
             {
                 title: '模板语法',
                 href: 'template'
-            },
-            {
-                title: '下拉菜单',
-                href: 'select'
-            },
-            {
-                title: '组合框',
-                href: 'combobox'
-            },
-            {
-                title: '表格',
-                href: 'table'
-            },
-            {
-                title: '弹窗',
-                href: 'dialog'
-            },
-            {
-                title: '翻页',
-                href: 'pagination'
-            },
-            {
-                title: '滑动条',
-                href: 'slider'
-            },
-            {
-                title: '弹出菜单',
-                href: 'dropmenu'
-            },
-            {
-                title: '编辑框',
-                href: 'editable'
-            },
-            {
-                title: '开关',
-                href: 'switch'
-            },
-            {
-                title: '提示框',
-                href: 'tooltip'
-            },
-            {
-                title: '微调器',
-                href: 'spinner'
-            },
-            {
-                title: '图表',
-                href: 'chart'
-            },
-            {
-                title: '单选框',
-                href: 'radio'
-            },
-            {
-                title: '复选框',
-                href: 'checkbox'
-            },
-            {
-                title: '标签',
-                href: 'tab'
             }
         ]
     },

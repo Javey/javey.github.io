@@ -8,8 +8,7 @@
 * 支持前后端渲染
 
 
-<div></div>
-
+<!-- -->
 * <!-- {.example-template} -->
     ```jsx 
     <div>
@@ -60,7 +59,7 @@
     });
     ```
 * <!-- {.example-output} -->
-<!-- {ul:.example} -->
+<!-- {ul:.example.silent} -->
 
 ## 安装
 

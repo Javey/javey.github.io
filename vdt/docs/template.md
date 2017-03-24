@@ -555,7 +555,23 @@ Vdt中没有过滤器的概念，但可以调用函数来达到类似的目的
 
 ## 转义 
 
+`Vdt`默认会对任何输出转移
 
+* <!-- {.example-template} -->
+    ```jsx
+    <div>{'<script>alert(1)</script'}</div>
+    ```
+<!-- {ul:.example} -->
+
+通过`innerHTML`属性，可以阻止转义（本质上就是`element.innerHTML`）
+
+* <!-- {.example-template} -->
+    ```jsx
+    <div innerHTML={'<script>alert(1)</script>'}></div>
+    ```
+<!-- {ul:.example} -->
+
+## 注释
 
 
 [1]: https://github.com/Javey/gulp-vdt
