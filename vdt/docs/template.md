@@ -418,6 +418,55 @@ Vdt中没有过滤器的概念，但可以调用函数来达到类似的目的
     ```
 <!-- {ul:.example} -->
 
+### `block`嵌套
+
+`block`可以任意嵌套，但在一个模板中要保证`block`名称不重复
+
+* <!-- {.example-template} -->
+    ```jsx
+    // @file ./layout.vdt
+    <div>
+        <b:body>
+            <aside>
+                <b:sidebar>边栏</b:sidebar>
+            </aside>
+            <article>
+                <b:content />
+            </article>
+        </b:body>
+    </div>
+    ```
+    ```jsx
+    // @file ./child.vdt
+    var layout = require('./layout.vdt');
+
+    <t:layout>
+        <b:content>只修改content block</b:content>
+    </t:layout>
+    ```
+<!-- {ul:.example} -->
+
+### 多重继承
+
+模板可以继承后再被继承，继承链可以任意长
+
+* <!-- {.example-template} -->
+    ```jsx
+    var child = require('./child.vdt');
+
+    <t:child>
+        <b:sidebar>
+            来自孙模板的边栏
+            {parent()}
+        </b:sidebar>
+        <b:content>
+            {parent()}
+            来自孙模板的内容
+        </b:content>
+    </t:child>
+    ```
+<!-- {ul:.example} -->
+
 ## 包含
 
 包含也是实现模板复用的一个重要功能，`Vdt`中并没有提供`include`标签语法，但是通过前面的继承语法`<t:template>`
@@ -443,10 +492,6 @@ Vdt中没有过滤器的概念，但可以调用函数来达到类似的目的
         <h1>用户列表</h1>
         <t:list />
     </div>
-    ```
-
-* <!-- {.example-result} -->
-    ```html
     ```
 <!-- {ul:.example} -->
 
@@ -478,16 +523,40 @@ Vdt中没有过滤器的概念，但可以调用函数来达到类似的目的
         <t:list data={['Syalvia', 'Shadow', 'Javey']} />
     </div>
     ```
+<!-- {ul:.example} -->
 
-* <!-- {.example-result} -->
-    ```html
+### 局部继承
+
+`<t:template>`可以在任意地方使用，不一定是根元素，所以可以很方便地实现局部继承
+
+* <!-- {.example-template} -->
+    ```jsx
+    // @file ./content.vdt
+    <div>
+        <h1>{title}</h1>
+        <b:content>
+            被包含文件的内容
+        </b:content>
+    </div>
+    ```
+    ```jsx
+    var content = require('./content.vdt');
+
+    <div>
+        <t:content title="标题">
+            <b:content>
+                包含文件内容
+                {parent()}
+            </b:content>
+        </t:content>
+    </div>
     ```
 <!-- {ul:.example} -->
+
+## 转义 
 
 
 
 
 [1]: https://github.com/Javey/gulp-vdt
 [2]: https://github.com/Javey/vdt-loader
-
-

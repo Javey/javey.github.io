@@ -9,6 +9,11 @@ var marked = MarkdownIt({
     html: true
 }).use(MarkdownItDecorate);
 
+var __TEMPLATE = {};
+window.require = function(path) {
+    return __TEMPLATE[path];
+};
+
 export default Intact.extend({
     defaults: {
         index: 'getting-started',
@@ -47,11 +52,7 @@ export default Intact.extend({
         eval($(this.element).find('script[type="text/javascript"]').html());
 
         // 自动运行示例
-        var promises = [],
-            __TEMPLATE = {};
-        window.require = function(path) {
-            return __TEMPLATE[path];
-        };
+        var promises = [];
         $(this.element).find('.example').each(function() {
             var $this = $(this),
                 $template = $this.find('.example-template pre');
@@ -61,7 +62,9 @@ export default Intact.extend({
                     matches = code.match(/@file ([^\s]+)/);
                 if (matches) {
                     __TEMPLATE[matches[1]]  = template;
-                } else {
+                } 
+                // 最后一个模板用于渲染
+                if (index === $template.length - 1) {
                     var vdt = Vdt(template),
                         data = {},
                         $json = $this.find('.example-js .language-json');
