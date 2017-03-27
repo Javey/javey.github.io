@@ -71,14 +71,33 @@ export default Intact.extend({
                     if ($json.length) {
                         data = JSON.parse($json.text());
                     }
-                    var html = vdt.renderString(data);
-                    var $result = $this.find('.example-result');
-                    if (!$result.length) {
-                        $result = $(`<li class="example-result">
-                            <pre><code class="language-html"></code></pre>
-                        </li`).appendTo($this);
+
+                    var $result;
+                    if ($this.hasClass('dom')) {
+                        $result = $this.find('.example-output');
+                        if (!$result.length) {
+                            $result = $(`<li class="example-output"></li>`).appendTo($this);
+                        }
+                        var dom;
+                        // 如果找到js，则执行js代码，否则直接渲染
+                        var $js = $this.find('.example-js .language-js');
+                        if ($js.length) {
+                            dom = eval($js.text());
+                        } else {
+                            dom = vdt.render(data);
+                        }
+                        $result.append(dom);
+                    } else {
+                        $result = $this.find('.example-result');
+                        if (!$result.length) {
+                            $result = $(`<li class="example-result">
+                                <pre><code class="language-html"></code></pre>
+                            </li`).appendTo($this);
+                        }
+
+                        var html = vdt.renderString(data);
+                        $result.find('code').text(html);
                     }
-                    $result.find('code').text(html);
                 }
             });
 

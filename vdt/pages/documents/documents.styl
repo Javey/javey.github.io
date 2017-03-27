@@ -97,6 +97,7 @@ blockquote
     flex: 1;
     border-radius: 4px;
     font-size: 14px;
+    display: list-item !important;
 }
 
 .example-template
@@ -119,7 +120,7 @@ blockquote
         font-size 40px
         position absolute
         top 50%
-        margin-top -29px
+        margin-top -32px
         letter-spacing -12px
         left -47px
 
@@ -133,3 +134,13 @@ blockquote
     position relative
     &:before
         @extend .example-result:before
+
+.event-object
+    .example-output
+        div
+            padding 20px
+            background #ccc
+        p
+            padding 20px
+            margin-top 20px
+            background #ddd
