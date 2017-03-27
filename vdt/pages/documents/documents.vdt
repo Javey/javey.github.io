@@ -22,44 +22,19 @@ var nav = [
             {
                 title: '事件处理',
                 href: 'event'
+            },
+            {
+                title: 'HTML属性',
+                href: 'property'
             }
         ]
     },
     {
-        title: 'REFERENCE',
+        title: 'ADVANCED',
         subNav: [
             {
-                title: '工具函数（kpc.utils）',
-                href: 'utils'
-            },
-            {
-                title: '顶级组件（App）',
-                href: 'app'
-            },
-            {
-                title: '表单验证',
-                href: 'validate'
-            },
-            {
-                title: 'KOP接口签名',
-                href: 'signer'
-            },
-            {
-                title: '构建',
-                href: 'build'
-            },
-            {
-                title: '第三方依赖',
-                href: 'third'
-            }
-        ]
-    },
-    {
-        title: 'UPGRADE',
-        subNav: [
-            {
-                title: '迁移到2.0',
-                href: 'upgrade2.0'
+                title: 'key属性',
+                href: 'key'
             }
         ]
     }
