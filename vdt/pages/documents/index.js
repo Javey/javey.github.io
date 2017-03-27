@@ -28,6 +28,7 @@ export default Intact.extend({
 
         // 储存所有的组件，切换文档时，销毁调组件
         this.components = [];
+        this.vdts = [];
 
         this.on('changed:content', this._evalScript);
 
@@ -53,7 +54,8 @@ export default Intact.extend({
 
         // 自动运行示例
         var promises = [];
-        $(this.element).find('.example').not('.silent').each(function() {
+        var $examples = $(this.element).find('.example').not('.silent');
+        $examples.each(function() {
             var $this = $(this),
                 $template = $this.find('.example-template pre');
             $template.each(function(index, pre) {
@@ -81,11 +83,13 @@ export default Intact.extend({
                         var dom;
                         // 如果找到js，则执行js代码，否则直接渲染
                         var $js = $this.find('.example-js .language-js');
+                        var _vdt;
                         if ($js.length) {
-                            dom = eval($js.text());
+                            dom = eval($js.text() + '; _vdt = vdt; vdt.node;');
                         } else {
                             dom = vdt.render(data);
                         }
+                        self.vdts.push(_vdt);
                         $result.append(dom);
                     } else {
                         $result = $this.find('.example-result');
@@ -97,6 +101,7 @@ export default Intact.extend({
 
                         var html = vdt.renderString(data);
                         $result.find('code').text(html);
+                        self.vdts.push(vdt);
                     }
                 }
             });
@@ -112,6 +117,21 @@ export default Intact.extend({
                 // promises.push(utils.run(templateStr, this, jsStr, self.components));
             // }
 
+        });
+
+        $(this.element).find('.run').each(function() {
+            var $this = $(this),
+                js = $this.text(),
+                $example = $this.parent().prevAll('.example').not('.silent').first(),
+                index = _.findIndex($examples, function(item) {
+                    return item === $example[0];
+                }),
+                vdt = self.vdts[index];
+            $('<button>点击运行</button>')
+                .insertBefore($this.parent())
+                .on('click', function() {
+                    eval(js);
+                });
         });
 
         Vdt.setDelimiters(delimiters);
