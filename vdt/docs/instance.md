@@ -48,6 +48,7 @@ var data = {a: 1};
 vdt.render(data);
 
 vdt.data === data; // true
+vdt.data.vdt === vdt; // true
 
 // 更新
 var newData = {a: 2};
