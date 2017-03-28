@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 
 tasks.paths.css.push('./vdt/**/*.@(css|styl)');
 _.extend(tasks.paths, {
+    images: ['./node_modules/kpc/src/images/**/*.gif'],
     tpl: './vdt/index.html',
     other: [],
 
