@@ -43,6 +43,10 @@ var nav = [
             {
                 title: 'this & self & scope',
                 href: 'keyword'
+            },
+            {
+                title: '可变标签',
+                href: 'variable-tag'
             }
         ]
     }
