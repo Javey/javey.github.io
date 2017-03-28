@@ -32,16 +32,23 @@ export default Intact.extend({
 
         this.on('changed:content', this._evalScript);
 
+        App.on('change:loading', function(app, isLoading) {
+            App.off('change:loading');
+            App.set('loading', true, {silent: true});
+        });
+
         var matches = location.href.match(/\/(v[\d\.]+x?)/);
         matches && this.set('version', matches[1], {silent: true});
 
         $.ajax({
-            url: 'docs/' + this.get('index') + '.md', 
+            url: '/vdt/docs/' + this.get('index') + '.md', 
             dataType: 'text'
         }).then(function(md) {
             self.set('content', marked.render(md));
         }, function() {
             self.set('content', '<p>To be continued...</p>');
+        }).always(function() {
+            App.hideLoading();
         });
     },
 

@@ -20,10 +20,11 @@ var router = Router({
     }
 }).configure({
     notfound: function() {
-        App.replaceRoute('/');
+        router.replaceRoute('/documents');
     }
 });
 
 router.init('/');
 
 window.Vdt = Intact.Vdt;
+window.App = App;
