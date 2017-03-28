@@ -8,9 +8,10 @@
   },
   "dependencies": {
     "advanced": "^0.3.10",
-    "vdt": "^0.9.19",
+    "github-fork-ribbon-css": "^0.2.1",
+    "kpc": "git+http://git.op.ksyun.com/ksc-console/kpc.git#v2.1",
     "lodash": "^4.0.1",
-    "kpc": "git+http://git.op.ksyun.com/ksc-console/kpc.git#v2.1"
+    "vdt": "^0.9.19"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

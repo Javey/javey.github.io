@@ -4,6 +4,7 @@ import MarkdownItDecorate from 'markdown-it-decorate';
 import hljs from 'imports?exports=>undefined!../../js/lib/highlight.pack';
 import template from './documents.vdt';
 import css from './documents.styl';
+import forkMeCss from 'github-fork-ribbon-css/gh-fork-ribbon.css';
 
 var marked = MarkdownIt({
     html: true
