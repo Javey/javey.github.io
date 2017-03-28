@@ -69,11 +69,18 @@ var currentNav = {};
     <article class="c-bg-white">
         <div class="article-head c-clearfix">
             <h1>{{ currentNav.title }}</h1>
-            <a class="edit-link" target="_blank" 
-                v-if={{ self.get('version') }}
-                href={{ "http://git.op.ksyun.com/ksc-console/kpc/blob/" + self.get('version') + "/docs/" + self.get('index') + '.md' }}
-            >Edit on Gitlab</a>
+            <div class="edit-link">
+                如果你发现文档有问题，请帮忙在
+                <a target="_blank" 
+                    href={{ `https://github.com/Javey/javey.github.io/blob/master/vdt/docs/${self.get('index')}.md` }}
+                >github</a>
+                上修正该文档
+            </div>
         </div>
         <div innerHTML={{ self.get('content') }}></div>
     </article>
+    <a class="github-fork-ribbon"
+        href="https://github.com/Javey/vdt.js" 
+        title="Fork me on GitHub"
+    >Fork me on GitHub</a>
 </div>
