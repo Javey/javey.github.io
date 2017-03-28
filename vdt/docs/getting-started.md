@@ -4,7 +4,7 @@
 
 * 基于[virtual-dom][1]，DOM更新速度快
 * 能实现前后端模板继承，包含，宏定义等
-* 文件大小还行，gzip压缩后大概13KB（包含浏览器实时编译模块）
+* 文件大小在gzip压缩后大概13KB（包含浏览器实时编译模块）
 * 支持前后端渲染
 
 
@@ -88,7 +88,7 @@ var Vdt = require('vdt');
 
 ### 与requireJs等模块加载器结合使用
 
-Vdt打包的文件支持UMD方式加载
+Vdt打包的文件支持通过UMD方式加载
 
 ```js
 define(['path/to/vdt'], function(Vdt) { });
@@ -106,7 +106,7 @@ vdt.render({name: 'Vdt'});
 
 // 更新 
 vdt.update({name: 'Javascript'});
-// 或者，这样修改数据更新
+// 或者，这样修改数据后调用更新
 vdt.data.name = 'Javascript'
 vdt.update();
 ```
@@ -117,8 +117,8 @@ vdt.update();
 
     当Vdt和RequireJs等前端模块加载器结合使用，通常需要NodeJs实时编译Vdt模板，然后当做AMD模块返回
 
-    该middleware会根据当前请求的js文件路径查找相应目录下是否存在`*.js`文件，如果存在则不处理，否则，
-    判断该目录下是否存在`*.vdt`文件，如果存在则编译后当做js返回，否则不处理
+    该middleware会根据当前请求的js文件路径查找相应目录下是否存在`*.js`文件，如果存在则不处理；
+    不存在时会判断该目录下是否存在`*.vdt`文件，如果存在则编译后当做js返回
     ```js
     var Vdt = require('vdt');
     app.use(Vdt.middleware({
@@ -165,7 +165,7 @@ vdt.update();
 
 * 与[Express](2)结合
 
-    Vdt提供`__express`方法可以很方便地作为Express的模板引擎使用
+    Vdt提供`__express`方法使之可以很方便地作为Express的模板引擎使用
 
     ```js
     var Express = require('express'),
