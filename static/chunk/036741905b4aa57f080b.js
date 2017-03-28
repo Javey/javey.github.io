@@ -1,1 +1,0 @@
-webpackJsonp([1],{4:function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=Intact.extend({template:"<div>hello</div>"}),e.exports=t.default}});

@@ -2,7 +2,8 @@ import App from './app';
 
 var router = Router({
     '/': function() {
-        require(['../../pages/index'], App.run());
+        // require(['../../pages/index'], App.run());
+        router.replaceRoute('/documents');
     },
     '/documents': {
         '/:title': {
