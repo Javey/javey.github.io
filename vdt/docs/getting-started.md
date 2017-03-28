@@ -1,4 +1,4 @@
-`vdt`一个基于[`virtual-dom`][1]的模板引擎
+`Vdt`：一个基于[`virtual-dom`][1]的模板引擎
 
 ## 功能特性 
 
@@ -11,6 +11,7 @@
 <!-- -->
 * <!-- {.example-template} -->
     ```jsx 
+    // @file ./layout.vdt
     <div>
         <header>
             <b:header />
@@ -24,6 +25,8 @@
     ```
 
     ```jsx
+    var layout = require('./layout.vdt');
+
     <t:layout>
         <b:header>
             <h1>{title}</h1>
@@ -39,12 +42,8 @@
     ```
 * <!-- {.example-js} -->
     ```js
-    var layout = Vdt.compile(layoutTemplate),
-        vdt = Vdt(childTemplate);
-
-    exports = vdt.render({
-        layout: layout,
-
+    var vdt = Vdt(template);
+    vdt.render({
         title: 'vdt',
         items: {
             a: 1,
@@ -58,8 +57,7 @@
         }
     });
     ```
-* <!-- {.example-output} -->
-<!-- {ul:.example.silent} -->
+<!-- {ul:.example.dom} -->
 
 ## 安装
 
@@ -186,13 +184,3 @@ vdt.update();
 
 [1]: https://github.com/Matt-Esch/virtual-dom
 [2]: http://www.expressjs.com.cn/
-
-<script type="text/javascript">
-    var $template = $(self.element).find('.example-template pre'),
-        layoutTemplate = $template.eq(0).text(),
-        childTemplate = $template.eq(1).text();
-    var js = $(self.element).find('.example-js').text();
-    var exports;
-    eval(js);
-    $('.example-output').append(exports);
-</script>
