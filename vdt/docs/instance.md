@@ -41,7 +41,7 @@ vdt = Vdt(Vdt.compile('<div></div>'));
 
 * @description 指向渲染/更新模板的数据
 
-创建Vdt实例后，通过`render()`方法，传入数据即可渲染出来想要的dom节点，后续可以通过`update()`方法去更新dom
+创建Vdt实例后，通过`render()`方法，传入数据即可渲染出需要的dom节点，后续可以通过`update()`方法去更新dom
 
 ```js
 var data = {a: 1};

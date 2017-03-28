@@ -16,7 +16,7 @@
 方法来设置&获取属性；
 
 `IDL attribute`为驼峰风格`lowerCamlCase`，
-你可以设置&获取属性就像普通javascript对象一样，例如：`element.foo`
+你可以像读取javascript对象一样来设置&获取属性，例如：`element.foo`
 
 在Vdt中，使用的都是`IDL attribute`，而上述例子中，`maxlength`为`Content attribute`，
 所以并不会渲染到html中，但是你可以这样访问该属性: `element.maxlength === '10'`;
@@ -32,13 +32,13 @@
 关于`IDL attribute`可以查看[Web API](https://developer.mozilla.org/en-US/docs/Web/API)
 [HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)
 
-不过你也不用担心这么属性怎么去查，__基本上只需要将属性名从`lowercase`改成`lowerCamlCase`即可__
+不过你也不用担心这么多属性怎么去查，__基本上只需要将属性名从`lowercase`改成`lowerCamlCase`即可__
 
 ## `attributes`属性
 
-HTML所有元素都居右`attributes`属性，通过它设置的所有属性都会当做`Content attribute`，参见：[attributes][1]
+HTML所有元素都具有`attributes`属性，通过它设置的所有属性都会当做`Content attribute`，参见：[attributes][1]
 
-通过它我们可以设置任意的自定义属性，例如：
+因此通过`attributes`属性我们可以设置任意的自定义属性，例如：
 
 * <!-- {.example-template} -->
     ```jsx
@@ -48,10 +48,10 @@ HTML所有元素都居右`attributes`属性，通过它设置的所有属性都�
 
 ## `Boolean`属性值
 
-对于属性值为`Boolean`类型的属性，只接受`Boolean`类型的值，而且不能省略
+对于值为`Boolean`类型的属性，只接受`Boolean`类型的值，而且不能省略
 
 * `"true"`和`"false"`这样的字符串会被当做`true`处理
-* 省略属性值，并非html中的设为`true`，而是会当做`false`处理
+* 省略属性值，并不会将html中属性值设为`true`，而是会当做`false`处理
 * 不能用`attributes`属性来设置`Boolean`值，因为所有`attributes`对象里的值，会转成`String`类型
 
 例如下面这样设置是达不到目的的：
