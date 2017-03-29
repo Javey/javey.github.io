@@ -34,6 +34,11 @@ IDL attribute为驼峰风格`lowerCamlCase`，
 
 不过你也不用担心这么多属性怎么去查，__基本上只需要将属性名从`lowercase`改成`lowerCamlCase`即可__
 
+### class & for
+
+`class`和`for`这两个属性对应的IDL attribute分别为`className`和`htmlFor`，由于它们比较常见，
+Vdt在内部已经自动将它们转换了，所以这两种属性写法都是合法的。
+
 ## attributes属性
 
 HTML所有元素都具有`attributes`属性，通过它设置的所有属性都会当做Content attribute，参见：[attributes][1]

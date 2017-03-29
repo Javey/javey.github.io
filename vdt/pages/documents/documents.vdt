@@ -29,7 +29,7 @@ var nav = [
         title: 'ADVANCED',
         subNav: [
             {
-                title: 'HTML属性',
+                title: 'Html属性',
                 href: 'property'
             },
             {
@@ -47,6 +47,10 @@ var nav = [
             {
                 title: '可变标签',
                 href: 'variable-tag'
+            },
+            {
+                title: 'class属性',
+                href: 'class'
             }
         ]
     }
