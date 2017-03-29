@@ -1,6 +1,7 @@
-Vdt中默认使用一对大括号`{}`作为分隔符，在`{}`中书写合法的js表达式，但这个表达式必须满足一个条件：
+Vdt中默认使用一对大括号`{}`作为分隔符，在`{}`中书写合法的js表达式，但这个表达式必须满足以下条件：
 
-__表达式的值必须是：`Number`, `String`, `null`, `undefined`或模板引用中的一种，或者是由上述类型组成的数组__
+* 作为输出时：表达式的值必须是，`Number`, `String`, `null`, `undefined`或模板引用中的一种，或者是由上述类型组成的数组
+* 作为属性值时：表达式可以为任意类型，具体取决于属性取值的类型
 
 __Vdt不会分析js的合法性，也不会检测变量是否未定义__
 
@@ -25,6 +26,8 @@ var a = <div>{ 1 }</div>
 <div>{ ['a', 'b', 'c'].map(function(item) {
     return item + '1';
 }) }</div>                                        // 合法，Array<String>，<div>a1b1c1</div>
+
+<div ev-click={function() {alert(1)}}></div>      // 合法，事件取值类型为Function
 ```
 
 以下写法不合法
