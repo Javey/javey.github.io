@@ -117,7 +117,7 @@ vdt.update();
 
     当Vdt和RequireJs等前端模块加载器结合使用，通常需要NodeJs实时编译Vdt模板，然后当做AMD模块返回
 
-    该middleware会根据当前请求的js文件路径查找相应目录下是否存在`*.js`文件，如果存在则不处理；
+    Vdt提供的middleware`Vdt.middleware`会根据当前请求的js文件路径查找相应目录下是否存在`*.js`文件，如果存在则不处理；
     不存在时会判断该目录下是否存在`*.vdt`文件，如果存在则编译后当做js返回
     ```js
     var Vdt = require('vdt');

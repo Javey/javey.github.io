@@ -10,18 +10,18 @@
 [Content attribute & IDL attribute](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Attributes#Content_versus_IDL_attributes)，
 以及Virtual-Dom文档中对[VNode](https://github.com/Matt-Esch/virtual-dom/blob/master/docs/vnode.md)的介绍
 
-## `Content vs IDL attribute`
+## Content vs IDL attribute
 
-`Content attribute`为小写风格`lowercase`，通过`element.setAttribute() & element.getAttribute()`
+Content attribute为小写风格`lowercase`，通过`element.setAttribute() & element.getAttribute()`
 方法来设置&获取属性；
 
-`IDL attribute`为驼峰风格`lowerCamlCase`，
+IDL attribute为驼峰风格`lowerCamlCase`，
 你可以像读取javascript对象一样来设置&获取属性，例如：`element.foo`
 
-在Vdt中，使用的都是`IDL attribute`，而上述例子中，`maxlength`为`Content attribute`，
+在Vdt中，使用的都是IDL attribute，而上述例子中，`maxlength`为Content attribute，
 所以并不会渲染到html中，但是你可以这样访问该属性: `element.maxlength === '10'`;
 
-`maxlength`对应的`IDL attribute`为：`maxLength`，所以我们可以这样设置该属性
+`maxlength`对应的IDL attribute为：`maxLength`，所以我们可以这样设置该属性
 
 * <!-- {.example-template} -->
     ```jsx
@@ -29,14 +29,14 @@
     ```
 <!-- {ul:.example} -->
 
-关于`IDL attribute`可以查看[Web API](https://developer.mozilla.org/en-US/docs/Web/API)
+关于IDL attribute可以查看[Web API](https://developer.mozilla.org/en-US/docs/Web/API)
 [HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)
 
 不过你也不用担心这么多属性怎么去查，__基本上只需要将属性名从`lowercase`改成`lowerCamlCase`即可__
 
-## `attributes`属性
+## attributes属性
 
-HTML所有元素都具有`attributes`属性，通过它设置的所有属性都会当做`Content attribute`，参见：[attributes][1]
+HTML所有元素都具有`attributes`属性，通过它设置的所有属性都会当做Content attribute，参见：[attributes][1]
 
 因此通过`attributes`属性我们可以设置任意的自定义属性，例如：
 
@@ -46,7 +46,7 @@ HTML所有元素都具有`attributes`属性，通过它设置的所有属性都�
     ```
 <!-- {ul:.example} -->
 
-## `Boolean`属性值
+## Boolean属性值
 
 对于值为`Boolean`类型的属性，只接受`Boolean`类型的值，而且不能省略
 
