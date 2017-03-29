@@ -15,6 +15,14 @@ window.require = function(path) {
     return __TEMPLATE[path];
 };
 
+var BLOCK_TYPE = kpc.utils.keyMap({
+    'jsx': 'Vdt',
+    'html': 'Vdt',
+    'js': 'JavaScript',
+    'json': 'JSON',
+    'bash': 'Shell'
+});
+
 export default Intact.extend({
     defaults: {
         index: 'getting-started',
@@ -86,7 +94,9 @@ export default Intact.extend({
                     if ($this.hasClass('dom')) {
                         $result = $this.find('.example-output');
                         if (!$result.length) {
-                            $result = $(`<li class="example-output"></li>`).appendTo($this);
+                            $result = $(`<li class="example-output">
+                                <div class="block-type">Output</div>
+                            </li>`).appendTo($this);
                         }
                         var dom;
                         // 如果找到js，则执行js代码，否则直接渲染
@@ -149,7 +159,14 @@ export default Intact.extend({
             $(this).after('<style>' + css + '</style>');
         });
         $(this.element).find('pre code').each(function(index, item) {
+            var className = item.className || '',
+                match = /\blang(?:uage)?-([\w-]+)\b/i.exec(className);
             hljs.highlightBlock(item);
+            var type = BLOCK_TYPE(match[1]);
+            if ($(item).closest('.example-result').length) {
+                type = 'Output';
+            }
+            $(item).parent().append(`<div class="block-type">${type}</div>`);
         });
 
         // 如果存在anchor，则跳转到相应的地方

@@ -75,6 +75,7 @@ article
 
 pre
     font-size 14px
+    position relative
 
 blockquote
     border-left 4px solid #ddd
@@ -103,6 +104,7 @@ blockquote
     flex: 1;
 }
 .example-output {
+    position relative
     margin: 1em 0;
     padding: 0.5em;
     background: #f6f6f6;
@@ -156,3 +158,12 @@ blockquote
             padding 20px
             margin-top 20px
             background #ddd
+
+.block-type
+    position absolute
+    top 0
+    right 0
+    padding 5px
+    font-size 10px
+    color #999
+    pointer-events none
