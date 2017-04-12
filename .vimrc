@@ -56,6 +56,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'itchyny/vim-haskell-indent'
 
+    Plug 'leafgarland/typescript-vim'
+
+    Plug 'posva/vim-vue'
 call plug#end()
 
 autocmd BufNewFile,BufRead *.vdt set filetype=javascript
