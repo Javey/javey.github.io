@@ -1,0 +1,75 @@
+const layout = require('../layout.vdt');
+
+const catalogs = [
+    {
+        title: '基础',
+        subCatalogs: [
+            {
+                title: '开始',
+                href: 'start',
+                subs: [
+                    {
+                        title: '介绍'
+                    },
+                    {
+                        title: '安装',
+                        subs: [
+                            {
+                                title: '基础安装'
+                            },
+                            {
+                                title: '进阶安装'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        title: '进阶',
+        subCatalogs: [
+            {
+                title: 'xxx'
+            }
+        ]
+    }
+];
+let currentNav = {};
+
+const Subs = function(attr) {
+    return <ul v-if={attr.subs} class="sub-catalogs">
+        <li v-for={attr.subs}>
+            <a href="javascript:;">{value.title}</a>
+            <Subs subs={value.subs} />
+        </li>
+    </ul>
+};
+<t:layout navIndex="document" class="document-page">
+    <b:content>
+        <aside>
+            <div class="catalog-section" v-for={catalogs}>
+                <h5>{value.title}</h5>
+                <ul>
+                    <li v-for={value.subCatalogs} class={{
+                        active: value.href === self.get('title')
+                    }}>
+                        {(() => {
+                            if (value.href === self.get('title')) {
+                                currentNav = value;
+                            }
+                        })()}
+                        <a href={'#/documents/' + value.href}>{value.title}</a>
+                        <Subs subs={value.subs} />                       
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <article>
+            <div class="article-head">
+                <h1>{currentNav.title}</h1>
+            </div>
+            <div innerHTML={self.get('content')}></div>
+        </article>
+    </b:content>
+</t:layout>

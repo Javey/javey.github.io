@@ -7,6 +7,11 @@ const app = Intact.mount(App, document.getElementById('page'));
 const router = Router({
     '/': function() {
         require(['./pages/index'], app.run());
+    },
+    '/document/:title': function(title) {
+        require(['./pages/document'], app.run({
+            title: title
+        }));
     }
 }).configure({
     notfound: function() {
