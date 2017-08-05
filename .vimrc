@@ -9,17 +9,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-"set nocp
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-
 call plug#begin('~/.vim/plugged')
 
     Plug 'taglist.vim'
@@ -67,6 +56,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'itchyny/vim-haskell-indent'
 
+    Plug 'leafgarland/typescript-vim'
+
+    Plug 'posva/vim-vue'
 call plug#end()
 
 autocmd BufNewFile,BufRead *.vdt set filetype=javascript
@@ -450,6 +442,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=31
 let NERDTreeQuitOpen = 1
+let g:NERDTreeCascadeSingleChildDir=0
 " Start NERDTree
 autocmd VimEnter * NERDTree
 " Go to previous (last accessed) window.
