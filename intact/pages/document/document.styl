@@ -1,11 +1,21 @@
 @import '../../css/variables';
+@import '../../node_modules/highlight.js/styles/solarized-light.css';
 
 .document-page
+    .content-wrapper.fixed
+        aside
+            position fixed
+            top 60px
+            background #fff
+            height calc(100% - 60px)
+            overflow auto
+        article
+            margin-left 200px
     .content-wrapper
         width width
         display flex
         background #fff
-        margin 15px auto
+        margin 75px auto 15px
         border-radius 5px
         box-shadow 0 1px 1px rgba(0, 0, 0, .08)
         min-height calc(100% - 90px)
@@ -38,7 +48,21 @@
             flex 1
             padding 10px 20px
         .article-head
-            border-bottom 1px solid #eee
+            // border-bottom 1px solid #eee
+            .title 
+                padding 10px 0
+                font-size 24px
+                // font-weight bold
+                color #000
+        article
             h1
                 padding 10px 0
+                border-bottom 1px solid #eee
+            h2
+                padding 10px 0
+            p
+                line-height 25px
 
+            .output
+                padding 20px
+                border 1px solid #eee

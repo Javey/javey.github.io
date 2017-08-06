@@ -13,6 +13,7 @@ module.exports = {
         chunkFilename: 'static/chunk/[chunkhash].js',
         publicPath: '/dist/'
     },
+    devtool: '#inline-source-map',
     module: {
         rules: [
             {
@@ -22,8 +23,11 @@ module.exports = {
                         loader: 'babel-loader',
                         options: {
                             cacheDirectory: path.resolve(root, '.cache'),
-                            presets: ['es2015'],
-                            plugins: ['add-module-exports']
+                            presets: [['es2015', {"loose": true}]],
+                            plugins: [
+                                'add-module-exports',
+                                "transform-remove-strict-mode"
+                            ]
                         }
                     }
                 ]
@@ -79,7 +83,8 @@ module.exports = {
             minChunks: 3
         }),
         new webpack.ProvidePlugin({
-            Intact: 'intact'
+            Intact: 'intact',
+            $: 'jquery'
         }),
         // new webpack.optimize.UglifyJsPlugin({
             // compress: {

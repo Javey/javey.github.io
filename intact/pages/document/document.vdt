@@ -6,23 +6,11 @@ const catalogs = [
         subCatalogs: [
             {
                 title: '开始',
-                href: 'start',
-                subs: [
-                    {
-                        title: '介绍'
-                    },
-                    {
-                        title: '安装',
-                        subs: [
-                            {
-                                title: '基础安装'
-                            },
-                            {
-                                title: '进阶安装'
-                            }
-                        ]
-                    }
-                ]
+                href: 'start'
+            },
+            {
+                title: 'Intact实例',
+                href: 'instance'
             }
         ]
     },
@@ -39,8 +27,11 @@ let currentNav = {};
 
 const Subs = function(attr) {
     return <ul v-if={attr.subs} class="sub-catalogs">
-        <li v-for={attr.subs}>
-            <a href="javascript:;">{value.title}</a>
+        <li v-for={attr.subs} class={{
+            active: self.get(attr.subs.active) === value.title
+        }}>
+            <a ev-click={self.scrollTo.bind(self, value.title, attr.subs.active)}
+            >{value.title}</a>
             <Subs subs={value.subs} />
         </li>
     </ul>
@@ -59,15 +50,17 @@ const Subs = function(attr) {
                                 currentNav = value;
                             }
                         })()}
-                        <a href={'#/documents/' + value.href}>{value.title}</a>
-                        <Subs subs={value.subs} />                       
+                        <a href={'#/document/' + value.href}>{value.title}</a>
+                        <Subs v-if={value.href === self.get('title')}
+                            subs={self.get('subCatalogs')} 
+                        />                       
                     </li>
                 </ul>
             </div>
         </aside>
         <article>
             <div class="article-head">
-                <h1>{currentNav.title}</h1>
+                <div class="title">{currentNav.title}</div>
             </div>
             <div innerHTML={self.get('content')}></div>
         </article>
