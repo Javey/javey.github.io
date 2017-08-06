@@ -174,3 +174,16 @@ instance.set('a.b', 1);
 ```
 
 ### 事件回调函数
+
+1. 对于`$change:*`, `$changed:*`事件的回调函数
+    * function(instance, newValue, oldValue)
+        * `instance` 触发相应事件的对象
+        * `newValue` 变更后的数据
+        * `oldValue` 变更前的数据。但是对于引用类型，是不会保存变更前的数据的，它将等价于`newVaue`
+
+2. 对于`$change`, `$changed`事件的回调函数
+    * function(instance, changes)
+        * `instance` 触发相应事件的对象
+        * `changes` 变更的数据的键名数组，标识那些属性被变更
+
+> 关于事件绑定细节，详见事件章节
