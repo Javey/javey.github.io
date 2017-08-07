@@ -62,7 +62,20 @@ export default class extends Intact {
         for (let i = 0; i < $examples.length; i++) {
             let $example = $examples.eq(i);
             let code = $example.text();
-            if ($example.hasClass('language-html')) {
+            if ($example.hasClass('auto')) {
+                let _C;
+                if ($example.hasClass('language-html')) {
+                    template = Intact.Vdt.compile(code);
+                    _C = Intact.extend({
+                        template: template
+                    });
+                } else if ($example.hasClass('javascript')) {
+                    _C = eval(code);
+                }
+                let $container = $('<div class="output"></div>');
+                $example.parent().after($container);
+                Intact.mount(_C, $container[0]);
+            } else if ($example.hasClass('language-html')) {
                 template = Intact.Vdt.compile(code);
             } else if ($example.hasClass('javascript')) {
                 eval(code);
