@@ -15,6 +15,18 @@ const catalogs = [
             {
                 title: '组件生命周期',
                 href: 'lifecycle'
+            },
+            {
+                title: '模板语法',
+                href: 'syntax'
+            },
+            {
+                title: '事件处理',
+                href: 'event'
+            },
+            {
+                title: '表单处理',
+                href: 'form'
             }
         ]
     },

@@ -5,6 +5,9 @@ import MarkdownItDecorate from 'markdown-it-decorate';
 import highlight from 'highlight.js';
 import {debounce} from 'lodash';
 
+// for debug
+window.Intact = Intact;
+
 const marked = MarkdownIt({
     html: true
 }).use(MarkdownItDecorate);
@@ -21,11 +24,12 @@ export default class extends Intact {
     }
 
     _mount() {
+        $(window).scrollTop(0);
         const codes = this.element.querySelectorAll('pre code');
         codes.forEach(item => {
             highlight.highlightBlock(item);
         });
-        const catalogs = []
+        const catalogs = [];
         catalogs.active = 'active1';
         this.element.querySelectorAll('h1').forEach(item => {
             const catalog = {title: item.innerText};
@@ -54,8 +58,15 @@ export default class extends Intact {
 
     evalScript() {
         const $examples = $(this.element).find('.example');
+        let template;
         for (let i = 0; i < $examples.length; i++) {
-            eval($examples.eq(i).text());
+            let $example = $examples.eq(i);
+            let code = $example.text();
+            if ($example.hasClass('language-html')) {
+                template = Intact.Vdt.compile(code);
+            } else if ($example.hasClass('javascript')) {
+                eval(code);
+            }
         }
     }
 
@@ -105,6 +116,6 @@ export default class extends Intact {
     }
 
     _destroy() {
-        $(window).off('scroll.fix')
+        $(window).off('scroll.fix');
     }
 }
