@@ -27,6 +27,10 @@ const catalogs = [
             {
                 title: '表单处理',
                 href: 'form'
+            },
+            {
+                title: '组件',
+                href: 'component'
             }
         ]
     },
@@ -34,7 +38,8 @@ const catalogs = [
         title: '进阶',
         subCatalogs: [
             {
-                title: 'xxx'
+                title: '动画',
+                href: 'animation'
             }
         ]
     }

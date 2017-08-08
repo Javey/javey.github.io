@@ -200,3 +200,113 @@ Intact.extend({
 
 # 组件双向绑定
 
+组件的`v-model`指令是如下语法的语法糖：
+
+```html
+<Component v-model="propName" />
+
+=>
+
+<Component 
+    value={self.get('propName')}
+    ev-$change:value={function(c, value) {
+        self.set('propName', value);
+    }}
+/>
+```
+
+所以只要组件接受`value`属性，并且当`value`改变时，触发`$change:value`事件，
+就可以给该组件使用`v-model`指令进行数据的双向绑定。事实上：组件只需要支持`value`
+属性即可，而`$change:value`事件是组件的默认事件，无需显式触发。
+
+```html
+<button ev-click={self.add.bind(self)}>+1</button>
+```
+<!-- {.example} -->
+
+```js
+var Component = Intact.extend({
+    template: template,
+    defaults: {
+        value: 0
+    },
+    add: function() {
+        this.set('value', this.get('value') + 1);
+    }
+});
+```
+<!-- {.example} -->
+
+```html
+var Component = self.Component;
+
+<div>
+    <Component v-model="count" />
+    count属性值为：{self.get('count')}
+</div>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    defaults: {
+        count: 0
+    },
+    _init: function() {
+        this.Component = Component;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+甚至我们可以在子组件初始化，而父组件没有定义绑定的属性时，强制初始化父组件的属性值。
+要达到这个目的，只需要在组件的`_init`生命周期函数中，触发`$change:value`即可。
+
+```html
+<button ev-click={self.add.bind(self)}>+1</button>
+```
+<!-- {.example} -->
+
+```js
+var Component = Intact.extend({
+    template: template,
+    defaults: {
+        value: 0
+    },
+    _init: function() {
+        // 组件初始化时，如果父组件传入的绑定属性值为undefined
+        // 则立即设置为默认值0，让其触发$change:value事件
+        if (this.get('value') === undefined) {
+            this.set('value', 0);
+        }
+    },
+    add: function() {
+        this.set('value', this.get('value') + 1);
+    }
+});
+```
+<!-- {.example} -->
+
+```html
+var Component = self.Component;
+
+<div>
+    <Component v-model="count" />
+    count属性值为：{self.get('count')}
+</div>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    _init: function() {
+        this.Component = Component;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+通过上例可以看到，及时使用组件`Component`时，绑定的属性未定义，依然能将`count`初始化为0。
+这在使用组件操作表单时，能提供便利性，你无需为每一个元素初始化属性值。
