@@ -231,11 +231,251 @@ Intact.mount(App, document.getElementById('app1'));
 
 # 组件通信
 
-## 父子组件通信
+## 父组件向子组件通信
+
+子组件并不能获取父组件实例，当父组件向子组件通信时，应该使用属性来传递数据。
+
+```js
+var SubComponent = Intact.extend({
+    template: '<div>{self.get("data")}</div>'
+});
+```
+<!-- {.example} -->
+
+```html
+var SubComponent = self.SubComponent;
+<SubComponent data="hello" />
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    _init: function() {
+        this.SubComponent = SubComponent;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+## 动态prop
+
+除了传递字面量数据，你还可以通过`{}`语法传递动态数据
+
+```html
+var SubComponent = self.SubComponent;
+
+<div>
+    <input v-model="message" />
+    <SubComponent data={self.get('message')} />
+</div>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    defaults: function() {
+        return {message: 'hello'};
+    },
+    _init: function() {
+        this.SubComponent = SubComponent;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+## 子组件向父组件通信
+
+子组件向父组件通信，则是通过事件来传递数据。
+
+> 以下例子为了演示如何通过自定义事件，向父组件通信。大部分实际应用，
+> 无需手动触发事件，使用默认事件即可达到目的。
+
+```js
+var SubComponent = Intact.extend({
+    template: '<input \
+        ev-input={self.changeValue.bind(self)} \
+        value={self.get("value")}\
+    />',
+    changeValue: function(e) {
+        var value = e.target.value;
+        this.set('value', value); 
+        // 手动触发事件，传入数据value
+        this.trigger('change', value);
+    }
+});
+```
+<!-- {.example} -->
+
+```html
+var SubComponent = self.SubComponent;
+
+<div>
+    <SubComponent ev-change={self.set.bind(self, 'message')} />
+    接收到子组件的数据：{self.get('message')}
+</div>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    _init: function() {
+        this.SubComponent = SubComponent;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+> Intact组件的属性和事件是完全封装的，你不能将组件当做元素DOM使用，
+> 例如：如果组件没有暴露`click`事件，你给它绑定`click`事件是无效的。
+> ```html
+> // 以下click事件和class属性都无效，因为SubComponent并没有处理它们
+> <SubComponent ev-click={function() {}} class="test" />
+> ```
+
+## 非父子组件通信
+
+当两个非父子组件要进行通信时，需要借助它们的各自的父子组件来代理通信。
+例如：两个兄弟组件就可以借助它们的父组件来通信。
+
+假设上面定义的`SubComponent`要与下面定义的`Component`进行通信，
+可以如下这么做：
+
+```js
+var Component = Intact.extend({
+    template: '<div>来自SubComponent的数据：{self.get("data")}</div>' 
+});
+```
+<!-- {.example} -->
+
+```html
+var SubComponent = self.SubComponent;
+var Component = self.Component;
+
+<div>
+    <SubComponent ev-change={self.set.bind(self, 'message')} />
+    <Component data={self.get('message')} />
+</div>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    _init: function() {
+        this.SubComponent = SubComponent;
+        this.Component = Component;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+# children属性
+
+上面定义的组件都是自闭合的组件，有时候我们想给组件填充其它元素，就像
+`<select>`标签填充`<option>`一样，应该怎么做呢？
+
+事实上，所有组件标签内部的元素都会被当做组件的`children`属性，所以我们
+可以在组件模板定义中，通过`self.get('children')`获取它，然后插入到想要
+的展示的地方。
+
+例如我们可以实现一个支持label的Checkbox组件：
+
+```html
+<label>
+    <input type='checkbox'>{self.get('children')}
+</label>
+```
+<!-- {.example} -->
+
+```js
+var Checkbox = Intact.extend({
+    template: template
+});
+```
+<!-- {.example} -->
+
+```html
+var Checkbox = self.Checkbox;
+
+<Checkbox>请勾选</Checkbox>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    _init: function() {
+        this.Checkbox = Checkbox;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+> 这个Checkbox并不完整，仅仅为了演示`children`属性
 
 
+# 异步组件
 
+异步组件是指：组件所需数据是异步加载的组件。它的渲染策略如下：
 
+* 如果一个异步组件初次渲染，当数据没有加载完成时，会返回一个注释节点作为占位符，
+  待数据加载完毕后，替换成最终的元
+* 如果用一个异步组件去更新之前的元素，当数据没有加载完成时，会保留当前元素不变，
+  待数据加载完毕后，替换成最终的元素
+
+异步组件在当你的组件逻辑依赖异步加载的数据时非常有用，因为数据没记载完成，组件
+不会渲染，能避免处理数据时，由于数据未定义造成报错。
+
+定义一个异步组件很简单，只需要在组件的`_init`周期函数中返回`Promise`对象即可。
+
+```js
+var AsyncComponent = Intact.extend({
+    template: '<div>当前数据为：{self.get("data")}</div>',
+    _init: function() {
+        // 模拟接口请求，返回Promise
+        var self = this;
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                self.set('data', 'Intact');
+                resolve();
+            }, 1000);
+        });
+    }
+});
+```
+<!-- {.example} -->
+
+```html
+var AsyncComponent = self.AsyncComponent;
+
+<div>
+    <AsyncComponent v-if={self.get('show')} />
+    <button ev-click={self.set.bind(self, 'show', !self.get('show'))}>
+        渲染/销毁异步组件
+    </button>
+</div>
+```
+<!-- {.example} -->
+
+```js
+Intact.extend({
+    template: template,
+    _init: function() {
+        this.AsyncComponent = AsyncComponent;
+    }
+});
+```
+<!-- {.example.auto} -->
+
+> `_init`如果返回`Promise`，请保证该`Promise`的成功回调`then`能被执行，
+> 否则组件将永远不会渲染。
+>
+> 将一个异步组件改为同步组件只需一步：去掉`_init`中关键词`return`即可。
+
+# 组件继承
 
 [1]: #/document/syntax
 [2]: https://github.com/Javey/vdt-loader
