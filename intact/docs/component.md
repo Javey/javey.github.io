@@ -235,5 +235,7 @@ Intact.mount(App, document.getElementById('app1'));
 
 
 
+
+
 [1]: #/document/syntax
 [2]: https://github.com/Javey/vdt-loader

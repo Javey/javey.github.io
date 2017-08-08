@@ -9,8 +9,11 @@ import {debounce} from 'lodash';
 window.Intact = Intact;
 
 const marked = MarkdownIt({
-    html: true
+    html: true,
+    breaks: false 
 }).use(MarkdownItDecorate);
+// 去掉段落softbreak
+marked.renderer.rules.softbreak = () => '';
 
 export default class extends Intact {
     get template() { return template; }

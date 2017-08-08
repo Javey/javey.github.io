@@ -269,7 +269,7 @@ var TodoItem = Intact.extend({
     },
     template: '<div>' +
         '{self.get("todo")}' +
-        '<span ev-click={self.delete.bind(self)}>X</span>' +
+        '<button ev-click={self.delete.bind(self)}>X</button>' +
     '</div>',
     
     delete: function() {
