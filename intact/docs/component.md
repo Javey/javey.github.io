@@ -203,7 +203,7 @@ Intact.mount(SubComponent, document.getElementById('app'));
 
 <div class="output"><div id="app"></div></div>
 
-也可以将上述`SubComponent`当做子组件
+也可以将上述`SubComponent`当做子组件，以标签形式引入
 
 ```html
 var SubComponent = self.SubComponent;
@@ -228,6 +228,8 @@ Intact.mount(App, document.getElementById('app1'));
 <!-- {.example} -->
 
 <div class="output"><div id="app1"></div></div>
+
+> 注意：以标签形式引入组件，组件名首字母必须 __大写__
 
 # 组件通信
 
