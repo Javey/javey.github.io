@@ -422,7 +422,7 @@ Intact.extend({
 异步组件是指：组件所需数据是异步加载的组件。它的渲染策略如下：
 
 * 如果一个异步组件初次渲染，当数据没有加载完成时，会返回一个注释节点作为占位符，
-  待数据加载完毕后，替换成最终的元
+  待数据加载完毕后，替换成最终的元素
 * 如果用一个异步组件去更新之前的元素，当数据没有加载完成时，会保留当前元素不变，
   待数据加载完毕后，替换成最终的元素
 
@@ -475,7 +475,101 @@ Intact.extend({
 >
 > 将一个异步组件改为同步组件只需一步：去掉`_init`中关键词`return`即可。
 
-# 组件继承
+# 实例组件
+
+定义组件就是定义类，你可以手动调用`new`实例化该类。[Intact实例][3]章节中，我们提到了怎么实例化，并且渲染它，
+但它是作为根组件挂载到页面中的。可能你要问，能否将实例当做普通数据在模板中引用呢？答案是：可以。这就是Intact
+支持的实例组件。
+
+实例组件提供了直接操作组件能力，你可以设置和获取组件渲染的各个细节。
+
+```js
+var Component = Intact.extend({
+    template: '<div>{self.get("data")}</div>'
+});
+
+Intact.extend({
+    template: '<div>{self.get("view")}</div>',
+    defaults: function() {
+        return {
+            // 直接实例化组件
+            view: new Component({data: 'hello'})
+        }
+    }
+});
+```
+<!-- {.example.auto} -->
+
+
+另一个常见的例子是SPA应用中，使用前端路由切换页面。我们可能需要等到异步组件数据加载完毕才开始切换页面，并且在数据
+加载的过程中，需要展示loading动画。我们可以如下这么做：
+
+```js
+var PageA = Intact.extend({
+    template: '<div>PageA, router: {self.get("router")}</div>',
+    _init: function() {
+        return new Promise(function(resolve, reject) {
+            setTimeout(resolve, 1000);
+        });
+    }
+});
+```
+<!-- {.example} -->
+
+```js
+var PageB = Intact.extend({
+    template: '<div>PageB, router: {self.get("router")}</div>',
+    _init: function() {
+        return new Promise(function(resolve, reject) {
+            setTimeout(resolve, 1000);
+        });
+    }
+});
+```
+<!-- {.example} -->
+
+上述两个组件都模拟1s来加载数据，下面我们定义一个根组件来管理它们。
+
+```html
+<div>
+    {self.get('view')}
+    <div v-if={self.get('loading')}>Loading...</div>
+    <button ev-click={self.toggle.bind(self)}>加载组件</button>
+</div>
+```
+<!-- {.example} -->
+
+```js
+// 模拟hash路由
+var router = {
+    '/a': PageA,
+    '/b': PageB
+};
+var hash;
+Intact.extend({
+    template: template,
+
+    toggle: function() {
+        this.set('loading', true);
+        hash = hash === '/a' ? '/b' : '/a';
+        var Page = router[hash];
+        var page = new Page({router: hash});
+        // 判断实例是否数据加载完成
+        this.set('view', page);
+        if (page.inited) {
+            // 如果加载完成
+            this.set('loading', false);
+        } else {
+            // 否则等实例加载完成后才挂载
+            page.one('$inited', function() {
+                this.set('loading', false);
+            }.bind(this));
+        }
+    }
+});
+```
+<!-- {.example.auto} -->
+
 
 [1]: #/document/syntax
 [2]: https://github.com/Javey/vdt-loader

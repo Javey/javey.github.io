@@ -31,6 +31,10 @@ const catalogs = [
             {
                 title: '组件',
                 href: 'component'
+            },
+            {
+                title: '组件继承',
+                href: 'extend'
             }
         ]
     },
