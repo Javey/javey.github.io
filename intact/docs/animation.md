@@ -179,20 +179,23 @@ Intact.extend({
 
     enterStart: function(el) {
         $(el).css({
-            'opacity': 0,
-            'transform': 'translateX(10px)'
+            opacity: 0,
+            marginLeft: '10px'
         });
     },
 
     enter: function(el, done) {
         $(el).animate({
             opacity: 1,
-            'transform': 'translateX(0)'
+            marginLeft: 0 
         });
     },
 
     leave: function(el, done) {
-        $(el).animate({opacity: 0}, {
+        $(el).animate({
+            opacity: 0,
+            marginLeft: '10px'
+        }, {
             complete: done
         });
     }
