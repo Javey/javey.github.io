@@ -82,6 +82,8 @@ export default class extends Intact {
                 template = Intact.Vdt.compile(code);
             } else if ($example.hasClass('javascript')) {
                 eval(code);
+            } else if ($example.hasClass('language-css')) {
+                $example.parent().after(`<style>${code}</style>`);
             }
         }
     }
