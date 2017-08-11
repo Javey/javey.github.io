@@ -3,7 +3,7 @@ import css from './document.styl';
 import MarkdownIt from 'markdown-it';
 import MarkdownItDecorate from 'markdown-it-decorate';
 import highlight from 'highlight.js';
-import {throttle} from 'lodash';
+import _ from 'lodash';
 
 // for debug
 window.Intact = Intact;
@@ -97,7 +97,7 @@ export default class extends Intact {
             const scrollTop = $(window).scrollTop();
             $wrapper[scrollTop >= 15 ? 'addClass' : 'removeClass']('fixed');
         });
-        $(window).on('scroll.fix', throttle(() => {
+        $(window).on('scroll.fix', _.throttle(() => {
             const scrollTop = $(window).scrollTop();
             
             function findActive($hs) {
