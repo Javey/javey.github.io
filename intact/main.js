@@ -19,4 +19,4 @@ const router = Router({
     }
 });
 
-router.init('/');
+router.init('/document/start');
