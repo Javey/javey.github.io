@@ -87,17 +87,17 @@ var router = Router({
 但当页面很多时，提前定义每个页面的页面组件，会使单文件体积过大，影响首次渲染速度。这时，按需加载各个
 页面组件变得很迫切。利用`webpack`或者`requireJs`等工具可以很方便地实现页面根据路由按需加载。
 
-我们只需要将上例中的路由配置`routes`更改为：
+我们只需要将上例中的路由配置`routes`更改为，假设文件放在`pages`目录下：
 
 ```js
 var router = Router({
     '/': function() {
-        require(['/pages/index'], function(Page) {
+        require(['pages/index'], function(Page) {
             app.load(Page);
         })
     },
     '/user/:userId': function(userId) {
-        require(['/pages/user'], function(Page) {
+        require(['pages/user'], function(Page) {
             app.load(Page, {userId: userId});
         })
     }

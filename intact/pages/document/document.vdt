@@ -54,7 +54,7 @@ const catalogs = [
                 href: 'router'
             },
             {
-                title: '工程化',
+                title: 'webpack实践',
                 href: 'project'
             },
             {

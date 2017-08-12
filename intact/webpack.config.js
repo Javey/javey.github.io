@@ -5,15 +5,15 @@ var root = process.cwd();
 
 module.exports = {
     entry: {
-        'buddle': './main.js'
+        'buddle-intact': './main.js'
     },
     output: {
         path: path.resolve(root, './dist'),
         filename: '[name].js',
         chunkFilename: 'static/chunk/[chunkhash].js',
-        publicPath: '/dist/'
+        publicPath: './dist/'
     },
-    devtool: '#inline-source-map',
+    devtool: process.env.NODE_ENV !== 'production' ? '#inline-source-map' : undefined,
     module: {
         rules: [
             {
@@ -86,11 +86,11 @@ module.exports = {
             Intact: 'intact',
             $: 'jquery'
         }),
-        // new webpack.optimize.UglifyJsPlugin({
-            // compress: {
-                // warnings: false
-            // }
-        // })
+        process.env.NODE_ENV === 'production' ? new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }) : undefined
     ],
     devServer: {
         contentBase: './',
