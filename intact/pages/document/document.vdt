@@ -44,6 +44,22 @@ const catalogs = [
             {
                 title: '动画',
                 href: 'animation'
+            },
+            {
+                title: '模板template',
+                href: 'template'
+            },
+            {
+                title: '路由',
+                href: 'router'
+            },
+            {
+                title: '工程化',
+                href: 'project'
+            },
+            {
+                title: '服务器端渲染',
+                href: 'ssr'
             }
         ]
     }

@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 // for debug
 window.Intact = Intact;
+window.highlight = highlight;
 
 const marked = MarkdownIt({
     html: true,
@@ -85,6 +86,14 @@ export default class extends Intact {
             } else if ($example.hasClass('language-css')) {
                 $example.parent().after(`<style>${code}</style>`);
             }
+        }
+
+        // 执行script标签
+        const $scripts = $(this.element).find('script');
+        for (let i = 0; i < $scripts.length; i++) {
+            let $script = $scripts.eq(i);
+            let code = $script.text();
+            eval(code);
         }
     }
 
