@@ -30,10 +30,11 @@ var title = 'Title';
 可以看到，编译出来的模板函数，有以下细节：
 
 1. 3个参数，`obj`表示传入模板的数据，`_Vdt`是Vdt对象，等于`Intact.Vdt`，`blocks`为子模板定
-   义`<b:block>`，用于模板继承。
+   义的`<b:block>`，用于模板继承。
 2. 函数开头定义了许多帮助函数，其中最重要的是`h`函数，它用于创建虚拟DOM
-3. 函数定义`self & scope`变量，函数的`this`指向`Vdt`实例，大部分情况下`self === scope`，都
-   指向传入模板的数据，但当模板用于继承时，他们是不相等的。
+3. 函数定义`self & scope`变量，函数的`this`指向Vdt实例，大部分情况下`self === scope`，都
+   指向传入模板的数据，但当模板用于继承时，他们是不相等的，此时`this`依然指向组件实例，而
+   `scope`指向继承时传入父模板的数据。
 4. 最后返回一个由`h`函数创建出来的虚拟DOM
 
 > `Intact.Vdt.compile()`编译出来的函数，默认使用`with`语法，你可传入`options = {noWith: true}`
@@ -65,7 +66,7 @@ h('div', {id: 'test'}, [100, h('span')])
 =>
 <div id="test">100<span></span><div>
 
-// 假设 Component template 为 <div>{self.get('chilren')}</div>
+// 假设Component组件的template为 <div>{self.get('chilren')}</div>
 h(Component, {children: h('span')})
 =>
 <div><span></span></div>
@@ -81,7 +82,7 @@ h(Component, {children: h('span')})
 ```html
 // 根据组件的tag属性，返回不同的标签
 // 由于Vdt模板默认返回最后一个标签元素，所以我们必须
-// 在模板最后定义个标签，这里采用宏函数来定义标签
+// 在模板最后定义一个标签，这里采用宏函数来定义标签
 var Button = function(attr) {
     // attr === self.get() 返回的是组件的全部属性，我们将不需要
     // 作为html元素的tag和children去掉
@@ -162,7 +163,7 @@ Intact.extend({
 
 # 模板传递
 
-模板片段可以像普通对象一样赋值并且传递。当一个组件结构完全自定义时，我们可能需要为组件的每一处
+模板片段可以像普通对象一样赋值并且传递。当一个组件结构支持完全自定义时，我们可能需要为组件的每一处
 自定义模板，利用模板传递，这很容易做到。
 
 例如，在菜单组件中，我们点击菜单触发器，就会弹出菜单，假设菜单触发器和菜单都可以自定义模板，我们

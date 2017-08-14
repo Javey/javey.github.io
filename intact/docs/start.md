@@ -3,22 +3,20 @@
 Intact是一个数据驱动构建用户界面的前端框架。设计的初衷
 是为了解决现有框架中在构建单页面应用时，必须依靠嵌套
 路由来实现复杂的页面结构的问题。__组件继承__ 是该框架
-最大的特色，同时强大的异步渲染组件机制，能够随心所欲
-地控制页面的渲染逻辑。
+最大的特色，同时强大的组件异步渲染机制，极大地提高了组件的灵活性。
 
 ## 嵌套路由的问题
 
 现有框架对于结构相同的页面，都是采用嵌套路由来实现。
 这样做的缺点就是：子路由无法获取整个页面的控制权。
-当子路由的改变需要父路由界面也要做相应改变时，必须
-借助组件间的通信来解决，或者也可以引入大store的概念
-将数据统一放置在一处。不管是借助组件通信还是大store
-概念，都会使问题变得复杂。
+当子路由的改变需要父路由控制的界面也要做相应改变时，必须
+借助组件间的通信来解决，这会使问题变得复杂。
 
 而Intact通过组件的继承，完全摒弃复杂的路由嵌套，所有
 页面的逻辑都由单个组件控制，这样该组件将拥有整个页面
 的控制权，自然也就可以决定整个页面各个细节的渲染逻辑。
-后面教程会做详细介绍。
+
+我们后面会对它做详细介绍。
 
 # 安装
 
@@ -26,8 +24,7 @@ Intact是一个数据驱动构建用户界面的前端框架。设计的初衷
 
 请通过`npm`、`bower`或者直接到github上下载源码包。其中
 [`dist/intact.js`](https://raw.githubusercontent.com/Javey/Intact/master/dist/intact.js)
-为UMD方式打包的文件，直接通过script引入会
-暴露全局变量`Intact`。
+为UMD方式打包的文件，直接通过script引入会暴露全局变量`Intact`。
 
 ```html
 <script src="/path/to/intact.js"></script>
@@ -101,7 +98,7 @@ app.set('name', 'World')
 2. `template`: 定义组件的模板
 
 然后在模板中通过`self.get('name')`获取数据，在组件中通过
-`this.set('name', 'value')`改变数据，一旦`set`触发了数据
+`this.set('name', 'value')`改变数据，一旦`set`方法触发了数据
 变更，模板就会相应更新。
 
 > 关于模板中为什么是`self.get`，而不是`this.get`，是因为
@@ -143,8 +140,8 @@ appvif.set('show', false);
 
 ### 循环渲染 v-for
 
-v-for指令既可以遍历数组，又可以遍历对象，循环的元素以及子元素，
-可以通过`value`和`key`访问遍历的对象的每一项。
+v-for指令可以遍历数组和对象。在循环中，被循环的元素以及子元素，
+都可以通过`value`和`key`来访问遍历对象每一项的值和键。
 
 ```js
 var App = Intact.extend({
@@ -161,8 +158,8 @@ window.appvfor = Intact.mount(App, document.getElementById('appvfor'));
 
 <div class="output"><div id="appvfor"></div></div>
 
-下面我们改变`list`变量，需要注意的是，数组为引用类型，直接操作它
-并不能判断`list`的变更状态，所以这里需要克隆数组再操作。打开控制台，
+下面我们改变`list`变量，需要注意的是，数组为引用类型，如果你直接操作它，
+Intact并不能检测到`list`已经改变，所以这里需要克隆数组再操作。打开控制台，
 输入以下代码，更新`list`
 
 ```js
@@ -171,17 +168,13 @@ appvfor.set('list', appvfor.get('list').concat(['C++']));
 ```
 
 > 如果调用`push`方法直接操作数组，Intact将检测不到更新，此时可以调用
-> `appvfor.update()`方法强制更新界面。另外对于数组等引用类型的数据，
-> `defaults`属性应该使用函数的定义方式，而非对象字面量，因为引用的改变
-> 会影响到组件的所有实例，有关详情，后续再表
+> `appvfor.update()`方法强制更新界面。
 
 ## 处理用户交互 
 
-组件免不了要与用户进行交互，主要包括处理各种事件已经表单的输入。
-
 ### 事件绑定 
 
-通过`ev-*`指令在模板中绑定事件。
+通过`ev-*`指令可以在模板中绑定事件，它的值为事件处理函数，例如
 
 ```js
 var App = Intact.extend({
@@ -236,7 +229,7 @@ Intact.mount(App, document.getElementById('appvmodel'));
 将界面拆分成各个小组件，通过组件间嵌套组合完成一个复杂的页面。
 下面我们将通过一个例子来一起学习如何使用组件化编程。
 
-TodoList是个经典的例子，一般包含以下元素
+例如：要实现一个TodoList，它包含以下元素，一个输入框，然后是展示每一项数据的TodoItem
 
 ```js
 <TodoList>
@@ -258,9 +251,9 @@ var TodoItem = Intact.extend({
 
 该组件接受一个字符串类型的属性`todo`，然后将它渲染出来。
 我们还应该暴露一个删除事件，让`TodoList`来删除相应数据项。
-通过组件的`trigger`方法，组件可以抛出任意事件。
+通过组件的`trigger()`方法，组件可以抛出任意事件。
 
-改进后的`TodoItem`组件
+改进后的`TodoItem`组件，我们在点击删除按钮时，抛出`delete`事件
 
 ```js
 var TodoItem = Intact.extend({
@@ -387,7 +380,8 @@ Intact.mount(TodoList, document.getElementById('todo'));
 于是，我们可以定义一个组件`Layout`来描绘页面的大体结构。
 
 ```js
-// 单独定义模板，调用Intact.Vdt.compile进行编译，以便复用
+// 继承的模板必须是模板函数，
+// 我们调用Intact.Vdt.compile将模板字符串编译成模板函数
 var layout = Intact.Vdt.compile('<div>' +
     '<header>header {self.get("title")}</header>' +
     '<div class="content">' + 
@@ -406,7 +400,7 @@ var Layout = Intact.extend({
     defaults: {
         title: 'Layout'
     }
-})
+});
 ```
 <!-- {.example} -->
 
@@ -488,8 +482,9 @@ Intact.mount(App, document.getElementById('extend'));
 
 使用ES6定义组件，主要有以下两点差别
 
-1. `Intact.extend`方法对于对象字面量定义的`defaults`，会在组件继承时
-    自动将父组件与子组件定义的数据合并
+1. `Intact.extend()`方法对于对象字面量定义的`defaults`，会在组件继承时
+    自动将父组件与子组件定义的数据合并，所以如果ES6组件继承时需要合并父组件定义的数据，
+    你需要手动合并他们。
 2. ES6对于原型链上的属性，需要通过getter的方式定义
 
 例如：
@@ -512,13 +507,9 @@ class App extends Intact {
 
 ## 进一步了解
 
-看到这里，相信大家对示例中的模板定义要一顿诟病了。的确在组件中使用
-字符串定义模板，简直反人类，还好，借助webpack + vdt-loader，我们可以
-将模板拆分成单独文件，并且模板自己管理自己的依赖，无需通过组件注入。
-后面将详细讨论这种用法。
-
-本文虽然列出了Intact框架最基本，最核心的功能，但很多细节没有深究，
-另外对于工程化的介绍，也只字未提。别急，请点击一下章节。
+看到这里，相信大家对Intact有了大致的了解，但其中还有很多细节我们没有披露。另外例子中
+模板`template`的定义也不优雅。在后面的章节中，我们将会详细讲解Intact的各个细节，以及
+如何使用webpack + vdt-loader来更好地组织文件。
 
 
 [1]: http://javey.github.io/vdt.html

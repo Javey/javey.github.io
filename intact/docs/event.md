@@ -1,4 +1,4 @@
-Intact中，事件分为两类：浏览器原生事件、组件事件。下面分别对它们做详细介绍。
+Intact中，事件分为两类：浏览器原生事件和组件事件。
 
 # 监听事件
 
@@ -28,7 +28,7 @@ Intact.mount(App, document.getElementById('appevent'));
 
 <div class="output"><div id="appevent"></div></div>
 
-> 事件处理函数记得`bind(self)`，否则函数中`this`将不会指向组件的实例
+> 原生事件的处理函数记得`bind(self)`，否则函数中`this`将会指向`window`
 
 利用`bind`方法，我们可以往事件处理函数传递参数。
 
@@ -59,8 +59,8 @@ Intact.mount(App, document.getElementById('appevent1'));
 <div class="output"><div id="appevent1"></div></div>
 
 对于原生事件，事件对象将作为最后一个参数传递给事件处理函数。
-如果可以通过它阻止事件的默认行为`preventDefault()`，阻止冒泡
-`stopPropagation()`等等。
+我们可以通过它访问事件对象的属性和方法，例如，阻止事件的默认行为`preventDefault()`，
+阻止冒泡`stopPropagation()`等等。
 
 ```html
 <a href="/" ev-click={self.onClick.bind(self)}>阻止默认行为</a>
@@ -83,7 +83,7 @@ Intact.mount(App, document.getElementById('appevent2'));
 
 ## 监听组件事件
 
-绑定组件暴露的事件，也一样简单，我们可以如下绑定。下面会介绍如何抛出自定义事件。
+绑定组件暴露的事件，和原生事件一样，例如：
 
 ```html
 var Component = self.Component;
@@ -132,8 +132,8 @@ Intact.mount(App, document.getElementById('appevent3'));
 * `eventName` 触发事件名
 * `args` 传给事件处理函数的参数
 
-上例中，我们可以看到触发一个`increase`的方法为：`this.trigger('increase')`。
-我们还可以为事件处理函数传递任意数量数据。
+上例中，可以看到触发一个`increase`事件的方法为：`this.trigger('increase')`。
+通过它我们还可以为事件处理函数传递数据。
 
 ```html
 <li ev-click={self.likeThisBook.bind(self)}>{self.get('book')}</li>
@@ -144,6 +144,7 @@ Intact.mount(App, document.getElementById('appevent3'));
 var Book = Intact.extend({
     template: template,
     likeThisBook: function() {
+        // 将book传给事件处理函数
         this.trigger('like', this.get('book'));
     }
 });
@@ -188,8 +189,8 @@ Intact.mount(App, document.getElementById('apptrigger'));
 
 ### $change事件
 
-在[Intact实例#$change事件]章节，我们介绍过，组件每一次`set`触发数据变更，
-都会触发相应的事件。所以我们可以在监听子组件某个属性的变更，而无需子组件
+在[Intact实例#$change事件][2]章节，我们介绍过，组件每一次`set()`触发数据变更，
+都会触发相应的事件。所以我们可以监听子组件某个属性的变更，而无需子组件
 显式地抛出事件。
 
 ```html
@@ -250,7 +251,7 @@ Intact.mount(App, document.getElementById('apptrigger1'));
 利用实例提供的`on(eventName, callback)`方法，我们可以给实例对象绑定事件。结合前面提到的默认事件，
 我们可以实现类似`watch`的功能。
 
-* `eventName` 监听的事件
+* `eventName` 监听的事件名
 * `callback` 事件回调函数，默认`this`指向触发该事件的实例
 
 
@@ -294,8 +295,9 @@ Intact.mount(App, document.getElementById('apptrigger2'));
 
 <div class="output"><div id="apptrigger2"></div></div>
 
-> 上例中，如果你打开控制台，你可能会发现：`$change:count`查询到`button`的文案为，”被点击了4次“；
-> 而`$changed:count`查询到的文案为，”被点击了5次“（alert会阻塞渲染，所以界面看不到差别）。这正是
+> 上例中，如果你打开控制台，你可能会发现：`$change:count`查询到`button`的文案为：”被点击了4次“；
+> 而`$changed:count`查询到的文案为：”被点击了5次“（alert会阻塞渲染，所以界面看不到差别）。这正是
 > `$change`与`$changed`事件的差别，前者发生在更新前，后者发生在更新后。
 
 [1]: #/document/lifecycle
+[2]: #/document/instance

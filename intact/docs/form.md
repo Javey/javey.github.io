@@ -51,12 +51,12 @@ Vdt模板提供的`v-model`指令，可以实现数据的双向绑定。本质�
 ```
 <!-- {.example.auto} -->
 
-> 由于我们没有初始化`checked`属性，所以初始值为`undefined`，实际使用时，最好给定默认值
+> 由于我们没有初始化`checked`属性，所以初始值为`undefined`
 
 ### `v-model-true & v-model-false`
 
 上述例子，默认绑定的是布尔值，通过`v-model-true`和`v-model-false`指令，
-我们可以定义选择和非选择时的值
+我们可以定义选择和非选择状态时的值
 
 ```html
 <div>
@@ -261,7 +261,7 @@ Intact.extend({
 <!-- {.example.auto} -->
 
 甚至我们可以在子组件初始化，而父组件没有定义绑定的属性时，强制初始化父组件的属性值。
-要达到这个目的，只需要在组件的`_init`生命周期函数中，触发`$change:value`即可。
+要达到这个目的，只需要在组件的`_init()`生命周期函数中，触发`$change:value`即可。
 
 ```html
 <button ev-click={self.add.bind(self)}>+1</button>
@@ -308,5 +308,5 @@ Intact.extend({
 ```
 <!-- {.example.auto} -->
 
-通过上例可以看到，及时使用组件`Component`时，绑定的属性未定义，依然能将`count`初始化为0。
+通过上例可以看到，即使使用组件`Component`时，绑定的属性未定义，依然能将`count`初始化为0。
 这在使用组件操作表单时，能提供便利性，你无需为每一个元素初始化属性值。

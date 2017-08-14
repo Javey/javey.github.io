@@ -86,14 +86,18 @@ module.exports = {
             Intact: 'intact',
             $: 'jquery'
         }),
-        process.env.NODE_ENV === 'production' ? new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }) : undefined
     ],
     devServer: {
         contentBase: './',
         port: 9000
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    }));
+}
+

@@ -17,7 +17,7 @@ console.log(app.toString());
 
 # 客户端混合
 
-组件经过服务器渲染后，前端要与之混合，重新建立起变量和事件等绑定关系。
+组件经过服务器渲染后，客户端要与之混合，重新建立起变量和事件等绑定关系。
 `Intact.hydrate(Component, dom)`方法可以将一个组件与现有dom混合：
 
 * `Component` 要混合的组件
