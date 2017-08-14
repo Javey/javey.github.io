@@ -11,7 +11,7 @@ module.exports = {
         path: path.resolve(root, './dist'),
         filename: '[name].js',
         chunkFilename: 'static/chunk/[chunkhash].js',
-        publicPath: './dist/'
+        publicPath: process.env.NODE_ENV === 'production' ? './dist/' : '/dist/'
     },
     devtool: process.env.NODE_ENV !== 'production' ? '#inline-source-map' : undefined,
     module: {
@@ -94,10 +94,10 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: false
-        }
-    }));
+    // module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        // compress: {
+            // warnings: false
+        // }
+    // }));
 }
 
