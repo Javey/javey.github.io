@@ -85,7 +85,7 @@ window.app = Intact.mount(App, document.getElementById('app'));
     <div id="app"></div>
 </div>
 
-`Intact.mount`方法会返回挂载组件的实例，为方便大家测试，将它赋给
+`Intact.mount()`方法会返回挂载组件的实例，为方便大家测试，将它赋给
 `window.app`，如果你打开控制台输入
 ```js
 app.set('name', 'World')
@@ -101,7 +101,7 @@ app.set('name', 'World')
 `this.set('name', 'value')`改变数据，一旦`set`方法触发了数据
 变更，模板就会相应更新。
 
-> 关于模板中为什么是`self.get`，而不是`this.get`，是因为
+> 关于模板中为什么是`self.get()`，而不是`this.get()`，是因为
 > Intact基于Vdt（虚拟DOM模板引擎）设计，
 > 详见 [this & self](http://javey.github.io/vdt.html#/documents/keyword)
 
@@ -111,9 +111,9 @@ app.set('name', 'World')
 > 中书写任意的js代码。但为了方便书写和阅读，vdt提供了一些指令
 > 来实现条件和循环渲染
 
-### 条件渲染 v-if
+### 条件渲染 `v-if`
 
-使用`v-if`指令可以实现一个元素的删除和添加(并非display: none)
+使用`v-if`指令可以实现一个元素的删除和添加(并非`display: none`)
 
 ```js
 var App = Intact.extend({
@@ -135,10 +135,10 @@ window.appvif = Intact.mount(App, document.getElementById('app_v_if'));
 appvif.set('show', false);
 ```
 
-> 组件的template必须返回一个元素节点，不能为undefined，所以根节点
-> 不能删除，这也是上述例子v-if所在元素被另一个div包起来的原因
+> 组件的`template`必须返回一个元素节点，不能为`undefined`，所以根节点
+> 不能删除，这也是上述例子`v-if`所在元素被另一个div包起来的原因
 
-### 循环渲染 v-for
+### 循环渲染 `v-for`
 
 v-for指令可以遍历数组和对象。在循环中，被循环的元素以及子元素，
 都可以通过`value`和`key`来访问遍历对象每一项的值和键。
@@ -229,7 +229,7 @@ Intact.mount(App, document.getElementById('appvmodel'));
 将界面拆分成各个小组件，通过组件间嵌套组合完成一个复杂的页面。
 下面我们将通过一个例子来一起学习如何使用组件化编程。
 
-例如：要实现一个TodoList，它包含以下元素，一个输入框，然后是展示每一项数据的TodoItem
+例如：实现一个`TodoList`，它包含以下元素，一个输入框，然后是展示每一项数据的`TodoItem`
 
 ```js
 <TodoList>

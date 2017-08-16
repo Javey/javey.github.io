@@ -38,7 +38,8 @@ _beforeUpdate调用后，就会执行_update，此时组件更新完成。
 
 ## _destory
 
-组件被销毁后，会执行_destroy，在这里可以做一些组件清理工作。
+组件被销毁后，会执行_destroy，在这里可以做一些组件清理工作。组件销毁时，
+会递归清理所有的子组件，解绑所有事件。
 
 > 上述周期函数是Intact提供的接口，另外Intact和底层与虚拟DOM打交道时，
 > 也有周期函数的概念，它们分别为`init`, `mount`, `update`, `destroy`，
