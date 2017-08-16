@@ -299,5 +299,12 @@ Intact.mount(App, document.getElementById('apptrigger2'));
 > 而`$changed:count`查询到的文案为：”被点击了5次“（alert会阻塞渲染，所以界面看不到差别）。这正是
 > `$change`与`$changed`事件的差别，前者发生在更新前，后者发生在更新后。
 
+# 解绑事件
+
+组件的`off([eventName, callback])`可以解绑事件，一般不太常用
+
+* `eventName` 要解绑的事件名，如果不传，则解绑组件所有事件
+* `callback` 要解绑的事件处理函数，如果不传，则解绑所有`eventName`事件
+
 [1]: #/document/lifecycle
 [2]: #/document/instance

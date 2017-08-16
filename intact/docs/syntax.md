@@ -1,3 +1,10 @@
+> 关于文档中例子的运行情况说明：
+> 1. 前面示例中定义的变量，在后面的示例中可以直接获取
+> 2. 示例中定义的模板会被自动编译成模板函数，并且赋给`template`变量，所以后面的实例
+>    可以直接获取
+> 3. 示例中没有手动挂载的根组件，将自动挂载到示例下面，所以你会看到有些地方没有调用
+>    `Intact.mount()`组件也挂载了
+
 Intact基于Vdt模板引擎设计，有关模板语法的使用说明，可以参见[Vdt文档][1]。
 为了保持阅读连贯性，这里也会介绍一些常见的模板语法。
 
@@ -101,7 +108,7 @@ var Component = self.Component;
         v-for={self.get('list')}
         ref={function(i) { 
             // 使用v-for循环的key作为键名
-            self.compoents[key] = i;
+            self.components[key] = i;
         }}
         name={value}
         ev-delete={self.delete.bind(self, key)}
@@ -125,7 +132,7 @@ var App = Intact.extend({
     },
     _init: function() {
         this.Component = Component;
-        this.compoents = {};
+        this.components = {};
     },
     delete: function(index) {
         this.get('list').splice(index, 1);

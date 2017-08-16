@@ -4,7 +4,7 @@
 
 ```
                         销毁后
-_init -> _create -> mount -> _destory
+_init -> _create -> _mount -> _destory
                   | 触发更新时 
                   v
          _beforeUpdate -> _update
