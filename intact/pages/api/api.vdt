@@ -1,0 +1,23 @@
+const layout = require('../layout.vdt');
+
+const Subs = function(attr) {
+    return <ul v-if={attr.subs} class={{"sub-catalogs": !attr.isFirst}}>
+        <li v-for={attr.subs} class={{
+            active: self.get(attr.subs.active) === value.title
+        }}>
+            <a ev-click={self.scrollTo.bind(self, value.title, attr.subs.active)}
+            >{value.title}</a>
+            <Subs subs={value.subs} />
+        </li>
+    </ul>
+};
+<t:layout navIndex="api" class="document-page api-page">
+    <b:content>
+        <aside>
+            <Subs subs={self.get('subCatalogs')} isFirst={true}/>
+        </aside>
+        <article>
+            <div innerHTML={self.get('content')}></div>
+        </article>
+    </b:content>
+</t:layout>

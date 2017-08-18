@@ -8,9 +8,21 @@ const router = Router({
     '/': function() {
         require(['./pages/index'], app.run());
     },
-    '/document/:title': function(title) {
-        require(['./pages/document'], app.run({
-            title: title
+    '/document': {
+        '/:title': {
+            on: function(title) {
+                require(['./pages/document'], app.run({
+                    title: title
+                }));
+            }
+        },
+        on: function() {
+            router.setRoute('/document/start');
+        }
+    },
+    '/api': function() {
+        require(['./pages/api'], app.run({
+            title: 'api'
         }));
     }
 }).configure({

@@ -16,6 +16,8 @@ export default class extends Intact {
             this.set('loading', true);
             const page = new Page(data);
             this.set('view', page);
+            // for debug
+            window.__page__ = page;
             if (page.inited) {
                 this.set('loading', false);
             } else {

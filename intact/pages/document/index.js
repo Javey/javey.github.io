@@ -36,9 +36,6 @@ export default class extends Intact {
             return response.text();
         }).then(md => {
             this.set('content', marked.render(md));
-            // return new Promise(resolve => {
-                // setTimeout(resolve, 10000);
-            // });
         });
     }
 
