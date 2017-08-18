@@ -91,6 +91,14 @@ export default class extends Intact {
                 let $container = $('<div class="output"></div>');
                 $example.parent().after($container);
                 Intact.mount(_C, $container[0]);
+            } else if ($example.hasClass('manual')) {
+                let $button = $('<button>点击运行</button>');
+                $example.parent().after($button);
+                $button.on('click', ((code) => {
+                    return () => {
+                        eval(code);
+                    };
+                })(code));
             } else if ($example.hasClass('language-html')) {
                 template = Intact.Vdt.compile(code);
             } else if ($example.hasClass('javascript')) {
