@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		2: 0
+/******/ 		3: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"1991c856dc8b74f45d55","1":"ee9c8ced851cf1b2d780"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"c75b9fc61e972dc548fe","1":"4ac81de1555c083a019b","2":"196eea602512ebf9d4a3"}[chunkId] + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -1896,42 +1896,6 @@ function processForm(vNode, dom, nextProps, isRender) {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.__esModule = true;
-
-var _intact = __webpack_require__(10);
-
-var _intact2 = _interopRequireDefault(_intact);
-
-var _vdt = __webpack_require__(5);
-
-var _vdt2 = _interopRequireDefault(_vdt);
-
-var _animate = __webpack_require__(24);
-
-var _animate2 = _interopRequireDefault(_animate);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_intact2.default.prototype.Animate = _animate2.default;
-_intact2.default.Animate = _animate2.default;
-_intact2.default.Vdt = _vdt2.default;
-_vdt2.default.configure({
-    getModel: function getModel(self, key) {
-        return self.get(key);
-    },
-    setModel: function setModel(self, key, value) {
-        // self.set(key, value, {async: true});
-        self.set(key, value);
-    }
-});
-
-exports.default = _intact2.default;
-module.exports = exports['default'];
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports) {
 
 /*
@@ -2010,7 +1974,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -2367,6 +2331,42 @@ function updateLink (link, options, obj) {
 	if(oldSrc) URL.revokeObjectURL(oldSrc);
 }
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.__esModule = true;
+
+var _intact = __webpack_require__(10);
+
+var _intact2 = _interopRequireDefault(_intact);
+
+var _vdt = __webpack_require__(5);
+
+var _vdt2 = _interopRequireDefault(_vdt);
+
+var _animate = __webpack_require__(24);
+
+var _animate2 = _interopRequireDefault(_animate);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_intact2.default.prototype.Animate = _animate2.default;
+_intact2.default.Animate = _animate2.default;
+_intact2.default.Vdt = _vdt2.default;
+_vdt2.default.configure({
+    getModel: function getModel(self, key) {
+        return self.get(key);
+    },
+    setModel: function setModel(self, key, value) {
+        // self.set(key, value, {async: true});
+        self.set(key, value);
+    }
+});
+
+exports.default = _intact2.default;
+module.exports = exports['default'];
 
 /***/ }),
 /* 10 */
@@ -3695,11 +3695,23 @@ var app = Intact.mount(_app2.default, document.getElementById('page'));
 
 var router = (0, _director.Router)({
     '/': function _() {
-        __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(33)]; (app.run().apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+        __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(34)]; (app.run().apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     },
-    '/document/:title': function documentTitle(title) {
-        __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(34)]; (app.run({
-            title: title
+    '/document': {
+        '/:title': {
+            on: function on(title) {
+                __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(33)]; (app.run({
+                    title: title
+                }).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            }
+        },
+        on: function on() {
+            router.setRoute('/document/start');
+        }
+    },
+    '/api': function api() {
+        __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(35)]; (app.run({
+            title: 'api'
         }).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     }
 }).configure({
@@ -3709,7 +3721,7 @@ var router = (0, _director.Router)({
 });
 
 router.init('/document/start');
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 16 */
@@ -6167,6 +6179,8 @@ var _class = function (_Intact) {
             _this2.set('loading', true);
             var page = new Page(data);
             _this2.set('view', page);
+            // for debug
+            window.__page__ = page;
             if (page.inited) {
                 _this2.set('loading', false);
             } else {
@@ -6189,7 +6203,7 @@ var _class = function (_Intact) {
 
 exports.default = _class;
 module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 26 */
@@ -6269,7 +6283,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(9)(content, options);
+var update = __webpack_require__(8)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -6289,7 +6303,7 @@ if(false) {
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(undefined);
+exports = module.exports = __webpack_require__(7)(undefined);
 // imports
 
 
@@ -7150,7 +7164,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(9)(content, options);
+var update = __webpack_require__(8)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -7170,7 +7184,7 @@ if(false) {
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(undefined);
+exports = module.exports = __webpack_require__(7)(undefined);
 // imports
 
 
