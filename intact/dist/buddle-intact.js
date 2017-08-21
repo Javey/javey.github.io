@@ -3718,7 +3718,7 @@ var router = (0, _director.Router)({
     }
 });
 
-router.init('/document/start');
+router.init('/');
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
