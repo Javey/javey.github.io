@@ -16,7 +16,7 @@ const nav = [
     <div class="header-wrapper">
         <header>
             <b:header>
-                <a class="logo">Intact</a>
+                <a class="logo" href="#/">Intact</a>
                 <nav>
                     <a v-for={nav} class={{
                         active: value.href === scope.navIndex

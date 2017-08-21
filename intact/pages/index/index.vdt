@@ -1,1 +1,44 @@
-<div>index</div>
+var layout = require('../layout.vdt');
+
+<t:layout class="index-page">
+    <b:content>
+        <article class="home-header">
+            <h1>Intact</h1>
+            <p>可继承的前端开发框架</p>
+            <div class="actions">
+                <a href="#/document/start" class="button">开始</a>
+                <a href="https://github.com/Javey/intact" class="button white"
+                    target="_blank"
+                >GitHub</a>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <h2 class="blue">简单</h2>
+                    <div>
+                        没有复杂的概念，你仅仅只需要了解HTML，CSS和JavaScript即可
+                    </div>
+                </div>
+                <div class="feature">
+                    <h2 class="yellow">性能</h2>
+                    <div>
+                        22KB min+gzip 大小，包含前端编译模块；<br />
+                        fork自目前最快的虚拟DOM引擎之一（inferno）构建
+                    </div>
+                </div>
+                <div class="feature">
+                    <h2 class="red">继承</h2>
+                    <div>
+                        充分发挥继承的优势，实现组件和模板的继承扩展，
+                        让你更快速方便地构建复杂的应用
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="home-components">
+            <h1>响应式组件</h1>
+            <script type="text/md">
+                
+            </script>
+        </article>
+    </b:content>
+</t:layout>
