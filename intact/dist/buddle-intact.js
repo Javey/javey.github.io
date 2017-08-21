@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"1046fcbe1e5a1a33b74f","1":"d2ecefc44e2e8ca69c6a","2":"196eea602512ebf9d4a3"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"db4a240070e40d8feefd","1":"a0a18ca1dcc22c9221bc","2":"c5d35c293da5db935c15"}[chunkId] + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -2940,7 +2940,6 @@ Intact.extend = function () {
  * @param node {Node} html节点
  */
 Intact.mount = function (Component, node) {
-    if (!node) throw new Error('expect a parent dom to mount Component, but got ' + node);
     var vNode = (0, _misstime.h)(Component);
     var mountedQueue = new _utils2.MountedQueue();
     (0, _misstime.render)(vNode, node, mountedQueue);
@@ -2954,7 +2953,6 @@ Intact.mount = function (Component, node) {
 };
 
 Intact.hydrate = function (Component, node) {
-    if (!node) throw new Error('expect a parent dom to hydrate Component, but got ' + node);
     var vNode = (0, _misstime.h)(Component);
     (0, _misstime.hydrateRoot)(vNode, node);
     return vNode.children;
@@ -4700,9 +4698,6 @@ Stringifier.prototype = {
                     ret.push('value: _getModel(self, ' + value + ')');
                     ret.push('\'ev-change\': function(__e) {\n                        _setSelectModel(self, ' + value + ', __e);\n                    }');
                     return;
-                case 'textarea':
-                    eventName = 'input';
-                    break;
                 default:
                     break;
             }
@@ -5478,7 +5473,6 @@ exports.default = Animate = _intact2.default.extend({
             _this.leaveClass = transition + '-leave';
             _this.leaveActiveClass = transition + '-leave-active';
             _this.moveClass = transition + '-move';
-            _this.enterEventName = isAppear ? 'a:appear' : 'a:enter';
         };
         this.on('$change:a:transition', initClassName);
         initClassName();
@@ -5508,7 +5502,7 @@ exports.default = Animate = _intact2.default.extend({
                     });
                 }
             }
-            _this.trigger(_this.enterEventName + 'End', element);
+            _this.trigger('a:enterEnd', element);
         };
 
         element._unmount = function (nouse, parentDom) {
@@ -5895,24 +5889,26 @@ exports.default = Animate = _intact2.default.extend({
             } else {
                 // 如果上一个元素还没来得及做动画，则当做新元素处理
                 addClass(element, enterClass);
+                // addClass(this.element, this.enterActiveClass);
             }
         } else {
             addClass(element, enterClass);
+            // Fixme: 这里如果，先添加enterActiveClass，针对transition动画
+            // 可能导致enterClass被动画，然后立即end
+            // 但是，针对animation动画，则没有此问题
+            // 如果后添加enterActiveClass，animation动画可能有闪动，
+            // 因为下一帧才开始进行动画，为了清除闪动，可以添加keframe from
+            // 的样式给enterClass
+            // addClass(this.element, this.enterActiveClass);
         }
         TransitionEvents.on(element, this._enterEnd);
-
-        this.trigger(this.enterEventName + 'Start', element);
-
         if (!onlyInit) {
-            if (getAnimateType(element, enterActiveClass) !== 'animation') {
-                nextFrame(function () {
-                    return _this4._triggerEnter();
-                });
-            } else {
-                // 对于animation动画，同步添加enterActiveClass，避免闪动
-                this._triggerEnter();
-            }
+            nextFrame(function () {
+                return _this4._triggerEnter();
+            });
         }
+
+        this.trigger('a:enterStart', element);
     },
     _triggerEnter: function _triggerEnter() {
         var element = this.element;
@@ -5923,7 +5919,7 @@ exports.default = Animate = _intact2.default.extend({
         addClass(element, this.enterActiveClass);
         removeClass(element, this.enterClass);
         removeClass(element, this.leaveActiveClass);
-        this.trigger(this.enterEventName, element, this._enterEnd);
+        this.trigger('a:enter', element, this._enterEnd);
     },
     _leave: function _leave(onlyInit) {
         var _this5 = this;
@@ -6047,14 +6043,12 @@ function detectEvents() {
     }
 }
 
-function getAnimateType(element, className) {
-    if (className) addClass(element, className);
+function getAnimateType(element) {
     var style = window.getComputedStyle(element);
     var transitionDurations = style[transitionProp + 'Duration'].split(', ');
     var animationDurations = style[animationProp + 'Duration'].split(', ');
     var transitionDuration = getDuration(transitionDurations);
     var animationDuration = getDuration(animationDurations);
-    if (className) removeClass(element, className);
     return transitionDuration > animationDuration ? 'transition' : 'animation';
 }
 
@@ -7189,7 +7183,7 @@ exports = module.exports = __webpack_require__(7)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody {\n  margin: 0;\n  font-size: 14px;\n  color: #333;\n  background: #efefef;\n  height: 100%;\n}\na {\n  color: #2d8cf0;\n  text-decoration: none;\n  cursor: pointer;\n}\nh1,\nh2,\nh3,\nh4,\nh5 {\n  margin: 0;\n  font-weight: normal;\n  color: #000;\n}\nh1 {\n  font-size: 2em;\n}\nh2 {\n  font-size: 1.8em;\n}\nh3 {\n  font-size: 1.5em;\n}\ncode {\n  color: #c7254e;\n  background-color: #f9f2f4;\n  border-radius: 4px;\n  padding: 0 5px;\n}\nblockquote {\n  margin: 1em 0;\n  padding: 1px 2em;\n  background: #f8f8f8;\n  border-radius: 0 3px 3px 0;\n  border-left: 2px solid #fe4444;\n  position: relative;\n}\nblockquote:before {\n  content: '!';\n  display: block;\n  position: absolute;\n  top: 50%;\n  margin-top: -10px;\n  width: 20px;\n  height: 20px;\n  border-radius: 100%;\n  text-align: center;\n  background: #fe4444;\n  color: #fff;\n  line-height: 20px;\n  left: -11px;\n}\n#page,\n.app-wrapper,\n.main-wrapper {\n  height: 100%;\n}\n.header-wrapper {\n  height: 60px;\n  line-height: 60px;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.08);\n  background: #fff;\n  position: fixed;\n  width: 100%;\n  top: 0;\n  z-index: 999;\n}\n.header-wrapper header {\n  width: 1080px;\n  margin: 0 auto;\n}\n.header-wrapper .logo {\n  font-size: 24px;\n  color: #333;\n  margin-left: 20px;\n}\n.header-wrapper nav {\n  float: right;\n}\n.header-wrapper nav a {\n  display: inline-block;\n  padding: 0 20px;\n  color: #333;\n}\n.header-wrapper nav a.active {\n  color: #fe4444;\n  border-bottom: 2px solid #fe4444;\n}\n", ""]);
+exports.push([module.i, "html,\nbody {\n  margin: 0;\n  font-size: 14px;\n  color: #333;\n  background: #efefef;\n  height: 100%;\n}\na {\n  color: #2d8cf0;\n  text-decoration: none;\n  cursor: pointer;\n}\nh1,\nh2,\nh3,\nh4,\nh5 {\n  margin: 0;\n  font-weight: normal;\n  color: #000;\n}\nh1 {\n  font-size: 2em;\n}\nh2 {\n  font-size: 1.8em;\n}\nh3 {\n  font-size: 1.5em;\n}\ncode {\n  color: #c7254e;\n  background-color: #f9f2f4;\n  border-radius: 4px;\n  padding: 0 5px;\n}\nblockquote {\n  margin: 1em 0;\n  padding: 1px 2em;\n  background: #f8f8f8;\n  border-radius: 0 3px 3px 0;\n  border-left: 2px solid #fe4444;\n  position: relative;\n}\nblockquote:before {\n  content: '!';\n  display: block;\n  position: absolute;\n  top: 50%;\n  margin-top: -10px;\n  width: 20px;\n  height: 20px;\n  border-radius: 100%;\n  text-align: center;\n  background: #fe4444;\n  color: #fff;\n  line-height: 20px;\n  left: -11px;\n}\n#page,\n.app-wrapper,\n.main-wrapper {\n  height: 100%;\n}\n.header-wrapper {\n  height: 60px;\n  line-height: 60px;\n  box-shadow: 0 2px 5px rgba(0,0,0,0.08);\n  background: #fff;\n  position: fixed;\n  width: 100%;\n  top: 0;\n  z-index: 999;\n}\n.header-wrapper header {\n  width: 1080px;\n  margin: 0 auto;\n}\n.header-wrapper .logo {\n  font-size: 24px;\n  color: #333;\n  margin-left: 20px;\n}\n.header-wrapper nav {\n  float: right;\n}\n.header-wrapper nav a {\n  display: inline-block;\n  padding: 0 20px;\n  color: #333;\n}\n.header-wrapper nav a.active {\n  color: #fe4444;\n  border-bottom: 2px solid #fe4444;\n}\n.blue {\n  color: #09d;\n}\n.red {\n  color: #d04;\n}\n.yellow {\n  color: #ffc400;\n}\n", ""]);
 
 // exports
 
