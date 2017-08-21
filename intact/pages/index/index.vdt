@@ -19,14 +19,14 @@ var layout = require('../layout.vdt');
                     </div>
                 </div>
                 <div class="feature">
-                    <h2 class="yellow">性能</h2>
+                    <h2 class="yellow">高效</h2>
                     <div>
                         22KB min+gzip 大小，包含前端编译模块；<br />
                         fork自目前最快的虚拟DOM引擎之一（inferno）构建
                     </div>
                 </div>
                 <div class="feature">
-                    <h2 class="red">继承</h2>
+                    <h2 class="red">可继承</h2>
                     <div>
                         充分发挥继承的优势，实现组件和模板的继承扩展，
                         让你更快速方便地构建复杂的应用
