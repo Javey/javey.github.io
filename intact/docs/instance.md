@@ -105,7 +105,7 @@ instance.get() === instance.props; // true
 instance.get('num') === 2; // true
 
 // 通过set()设置数据
-install.set('num', 3);
+instance.set('num', 3);
 // 批量设置
 instance.set({
     num: 4,
