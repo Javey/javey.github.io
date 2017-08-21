@@ -102,6 +102,13 @@ const Subs = function(attr) {
         <article>
             <div class="article-head">
                 <div class="title">{currentNav.title}</div>
+                <div class="edit-link">
+                    如果你发现文档有问题，请帮忙在
+                    <a target="_blank" 
+                        href={`https://github.com/Javey/javey.github.io/blob/master/intact/docs/${self.get('title')}.md`}
+                    >github</a>
+                    上修正该文档
+                </div>
             </div>
             <div innerHTML={self.get('content')}></div>
         </article>
