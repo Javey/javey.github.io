@@ -93,7 +93,8 @@ export default class extends Intact {
                 Intact.mount(_C, $container[0]);
             } else if ($example.hasClass('manual')) {
                 let $button = $('<button>点击运行</button>');
-                $example.parent().after($button);
+                let $p = $('<p></p>').append($button);
+                $example.parent().after($p);
                 $button.on('click', ((code) => {
                     return () => {
                         eval(code);
