@@ -91,7 +91,7 @@ var Component = Intact.extend({
     defaults: {
         num: 1        
     },
-    template: "<div>{self.get("num")}</div>"
+    template: "<div>{self.get('num')}</div>"
 });
 
 var instance = new Component({
