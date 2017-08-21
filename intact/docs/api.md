@@ -491,6 +491,30 @@ this.props.a === this.get('a') // true
 
 # Intact.Vdt类
 
+## Intact.Vdt
+
+该函数返回一个vdt实例
+
+### Intact.Vdt(source[, options]) 
+
+* @param `source` `{String | Function}` 模板函数或模板字符串
+* @param `options` `{Object}` 如果`source`为模板字符串，则该参数可以指定编译器的配置项
+
+有两种方式创建vdt实例：
+
+1. 使用`new`操作符创建实例
+2. 直接执行构造函数
+
+* @example
+```js
+var vdt1 = new Intact.Vdt('<div>Intact</div');
+var vdt2 = Intact.Vdt('<div>Intact</div>');
+// 如果是模板函数
+var vdt3 = Intact.Vdt(function(self, Vdt) {
+    return Vdt.miss.h('div', null, 'test');
+});
+```
+
 ## Intact.Vdt.miss
 
 指向底层虚拟DOM引擎，可以调用它的`h()`方法创建元素的虚拟DOM，或者调用`hc()`方法创建注释的虚拟DOM
@@ -650,6 +674,18 @@ app.vdt.update({title: 'Javey'});
 
 * @type `{*}`
 
+## v-else-if
+
+条件渲染
+
+* @type `{*}`
+
+## v-else
+
+条件渲染
+
+* @type `不需要属性值`
+
 ## v-for
 
 循环渲染元素，参考[模板语法#循环渲染][6]
@@ -682,17 +718,83 @@ app.vdt.update({title: 'Javey'});
 
 ## <t:template>
 
+继承模板函数名为`template`的模板，继承后可以使用`<b:block>`标签扩展父模板。参考[组件继承][9]
+
+* @param `template` 要继承的父模板函数名
+* @example
+```html
+var layout = Intact.Vdt.compile('<div>\
+    <b:content>content</b:content>\
+</div>');
+
+var child = Intact.Vdt.compile('<t:layout>\
+    <b:content>{parent()} child content</b:content>\
+</t:layout>')
+```
+
 ## <b:block>
+
+使用`<t:template>`标签继承父模板后，使用`<b:block>`标签来扩展父模板的内容，并且可以在该标签里，
+使用`parent()`函数引入父模板对应的`block`的内容。如果不扩展父模板对应的`block`，则父模板定义的
+内容会完整地继承下来。
+
+* @param `block` 要扩展模板的`block`名称
 
 # 内置组件
 
 ## Animate
 
+`Animate`组件为元素提供了动画能力，你可以直接在模板中使用它而无需引入。参考[动画][10]
+
+* @prop `a:tag` `{String}` 指定组件要渲染的标签，默认`'div'`
+* @prop `a:transition` `{String}` 指定动画时添加的类名的前缀，默认`'animate'`
+* @prop `a:appear` `{Boolean}` 指定是否为初始化渲染添加单独的动画，默认`false`，表示初始化渲染
+  时，使用enter动画
+* @prop `a:mode` 指定动画渲染的模式，可选项为`out-in | in-out | both`，默认为`both`
+* @prop `a:move` 指定是否当元素进入或离开，导致兄弟元素改变位置时，是否使用动画移动位置，默认`true`
+* @prop `a:disabled` 指定当前组件是否只做动画管理者，自身不进行动画，默认`false`，表示即做动画管理者，
+  自身也进行动画
+* @event `a:enterStart` 进入动画开始时触发
+* @event `a:enter` 进入动画进行时触发
+* @event `a:enterEnd` 进入动画结束时触发
+* @event `a:leaveStart` 离开动画开始时触发
+* @event `a:leave` 离开动画进行时触发
+* @event `a:leaveEnd` 离开动画结束时触发
+* @event `a:appearStart` 初次渲染动画开始时触发
+* @event `a:appear` 初次渲染动画进行时触发
+* @event `a:appearEnd` 初次渲染动画结束时触发
+* @example
+```html
+<div>
+    <Animate v-if={self.get('show')}>Show</Animate>
+</div>
+```
+
 # vNode相关
 
 ## Intact.Vdt.miss.h 
 
+创建虚拟DOM，参考[模板template#h函数][11]
+
 ## Intact.Vdt.miss.hc
+
+创建注释的虚拟DOM
+
+### Intact.Vdt.miss.hc([comment])
+
+* @param `comment` 注释内容
+* @example
+```js
+var template = function() {
+    return Intact.Vdt.miss.hc('test');
+};
+var vdt = Intact.Vdt(template);
+var dom  = vdt.render();
+document.getElementById('hc').appendChild(dom);
+```
+<!-- {.example} -->
+
+<div class="output" id="hc">打开控制台查看注释元素</div>
 
 [1]: #/document/instance
 [2]: #/document/event
@@ -702,3 +804,6 @@ app.vdt.update({title: 'Javey'});
 [6]: #/document/syntax
 [7]: #/document/form
 [8]: #/document/event
+[9]: #/document/extend
+[10]: #/document/animation
+[11]: #/document/template
