@@ -31,4 +31,4 @@ const router = Router({
     }
 });
 
-router.init('/document/start');
+router.init('/');

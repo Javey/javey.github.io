@@ -86,7 +86,11 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"34d87e2f309e64120bbd","1":"bfd4430e7e7430d031f2","2":"f49ef9670523a0bde034"}[chunkId] + ".js";
+<<<<<<< HEAD
+/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"34d87e2f309e64120bbd","1":"bfd4430e7e7430d031f2","2":"b51768b26f080a445906"}[chunkId] + ".js";
+=======
+/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"db4a240070e40d8feefd","1":"a0a18ca1dcc22c9221bc","2":"c5d35c293da5db935c15"}[chunkId] + ".js";
+>>>>>>> 5496b6e3d6c8a2c5e2a5f3e428af934f7ab1ea3d
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -2940,7 +2944,6 @@ Intact.extend = function () {
  * @param node {Node} html节点
  */
 Intact.mount = function (Component, node) {
-    if (!node) throw new Error('expect a parent dom to mount Component, but got ' + node);
     var vNode = (0, _misstime.h)(Component);
     var mountedQueue = new _utils2.MountedQueue();
     (0, _misstime.render)(vNode, node, mountedQueue);
@@ -2954,7 +2957,6 @@ Intact.mount = function (Component, node) {
 };
 
 Intact.hydrate = function (Component, node) {
-    if (!node) throw new Error('expect a parent dom to hydrate Component, but got ' + node);
     var vNode = (0, _misstime.h)(Component);
     (0, _misstime.hydrateRoot)(vNode, node);
     return vNode.children;
@@ -4700,9 +4702,6 @@ Stringifier.prototype = {
                     ret.push('value: _getModel(self, ' + value + ')');
                     ret.push('\'ev-change\': function(__e) {\n                        _setSelectModel(self, ' + value + ', __e);\n                    }');
                     return;
-                case 'textarea':
-                    eventName = 'input';
-                    break;
                 default:
                     break;
             }
@@ -5478,7 +5477,6 @@ exports.default = Animate = _intact2.default.extend({
             _this.leaveClass = transition + '-leave';
             _this.leaveActiveClass = transition + '-leave-active';
             _this.moveClass = transition + '-move';
-            _this.enterEventName = isAppear ? 'a:appear' : 'a:enter';
         };
         this.on('$change:a:transition', initClassName);
         initClassName();
@@ -5508,7 +5506,7 @@ exports.default = Animate = _intact2.default.extend({
                     });
                 }
             }
-            _this.trigger(_this.enterEventName + 'End', element);
+            _this.trigger('a:enterEnd', element);
         };
 
         element._unmount = function (nouse, parentDom) {
@@ -5895,24 +5893,26 @@ exports.default = Animate = _intact2.default.extend({
             } else {
                 // 如果上一个元素还没来得及做动画，则当做新元素处理
                 addClass(element, enterClass);
+                // addClass(this.element, this.enterActiveClass);
             }
         } else {
             addClass(element, enterClass);
+            // Fixme: 这里如果，先添加enterActiveClass，针对transition动画
+            // 可能导致enterClass被动画，然后立即end
+            // 但是，针对animation动画，则没有此问题
+            // 如果后添加enterActiveClass，animation动画可能有闪动，
+            // 因为下一帧才开始进行动画，为了清除闪动，可以添加keframe from
+            // 的样式给enterClass
+            // addClass(this.element, this.enterActiveClass);
         }
         TransitionEvents.on(element, this._enterEnd);
-
-        this.trigger(this.enterEventName + 'Start', element);
-
         if (!onlyInit) {
-            if (getAnimateType(element, enterActiveClass) !== 'animation') {
-                nextFrame(function () {
-                    return _this4._triggerEnter();
-                });
-            } else {
-                // 对于animation动画，同步添加enterActiveClass，避免闪动
-                this._triggerEnter();
-            }
+            nextFrame(function () {
+                return _this4._triggerEnter();
+            });
         }
+
+        this.trigger('a:enterStart', element);
     },
     _triggerEnter: function _triggerEnter() {
         var element = this.element;
@@ -5923,7 +5923,7 @@ exports.default = Animate = _intact2.default.extend({
         addClass(element, this.enterActiveClass);
         removeClass(element, this.enterClass);
         removeClass(element, this.leaveActiveClass);
-        this.trigger(this.enterEventName, element, this._enterEnd);
+        this.trigger('a:enter', element, this._enterEnd);
     },
     _leave: function _leave(onlyInit) {
         var _this5 = this;
@@ -6047,14 +6047,12 @@ function detectEvents() {
     }
 }
 
-function getAnimateType(element, className) {
-    if (className) addClass(element, className);
+function getAnimateType(element) {
     var style = window.getComputedStyle(element);
     var transitionDurations = style[transitionProp + 'Duration'].split(', ');
     var animationDurations = style[animationProp + 'Duration'].split(', ');
     var transitionDuration = getDuration(transitionDurations);
     var animationDuration = getDuration(animationDurations);
-    if (className) removeClass(element, className);
     return transitionDuration > animationDuration ? 'transition' : 'animation';
 }
 
