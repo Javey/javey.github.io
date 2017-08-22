@@ -1,11 +1,13 @@
 import template from './index.vdt';
 import css from './index.styl';
 import {highlight, marked} from '../../lib/utils';
+import Layout from '../layout';
 
-export default class extends Intact {
+export default class extends Layout {
     get template() { return template; }
 
     _mount() {
+        super._mount();
         const $element = $(this.element);
         const $mds = $element.find('script[type="text/md"]');
         for (let i = 0; i < $mds.length; i++) {

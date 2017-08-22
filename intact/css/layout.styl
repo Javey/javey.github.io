@@ -70,13 +70,19 @@ blockquote
         margin-left 20px
     nav
         float right
+        position relative
         a
             display inline-block
             padding 0 20px
             color #333
             &.active
                 color linkColor
-                border-bottom 2px solid linkColor
+    .border
+        position absolute
+        bottom 0
+        border-bottom 2px solid linkColor
+.transition
+    transition all 350ms cubic-bezier(.55, 0, .1, 1)
 .blue
     color #09d
 .red

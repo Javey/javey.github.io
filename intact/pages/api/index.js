@@ -4,5 +4,4 @@ import css from './api.styl';
 
 export default class extends DocumentPage {
     get template() { return template; } 
-
 }

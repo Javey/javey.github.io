@@ -3,12 +3,13 @@ import css from './document.styl';
 import throttle from 'lodash/throttle';
 import shuffle from 'lodash/shuffle';
 import {highlight, marked} from '../../lib/utils';
+import Layout from '../layout';
 
 // for debug
 window.Intact = Intact;
 window._ = {throttle, shuffle};
 
-export default class extends Intact {
+export default class extends Layout {
     get template() { return template; }
 
     _init() {
@@ -20,7 +21,7 @@ export default class extends Intact {
     }
 
     _mount() {
-        $(window).scrollTop(0);
+        super._mount();
         const codes = this.element.querySelectorAll('pre code');
         codes.forEach(item => {
             highlight.highlightBlock(item);

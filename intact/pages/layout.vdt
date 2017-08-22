@@ -21,6 +21,7 @@ const nav = [
                     <a v-for={nav} class={{
                         active: value.href === scope.navIndex
                     }} href={`#/${value.href}`}>{value.title}</a>
+                    <div class="border"></div>
                 </nav>
             </b:header>
         </header>
