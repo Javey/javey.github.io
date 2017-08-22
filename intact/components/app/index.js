@@ -20,9 +20,11 @@ export default class extends Intact {
             window.__page__ = page;
             if (page.inited) {
                 this.set('loading', false);
+                $(window).scrollTop(0);
             } else {
                 page.one('$inited', () => {
                     this.set('loading', false);
+                    $(window).scrollTop(0);
                 });
             }
         };

@@ -1,10 +1,16 @@
 @import '../../css/variables'
+@import '../document/highlight';
+
+headerHeight = 80px
 
 .index-page
+    .header-wrapper
+        height headerHeight
+        line-height headerHeight 
     .content-wrapper
-        height 100%
+        min-height 100%
         background #fff
-        padding-top 60px
+        padding-top headerHeight 
         box-sizing border-box
         text-align center
     .home-header
@@ -44,9 +50,29 @@
             flex 1
     .home-components
         background #09d
-        height 500px
         padding 30px 0
         box-shadow 0 -0.25em 1.5em rgba(0,5,10,0.25)
         h1
             font-size 3em
             color #fff
+        h3
+            color #37393b
+            font-size 1.3em
+            margin 0.5em 0
+    .code-wrapper
+        display flex
+        flex-direction row
+        justify-content center
+        text-align left
+        .code
+            width 500px
+            pre
+                margin 10px
+        .output
+            width 300px
+            margin 10px
+            background #fff
+            border-radius 3px
+            padding 15px
+    pre
+        text-align left

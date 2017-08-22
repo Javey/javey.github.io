@@ -36,13 +36,47 @@ var layout = require('../layout.vdt');
         </article>
         <article class="home-components">
             <h1>响应式组件</h1>
-            <script type="text/md">
-                ```html
-                <div>
-                    {self.get('name')}
-                </div>
-                ```
-            </script>
+            <h3>组件数据变更，界面会立即自动做出相应更新</h3>
+            <div class="code-wrapper">
+                <script type="text/md" v-raw>
+```html
+<div>
+    <div class="count">{self.get('count')}</div>
+    <button class="button" ev-click={self.add.bind(self)}>
+        Click me!
+    </button>
+</div>
+```
+
+```css
+.count {
+    color: #09d;
+    font-size: 3em;
+}
+.button {
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+```
+
+```js
+var App = Intact.extend({
+    template: template,
+    defaults: function() {
+        return {count: 0};
+    },
+    add: function() {
+        this.set('count', this.get('count') + 1);
+    }
+});
+
+Intact.mount(App, document.getElementById('app'));
+```
+                </script>
+                <div class="code"></div>
+                <div class="output" id="app"></div>
+            </div>
         </article>
     </b:content>
 </t:layout>
