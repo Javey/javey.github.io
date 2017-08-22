@@ -37,7 +37,11 @@ var layout = require('../layout.vdt');
         <article class="home-components">
             <h1>响应式组件</h1>
             <script type="text/md">
-                
+                ```html
+                <div>
+                    {self.get('name')}
+                </div>
+                ```
             </script>
         </article>
     </b:content>

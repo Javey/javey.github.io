@@ -1,32 +1,12 @@
 import template from './document.vdt';
 import css from './document.styl';
-import MarkdownIt from 'markdown-it';
-import MarkdownItDecorate from 'markdown-it-decorate';
-import highlight from 'highlight.js/lib/highlight';
-import lJavascript from 'highlight.js/lib/languages/javascript';
-import lCss from 'highlight.js/lib/languages/css';
-import lXml from 'highlight.js/lib/languages/xml';
-import lBash from 'highlight.js/lib/languages/bash';
 import throttle from 'lodash/throttle';
 import shuffle from 'lodash/shuffle';
-
-
-highlight.registerLanguage('bash', lBash);
-highlight.registerLanguage('css', lCss);
-highlight.registerLanguage('javascript', lJavascript);
-highlight.registerLanguage('xml', lXml);
+import {highlight, marked} from '../../lib/utils';
 
 // for debug
 window.Intact = Intact;
-window.highlight = highlight;
 window._ = {throttle, shuffle};
-
-const marked = MarkdownIt({
-    html: true,
-    breaks: false 
-}).use(MarkdownItDecorate);
-// 去掉段落softbreak
-marked.renderer.rules.softbreak = () => '';
 
 export default class extends Intact {
     get template() { return template; }

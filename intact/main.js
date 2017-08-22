@@ -17,7 +17,7 @@ const router = Router({
             }
         },
         on: function() {
-            router.setRoute('/document/start');
+            router.replaceRoute('/document/start');
         }
     },
     '/api': function() {
@@ -27,7 +27,7 @@ const router = Router({
     }
 }).configure({
     notfound: function() {
-        router.setRoute('/');
+        router.replaceRoute('/');
     }
 });
 

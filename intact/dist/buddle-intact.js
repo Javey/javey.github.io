@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"1046fcbe1e5a1a33b74f","1":"d2ecefc44e2e8ca69c6a","2":"196eea602512ebf9d4a3"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"34d87e2f309e64120bbd","1":"bfd4430e7e7430d031f2","2":"b51768b26f080a445906"}[chunkId] + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -3706,7 +3706,7 @@ var router = (0, _director.Router)({
             }
         },
         on: function on() {
-            router.setRoute('/document/start');
+            router.replaceRoute('/document/start');
         }
     },
     '/api': function api() {
@@ -3716,7 +3716,7 @@ var router = (0, _director.Router)({
     }
 }).configure({
     notfound: function notfound() {
-        router.setRoute('/');
+        router.replaceRoute('/');
     }
 });
 
@@ -6548,6 +6548,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return this;
     },
 
+    replaceHash: function replaceHash(s) {
+      // Mozilla always adds an entry to the history
+      if (this.mode === 'legacy') {
+        this.writeFrame(s);
+      }
+
+      if (this.history === true) {
+        window.history.replaceState({}, document.title, s);
+        // Fire an onpopstate event manually since pushing does not obviously
+        // trigger the pop event.
+        this.fire();
+      } else {
+        dloc.replace(s[0] === '#' ? s : '#' + s);
+      }
+      return this;
+    },
+
     writeFrame: function writeFrame(s) {
       // IE support...
       var f = document.getElementById('state-frame');
@@ -6635,6 +6652,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
   Router.prototype.setRoute = function (i, v, val) {
+    var url = this.getUrl(i, v, val);
+    listener.setHash(url.join('/'));
+    return url;
+  };
+
+  Router.prototype.replaceRoute = function (i, v, val) {
+    var url = this.getUrl(i, v, val);
+    listener.replaceHash(url.join('/'));
+    return url;
+  };
+
+  Router.prototype.getUrl = function (i, v, val) {
     var url = this.explode();
 
     if (typeof i === 'number' && typeof v === 'string') {
@@ -6644,8 +6673,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     } else {
       url = [i];
     }
-
-    listener.setHash(url.join('/'));
     return url;
   };
 
@@ -7189,7 +7216,7 @@ exports = module.exports = __webpack_require__(7)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody {\n  margin: 0;\n  font-size: 14px;\n  color: #333;\n  background: #efefef;\n  height: 100%;\n}\na {\n  color: #2d8cf0;\n  text-decoration: none;\n  cursor: pointer;\n}\nh1,\nh2,\nh3,\nh4,\nh5 {\n  margin: 0;\n  font-weight: normal;\n  color: #000;\n}\nh1 {\n  font-size: 2em;\n}\nh2 {\n  font-size: 1.8em;\n}\nh3 {\n  font-size: 1.5em;\n}\ncode {\n  color: #c7254e;\n  background-color: #f9f2f4;\n  border-radius: 4px;\n  padding: 0 5px;\n}\nblockquote {\n  margin: 1em 0;\n  padding: 1px 2em;\n  background: #f8f8f8;\n  border-radius: 0 3px 3px 0;\n  border-left: 2px solid #fe4444;\n  position: relative;\n}\nblockquote:before {\n  content: '!';\n  display: block;\n  position: absolute;\n  top: 50%;\n  margin-top: -10px;\n  width: 20px;\n  height: 20px;\n  border-radius: 100%;\n  text-align: center;\n  background: #fe4444;\n  color: #fff;\n  line-height: 20px;\n  left: -11px;\n}\n#page,\n.app-wrapper,\n.main-wrapper {\n  height: 100%;\n}\n.header-wrapper {\n  height: 60px;\n  line-height: 60px;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.08);\n  background: #fff;\n  position: fixed;\n  width: 100%;\n  top: 0;\n  z-index: 999;\n}\n.header-wrapper header {\n  width: 1080px;\n  margin: 0 auto;\n}\n.header-wrapper .logo {\n  font-size: 24px;\n  color: #333;\n  margin-left: 20px;\n}\n.header-wrapper nav {\n  float: right;\n}\n.header-wrapper nav a {\n  display: inline-block;\n  padding: 0 20px;\n  color: #333;\n}\n.header-wrapper nav a.active {\n  color: #fe4444;\n  border-bottom: 2px solid #fe4444;\n}\n", ""]);
+exports.push([module.i, "html,\nbody {\n  margin: 0;\n  font-size: 14px;\n  color: #333;\n  background: #efefef;\n  height: 100%;\n}\na {\n  color: #2d8cf0;\n  text-decoration: none;\n  cursor: pointer;\n}\nh1,\nh2,\nh3,\nh4,\nh5 {\n  margin: 0;\n  font-weight: normal;\n  color: #000;\n}\nh1 {\n  font-size: 2em;\n}\nh2 {\n  font-size: 1.8em;\n}\nh3 {\n  font-size: 1.5em;\n}\ncode {\n  color: #c7254e;\n  background-color: #f9f2f4;\n  border-radius: 4px;\n  padding: 0 5px;\n}\nblockquote {\n  margin: 1em 0;\n  padding: 1px 2em;\n  background: #f8f8f8;\n  border-radius: 0 3px 3px 0;\n  border-left: 2px solid #fe4444;\n  position: relative;\n}\nblockquote:before {\n  content: '!';\n  display: block;\n  position: absolute;\n  top: 50%;\n  margin-top: -10px;\n  width: 20px;\n  height: 20px;\n  border-radius: 100%;\n  text-align: center;\n  background: #fe4444;\n  color: #fff;\n  line-height: 20px;\n  left: -11px;\n}\n#page,\n.app-wrapper,\n.main-wrapper {\n  height: 100%;\n}\n.header-wrapper {\n  height: 60px;\n  line-height: 60px;\n  box-shadow: 0 2px 5px rgba(0,0,0,0.08);\n  background: #fff;\n  position: fixed;\n  width: 100%;\n  top: 0;\n  z-index: 999;\n}\n.header-wrapper header {\n  width: 1080px;\n  margin: 0 auto;\n}\n.header-wrapper .logo {\n  font-size: 24px;\n  color: #333;\n  margin-left: 20px;\n}\n.header-wrapper nav {\n  float: right;\n}\n.header-wrapper nav a {\n  display: inline-block;\n  padding: 0 20px;\n  color: #333;\n}\n.header-wrapper nav a.active {\n  color: #fe4444;\n  border-bottom: 2px solid #fe4444;\n}\n.blue {\n  color: #09d;\n}\n.red {\n  color: #d04;\n}\n.yellow {\n  color: #ffc400;\n}\n", ""]);
 
 // exports
 
