@@ -97,6 +97,9 @@ var Layout = Intact.extend({
         }
     },
 
+    // 假设父模板编译后的模板函数名为parentTemplate
+    template: parentTemplate,
+
     _init: function() {
         // 用户信息是个通用模块，我们在父类组件获取用户数据
         var self = this;
@@ -143,7 +146,9 @@ var Page = Layout.extend({
     ...
     _init: function() {
         var self = this;
-        return Promise.all(
+        // 注入父模板函数
+        this.layout = parentTemplate; 
+        return Promise.all([
             // 调用父类同名方法_init
             this._super(),
             new Promise(function(resolve) {
@@ -151,7 +156,7 @@ var Page = Layout.extend({
                     self.set('data', 'hello')
                 });
             })
-        );
+        ]);
     }
     ...
 });
@@ -159,6 +164,38 @@ var Page = Layout.extend({
 
 至此我们完成了组件的继承，这样每个页面对应的`Page`组件，都可以完整控制整个页面的逻辑，并且最大限度地提高了
 组件的复用性。
+
+# 父模板函数parent
+
+上例中，我们在继承父模板时，需要注入相应的父模板函数。这种方式可以让你继承任意的父模板，而并非
+一定是父类组件中定义的模板。但大多数情况下，我们都会继承父类组件中定义的模板，在子模板中，通过
+`parent`模板函数名即可引用到父模板函数。
+
+例如上例中，子模板无需注入`this.layout = parentTemplate`，而是像下面这样做
+
+```html
+// 直接通过parent引用父类中定义的模板
+<t:parent>
+    <b:header-content>...</b:header-content>
+    <b:content>
+        ...
+    </b:content>
+</t:parent>
+```
+
+逻辑部分，无需注入父模板
+
+```js
+var Page = Layout.extend({
+    template: template,
+    
+    _init: function() {
+        return Promise.all([
+            ...
+        ]);
+    }
+});
+```
 
 > 完整地控制整个页面，正是`Intact`一词的由来
 

@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"bb55852289f11dfae147","1":"3abcc9d8fbf0d2a23999","2":"f8f9673a608bf9a712a0"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "static/chunk/" + {"0":"7ddded0e0981fc5bf133","1":"e1a82942859763f7d57f","2":"260ad9763ccf0fff3cd4"}[chunkId] + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -2415,6 +2415,17 @@ function Intact(props) {
     this.vdt = (0, _vdt2.default)(this.template);
     this.set(props, { silent: true });
 
+    var parentTemplate = this.constructor.prototype.__proto__.template;
+    if ((0, _utils.isFunction)(parentTemplate)) {
+        this._parentTemplate = parentTemplate;
+    } else if ((0, _utils.isString)(parentTemplate)) {
+        this._parentTemplate = _vdt2.default.compile(parentTemplate);
+    } else {
+        this._parentTemplate = function () {
+            throw new Error('super.template does not exist');
+        };
+    }
+
     // for compatibility v1.0
     this.widgets = this.vdt.widgets || {};
     this._widget = this.props.widget || (0, _utils.uniqueId)('widget');
@@ -2973,13 +2984,13 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.__esModule = true;
-exports.keys = exports.inBrowser = exports.noop = exports.isNullOrUndefined = exports.hasOwn = exports.isObject = exports.each = exports.isArray = exports.extend = undefined;
+exports.keys = exports.create = exports.inBrowser = exports.noop = exports.isNullOrUndefined = exports.hasOwn = exports.isObject = exports.each = exports.isArray = exports.extend = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 exports.inherit = inherit;
-exports.create = create;
 exports.isFunction = isFunction;
+exports.isString = isString;
 exports.result = result;
 exports.bind = bind;
 exports.isEqual = isEqual;
@@ -3059,27 +3070,27 @@ function inherit(Parent, prototype) {
             };
         }();
     });
-    Child.__super = Parent.prototype;
     Child.prototype.constructor = Child;
 
     (0, _utils.extend)(Child, Parent);
+    Child.__super = Parent.prototype;
 
     return Child;
 }
 
 var nativeCreate = Object.create;
-function create(object) {
-    if (nativeCreate) {
-        return nativeCreate(object);
-    } else {
-        var fn = function fn() {};
-        fn.prototype = object;
-        return new fn();
-    }
-}
+var create = exports.create = nativeCreate ? nativeCreate : function (object) {
+    var fn = function fn() {};
+    fn.prototype = object;
+    return new fn();
+};
 
 function isFunction(obj) {
     return typeof obj === 'function';
+}
+
+function isString(s) {
+    return typeof s === 'string';
 }
 
 function result(obj, property, fallback) {
@@ -13688,7 +13699,7 @@ function compile(source, options) {
             var ast = parser.parse(source, options),
                 hscript = stringifier.stringify(ast, options.autoReturn);
 
-            hscript = ['_Vdt || (_Vdt = Vdt);', 'obj || (obj = {});', 'blocks || (blocks = {});', 'var h = _Vdt.miss.h, hc = _Vdt.miss.hc, hu = _Vdt.miss.hu, widgets = this && this.widgets || {}, _blocks = {}, __blocks = {},', '__u = _Vdt.utils, extend = __u.extend, _e = __u.error, _className = __u.className,', '__o = __u.Options, _getModel = __o.getModel, _setModel = __o.setModel,', '_setCheckboxModel = __u.setCheckboxModel, _detectCheckboxChecked = __u.detectCheckboxChecked,', '_setSelectModel = __u.setSelectModel,', (options.server ? 'require = function(file) { return _Vdt.require(file, "' + options.filename.replace(/\\/g, '\\\\') + '") }, ' : '') + 'self = this.data, scope = obj, Animate = self && self.Animate;', options.noWith ? hscript : ['with (obj) {', hscript, '}'].join('\n')].join('\n');
+            hscript = ['_Vdt || (_Vdt = Vdt);', 'obj || (obj = {});', 'blocks || (blocks = {});', 'var h = _Vdt.miss.h, hc = _Vdt.miss.hc, hu = _Vdt.miss.hu, widgets = this && this.widgets || {}, _blocks = {}, __blocks = {},', '__u = _Vdt.utils, extend = __u.extend, _e = __u.error, _className = __u.className,', '__o = __u.Options, _getModel = __o.getModel, _setModel = __o.setModel,', '_setCheckboxModel = __u.setCheckboxModel, _detectCheckboxChecked = __u.detectCheckboxChecked,', '_setSelectModel = __u.setSelectModel,', (options.server ? 'require = function(file) { return _Vdt.require(file, "' + options.filename.replace(/\\/g, '\\\\') + '") }, ' : '') + 'self = this.data, scope = obj, Animate = self && self.Animate, parent = self && self._parentTemplate', options.noWith ? hscript : ['with (obj) {', hscript, '}'].join('\n')].join('\n');
             templateFn = options.onlySource ? function () {} : new Function('obj', '_Vdt', 'blocks', hscript);
             templateFn.source = 'function(obj, _Vdt, blocks) {\n' + hscript + '\n}';
             break;
@@ -14629,7 +14640,7 @@ Stringifier.prototype = {
     },
 
     _visitJSXVdt: function _visitJSXVdt(element, isRoot) {
-        var ret = ['(function(blocks) {', 'var _blocks = {}, __blocks = extend({}, blocks), _obj = ' + this._visitJSXAttribute(element, false, false).props + ' || {};', 'if (_obj.hasOwnProperty("arguments")) { extend(_obj, _obj.arguments === null ? obj : _obj.arguments); delete _obj.arguments; }', 'return ' + element.value + '.call(this, _obj, _Vdt, '].join('\n'),
+        var ret = ['(function(blocks) {', 'var _blocks = {}, __blocks = extend({}, blocks), _obj = ' + this._visitJSXAttribute(element, false, false).props + ' || {};', 'if (_obj.hasOwnProperty("arguments")) { extend(_obj, _obj.arguments === true ? obj : _obj.arguments); delete _obj.arguments; }', 'return ' + element.value + '.call(this, _obj, _Vdt, '].join('\n'),
             blocks = [];
 
         Utils.each(element.children, function (child) {
@@ -16128,7 +16139,8 @@ module.exports = function (obj, _Vdt, blocks) {
         _setSelectModel = __u.setSelectModel,
         self = this.data,
         scope = obj,
-        Animate = self && self.Animate;
+        Animate = self && self.Animate,
+        parent = self && self._parentTemplate;
     return h('div', null, ['\n    ', function () {
         try {
             return [self.get('view')][0];
