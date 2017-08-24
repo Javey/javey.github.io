@@ -1,0 +1,49 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/javey/.nvm/versions/node/v4.6.1/bin/node',
+1 verbose cli   '/home/javey/.nvm/versions/node/v4.6.1/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'build' ]
+2 info using npm@3.10.9
+3 info using node@v4.6.1
+4 verbose run-script [ 'prebuild', 'build', 'postbuild' ]
+5 info lifecycle intact-doc@1.0.0~prebuild: intact-doc@1.0.0
+6 silly lifecycle intact-doc@1.0.0~prebuild: no script for prebuild, continuing
+7 info lifecycle intact-doc@1.0.0~build: intact-doc@1.0.0
+8 verbose lifecycle intact-doc@1.0.0~build: unsafe-perm in lifecycle true
+9 verbose lifecycle intact-doc@1.0.0~build: PATH: /home/javey/.nvm/versions/node/v4.6.1/lib/node_modules/npm/bin/node-gyp-bin:/home/javey/Workspace/javey.github.io/intact/node_modules/.bin:/home/javey/App/cocos2d-x-3.14.1/templates:/home/javey/App:/home/javey/App/cocos2d-x-3.14.1/tools/cocos2d-console/bin:/home/javey/.cabal/bin:/home/javey/.nvm/versions/node/v4.6.1/bin:/usr/share/ant/bin:/home/javey/App/android-sdk-linux/tools:/home/javey/App/android-sdk-linux/platform-tools:/home/javey/App/android-sdk-linux:/usr/local/cuda-7.5/bin:/home/javey/bin:/home/javey/.composer/vendor/bin:/home/javey/App/android-sdk-linux/platform-tools:/home/javey/App/android-sdk-linux/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+10 verbose lifecycle intact-doc@1.0.0~build: CWD: /home/javey/Workspace/javey.github.io/intact
+11 silly lifecycle intact-doc@1.0.0~build: Args: [ '-c',
+11 silly lifecycle   'NODE_ENV=production webpack --config webpack.config.js && git add -A && git commit -am \'build\' && git push' ]
+12 silly lifecycle intact-doc@1.0.0~build: Returned: code: 1  signal: null
+13 info lifecycle intact-doc@1.0.0~build: Failed to exec build script
+14 verbose stack Error: intact-doc@1.0.0 build: `NODE_ENV=production webpack --config webpack.config.js && git add -A && git commit -am 'build' && git push`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/home/javey/.nvm/versions/node/v4.6.1/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (/home/javey/.nvm/versions/node/v4.6.1/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:829:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid intact-doc@1.0.0
+16 verbose cwd /home/javey/Workspace/javey.github.io/intact
+17 error Linux 4.4.0-87-generic
+18 error argv "/home/javey/.nvm/versions/node/v4.6.1/bin/node" "/home/javey/.nvm/versions/node/v4.6.1/bin/npm" "run" "build"
+19 error node v4.6.1
+20 error npm  v3.10.9
+21 error code ELIFECYCLE
+22 error intact-doc@1.0.0 build: `NODE_ENV=production webpack --config webpack.config.js && git add -A && git commit -am 'build' && git push`
+22 error Exit status 1
+23 error Failed at the intact-doc@1.0.0 build script 'NODE_ENV=production webpack --config webpack.config.js && git add -A && git commit -am 'build' && git push'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the intact-doc package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     NODE_ENV=production webpack --config webpack.config.js && git add -A && git commit -am 'build' && git push
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs intact-doc
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls intact-doc
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
