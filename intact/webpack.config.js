@@ -94,10 +94,10 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-    // module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        // compress: {
-            // warnings: false
-        // }
-    // }));
+    module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    }));
 }
 
