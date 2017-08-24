@@ -287,7 +287,7 @@ var TodoList = Intact.extend({
     },
     template: '<form>' +
         '<input />' +
-        '<TodoItem v-for={self.get("list")} todo={value}/>' +
+        '<TodoItem v-for={self.get("list")} todo={value} />' +
     '</form>'
 });
 ```
@@ -323,7 +323,7 @@ var TodoList = Intact.extend({
     },
     template: 'var TodoItem = self.TodoItem;' +
         '<form ev-submit={self.addNewItem.bind(self)}>' +
-            '<input v-model="newItem"/>' +
+            '<input v-model="newItem" style="margin-bottom: 10px;" />' +
             '<TodoItem v-for={self.get("list")} todo={value}' + 
                 'ev-delete={self.delete.bind(self, key)}' +
             '/>' +
@@ -380,21 +380,15 @@ Intact.mount(TodoList, document.getElementById('todo'));
 于是，我们可以定义一个组件`Layout`来描绘页面的大体结构。
 
 ```js
-// 继承的模板必须是模板函数，
-// 我们调用Intact.Vdt.compile将模板字符串编译成模板函数
-var layout = Intact.Vdt.compile('<div>' +
-    '<header>header {self.get("title")}</header>' +
-    '<div class="content">' + 
-        // 此处利用vdt模板的block语法，声明一个可填充区域
-       '<b:content />' +
-    '</div>' +
-    '<footer>footer</footer>' +
-'</div>');
-
 var Layout = Intact.extend({
-    // 这里我们不声明template属性，则Layout不能被实例化，
-    // 只能作为父组件被继承
-    // template: layout
+    template: '<div>' +
+        '<header>header {self.get("title")}</header>' +
+        '<div class="content">' + 
+            // 此处利用vdt模板的block语法，声明一个可填充区域
+           '<b:content />' +
+        '</div>' +
+        '<footer>footer</footer>' +
+    '</div>',
 
     // 定义默认数据
     defaults: {
@@ -407,22 +401,12 @@ var Layout = Intact.extend({
 下面继承Layout来实现A页面组件
 
 ```js
-// 使用vdt模板的继承语法，继承layout
-var templateA = Intact.Vdt.compile(
-    'var layout = self.layout;' +
-    '<t:layout>' +
-        '<b:content>A页面</b:content>' +
-    '</t:layout>'
-);
-
 var A = Layout.extend({
+    template: '<t:parent>' +
+        '<b:content>A页面</b:content>' +
+    '</t:parent>',
     defaults: {
         title: 'Page A'
-    },
-    template: templateA,
-    _init: function() {
-        // 注入layout模板，让其可以在templateA中访问 
-        this.layout = layout;
     }
 });
 ```
@@ -431,20 +415,12 @@ var A = Layout.extend({
 对于B页面
 
 ```js
-var templateB = Intact.Vdt.compile(
-    'var layout = self.layout;' +
-    '<t:layout>' +
-        '<b:content>B页面</b:content>' +
-    '</t:layout>'
-);
-
 var B = Layout.extend({
+    template: '<t:parent>' +
+        '<b:content>B页面</b:content>' +
+    '</t:parent>',
     defaults: {
         title: 'Page B'
-    },
-    template: templateB,
-    _init: function() {
-        this.layout = layout;
     }
 });
 ```
