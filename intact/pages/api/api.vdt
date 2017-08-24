@@ -14,7 +14,10 @@ const Subs = function(attr) {
 <t:layout navIndex="api" class="document-page api-page">
     <b:content>
         <aside>
-            <Subs subs={self.get('subCatalogs')} isFirst={true}/>
+            <div class="aside-wrapper">
+                <Subs subs={self.get('subCatalogs')} isFirst={true}/>
+                <div class="aside-border transition"></div>
+            </div>
         </aside>
         <article>
             <div innerHTML={self.get('content')}></div>

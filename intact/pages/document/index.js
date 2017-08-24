@@ -140,9 +140,11 @@ export default class extends Layout {
             });
 
             $activeA = $aside.find('.active').last().children('a');
-            let height = $activeA.height();
-            let top = $activeA.position().top;
-            $border.css({height: height, top: top});
+            if ($activeA.length) {
+                let height = $activeA.height();
+                let top = $activeA.position().top;
+                $border.css({height: height, top: top});
+            }
         }, 50));
         $window.trigger('scroll');
     }
