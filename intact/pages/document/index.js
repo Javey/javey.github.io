@@ -2,12 +2,14 @@ import template from './document.vdt';
 import css from './document.styl';
 import throttle from 'lodash/throttle';
 import shuffle from 'lodash/shuffle';
+import debounce from 'lodash/debounce';
 import {highlight, marked} from '../../lib/utils';
 import Layout from '../layout';
 
 // for debug
 window.Intact = Intact;
-window._ = {throttle, shuffle};
+window._ = {throttle, shuffle, debounce};
+window.$ = $;
 
 export default class extends Layout {
     get template() { return template; }
@@ -104,28 +106,45 @@ export default class extends Layout {
         const $article = $(this.element).find('article');
         const $h1s = $article.find('h1');
         const $h2s = $article.find('h2');
-        $(window).on('scroll.fix', () => {
+        const $aside = $(this.element).find('aside');
+        const $border = $aside.find('.aside-border');
+        const $window = $(window);
+        $window.off('scroll');
+        $window.on('scroll.fix', () => {
             const scrollTop = $(window).scrollTop();
             $wrapper[scrollTop >= 15 ? 'addClass' : 'removeClass']('fixed');
         });
-        $(window).on('scroll.fix', _.throttle(() => {
+        $window.on('scroll.active', throttle(() => {
             const scrollTop = $(window).scrollTop();
             
-            function findActive($hs) {
+            function findActive($hs, minTop = 0) {
                 for (let i = $hs.length - 1; i >= 0; i--) {
                     let $h = $hs.eq(i);
                     let top = $h.position().top;
-                    if (scrollTop >= top - 60) {
-                        return $h.text();
+                    if (top > minTop && scrollTop >= top - 60) {
+                        return {
+                            text: $h.text(),
+                            top: top
+                        };
                     }
                 }
+                return {text: '', top: 0};
             }
 
+            const active1 = findActive($h1s);
+            const active2 = findActive($h2s, active1.top);
+
             this.set({
-                active2: findActive($h2s),
-                active1: findActive($h1s)
+                active2: active2.text,
+                active1: active1.text 
             });
-        }, 200));
+
+            $activeA = $aside.find('.active').last().children('a');
+            let height = $activeA.height();
+            let top = $activeA.position().top;
+            $border.css({height: height, top: top});
+        }, 50));
+        $window.trigger('scroll');
     }
 
     scrollTo(text, type) {
@@ -136,8 +155,13 @@ export default class extends Layout {
             let $h = $hs.eq(i);
             if ($h.text() === text) {
                 let top = $h.position().top;
+                $(window).off('scroll.active');
                 $('body').animate({
                     scrollTop: top - 60
+                }, {
+                    complete: () => {
+                        this.onScroll();
+                    }
                 });
                 break;
             }
@@ -145,6 +169,6 @@ export default class extends Layout {
     }
 
     _destroy() {
-        $(window).off('scroll.fix');
+        $(window).off('scroll');
     }
 }

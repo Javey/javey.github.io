@@ -27,6 +27,8 @@
         aside
             width 200px
             border-right 1px solid #eee
+        .aside-wrapper
+            position relative
             h5
                 font-size 16px
                 margin 25px 0 15px 20px
@@ -45,10 +47,15 @@
                     background #f3f3f3
             .active > a
                     color linkColor
-                    border-right 2px solid linkColor
+                    // border-right 2px solid linkColor
             .sub-catalogs
                 margin-left 10px
                 font-size 12px
+            .aside-border
+                border-right 2px solid linkColor
+                position absolute
+                right 0
+                top 0
         article
             flex 1
             padding 10px 20px
