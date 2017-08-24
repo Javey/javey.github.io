@@ -3,15 +3,15 @@
 @import './highlight';
 
 .document-page
-    padding-top 75px
+    padding-top headerHeight + 15px 
     box-sizing border-box
     .content-wrapper.fixed
         margin-bottom 0
         aside
             position fixed
-            top 60px
+            top headerHeight 
             background #fff
-            height calc(100% - 60px)
+            height calc(100% - headerHeight)
             overflow auto
             box-sizing border-box
         article
