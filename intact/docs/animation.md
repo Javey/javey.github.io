@@ -64,7 +64,7 @@ Intact自带的`Animate`组件，可以在元素进入，离开和移动时，�
 
 ```css
 .animate-enter, .animate-leave {
-    opacity: 0;
+    /* opacity: 0; */
     transform: translateX(10px);
 }
 .animate-enter-active, .animate-leave-active {
