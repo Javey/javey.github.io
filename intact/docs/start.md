@@ -469,7 +469,7 @@ Intact.mount(App, document.getElementById('extend'));
 class App extends Intact {
     defaults() {
         // 如果需要，可以手动合并defaults属性
-        return Object.assign({}, super.defaults, {
+        return Object.assign({}, super.defaults(), {
             name: 'Intact'
         });
     }
