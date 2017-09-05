@@ -549,7 +549,7 @@ var a = <div>{ 1 }</div>
         <t:list />
     </div>
     ```
-<!-- {ul:.example} -->
+<!-- {ul:.example.dom} -->
 
 ### 传递数据
 
@@ -579,7 +579,7 @@ var a = <div>{ 1 }</div>
         <t:list data={['Syalvia', 'Shadow', 'Javey']} />
     </div>
     ```
-<!-- {ul:.example} -->
+<!-- {ul:.example.dom} -->
 
 ### 局部继承
 
