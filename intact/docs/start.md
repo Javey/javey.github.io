@@ -475,6 +475,8 @@ class App extends Intact {
     }
 
     // 通过getter定义template属性
+    // 使用修饰器，让模板可以直接在派生组件中通过<t:parent>直接引用
+    @Intact.template()
     get template() {
         return '<div>Hello {self.get("name")}!</div>'
     }

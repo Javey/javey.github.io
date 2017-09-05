@@ -200,6 +200,39 @@ var Page = Layout.extend({
 });
 ```
 
+## ES6
+
+如果你使用`class`语法定义组件，则需要使用`Intact.template()`修饰器来修饰`template`属性，
+这样才能够在派生组件中使用`parent`变量引用到父类组件定义的模板
+
+```js
+class Layout extends Intact {
+    @Intact.template()
+    get template() {
+        return `
+            <div>
+                <b:body>Layout</b:body>
+            </div>
+        `;
+    }
+}
+
+class Page extends Layout {
+    @Intact.template()
+    get template() {
+        return `
+            <t:parent>
+                <b:body>{parent()} Page</b:body>
+            </t:parent>
+        `;
+    }
+}
+```
+
+> 使用修饰器(Decorator)语法，需要babel插件支持，babel@6可以这样做
+> `npm install --save-dev babel-plugin-transform-decorators-legacy`，然后在`.babelrc`中
+> 加入`"plugins": ["transform-decorators-legacy"]`
+
 > 完整地控制整个页面，正是`Intact`一词的由来
 
 [1]: http://javey.github.io/vdt.html#/documents/template
