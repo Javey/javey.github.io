@@ -2,12 +2,16 @@
 
 但模板中，用于创建标签的方法`h()`，可以做到这一点
 
-### `h(tagName, [attrs], [children])`
+### `h(tagName[, attrs, children, className, key, ref])`
 
-* @description 创建virtual-dom
+* @description 创建虚拟DOM
 * @param tagName `{String}` 标签名
 * @param attrs `{Object}` 属性 
-* @param children `{Array}` 子元素
+* @param children `{String | Number | vNode | Array<String | Number | vNode>}` 子元素
+* @param className `{String}` class属性
+* @param key `{String}` key属性
+* @param ref `{Function}` 用于引用到元素
+
 
 该函数创建一个虚拟DOM，之后我们可以通过该虚拟DOM创建真实的DOM。下例展示如何通过它创建`<a>`：
 

@@ -89,13 +89,7 @@ __如果事件处理函数中需要引用`this`，则绑定方法时记得手动
     ```
 <!-- {ul:.example.dom.event-object} -->
 
-### 事件冒泡
-
-浏览器中事件会默认冒泡，我们可以通过`event.stopPropagation()`来阻止冒泡，
-
-但是Vdt中，事件默认是阻止冒泡的，我们需要通过`event.startPropagation()`来进行冒泡
-
-上面的例子中，我们点击子元素，并不会触发父元素的点击事件，如果需要我们像下面这么做
+我们可以通过`event.stopPropagation()`来阻止冒泡，
 
 * <!-- {.example-template} -->
     ```jsx
@@ -113,7 +107,7 @@ __如果事件处理函数中需要引用`this`，则绑定方法时记得手动
         },
         onClickChild: function(event) {
             // 让事件冒泡
-            event.startPropagation();
+            event.stopPropagation();
             alert('你点击的是子元素，target: ' + event.target.tagName);
         }
     })

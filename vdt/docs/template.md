@@ -151,6 +151,21 @@ var a = <div>{ 1 }</div>
     ```
 <!-- {ul:.example} -->
 
+## v-raw
+
+`v-raw`指令可以让你指定某个标签下所有子元素不进行编译，而是输出它的原始内容。这可以使
+我们很方便地输出分解符`{}`。例如：
+
+* <!-- {.example-template} -->
+    ```html
+    <script type="text/md" v-raw>
+        var vdt = Vdt(template);
+        vdt.render({
+            test: 1
+        });
+    </script>
+    ```
+<!-- {ul:.example} -->
 
 ## 宏函数
 
@@ -612,6 +627,21 @@ Vdt默认会对任何输出转义
     <div innerHTML={'<script>alert(1)</script>'}></div>
     ```
 <!-- {ul:.example} -->
+
+### 非转义
+
+当Vdt作为后端模板渲染时，有时需要输出整段html代码，并且不能使用`innerHTML`来输出。例如：在`<header>`
+中，输出整段`<style>`代码。此时可以使用`{= variable }`语法来输出整段非转义代码
+
+```html
+<html>
+<header>
+    <title>test</title>
+    {= style }
+</header>
+<body></body>
+</html>
+```
 
 ## 注释
 

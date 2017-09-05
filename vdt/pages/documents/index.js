@@ -39,10 +39,10 @@ export default Intact.extend({
         this.components = [];
         this.vdts = [];
 
-        this.on('changed:content', this._evalScript);
+        this.on('$changed:content', this._evalScript);
 
-        App.on('change:loading', function(app, isLoading) {
-            App.off('change:loading');
+        App.on('$change:loading', function(app, isLoading) {
+            App.off('$change:loading');
             App.set('loading', true, {silent: true});
         });
 

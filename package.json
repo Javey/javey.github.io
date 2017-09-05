@@ -9,14 +9,15 @@
   "dependencies": {
     "advanced": "^0.3.10",
     "github-fork-ribbon-css": "^0.2.1",
-    "kpc": "git+http://git.op.ksyun.com/ksc-console/kpc.git#v2.1",
+    "kpc": "git+http://newgit.op.ksyun.com/ksyun-fe/kpc.git#v3.0",
     "lodash": "^4.0.1",
-    "vdt": "^0.9.19"
+    "vdt": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.0",
     "bluebird": "^3.5.0",
     "css-loader": "^0.27.3",
@@ -37,6 +38,7 @@
     "gulp-vdt": "0.0.5",
     "imports-loader": "^0.7.1",
     "json-loader": "^0.5.4",
+    "kpc": "git+http://newgit.op.ksyun.com/ksyun-fe/kpc.git#v3.0",
     "markdown-it": "^8.3.1",
     "markdown-it-decorate": "^1.2.2",
     "path-replace-map-loader": "0.0.1",
@@ -44,11 +46,12 @@
     "style-loader": "^0.15.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "vdt-loader": "0.0.2",
-    "webpack": "^3.4.1",
+    "vdt": "^1.0.8",
+    "vdt-loader": "^1.1.3",
+    "webpack": "^3.5.5",
     "webpack-dev-middleware": "^1.10.1",
     "yargs": "^7.0.2"
   },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
