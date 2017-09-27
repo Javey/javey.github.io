@@ -3,6 +3,7 @@ var layout = require('../layout.vdt');
 <t:layout class="index-page">
     <b:content>
         <article class="home-header">
+            <!-- <img src="images/logo.png" /> -->
             <h1>Intact</h1>
             <p>可继承的前端开发框架</p>
             <div class="actions">

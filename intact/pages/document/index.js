@@ -158,7 +158,7 @@ export default class extends Layout {
             if ($h.text() === text) {
                 let top = $h.position().top;
                 $(window).off('scroll.active');
-                $('body').animate({
+                $('html, body').animate({
                     scrollTop: top - 60
                 }, {
                     complete: () => {
