@@ -489,6 +489,28 @@ this.props.a === this.get('a') // true
 
 * @type `{Vdt}`
 
+# Intact实例特殊属性
+
+## children
+
+`children`属性用于获取所有传递给组件的子元素。如：
+
+```js
+var Component = Intact.extend({
+    template: '<div>{self.get("children")}</div>'
+});
+var App = Intact.extend({
+    template: 'var Component = self.Component; ' + 
+        '<Component><b>test</b></Component>',
+    _init: function() {
+        this.Component = Component;
+    }
+});
+
+App;
+```
+<!-- {.example.auto} -->
+
 # Intact.Vdt类
 
 ## Intact.Vdt
