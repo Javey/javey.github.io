@@ -62,6 +62,7 @@ export default Intact.extend({
 
         var delimiters = Vdt.getDelimiters();
         Vdt.setDelimiters(['{', '}']);
+        Vdt.configure({disableSplitText: true});
         eval($(this.element).find('script[type="text/javascript"]').html());
 
         // 自动运行示例

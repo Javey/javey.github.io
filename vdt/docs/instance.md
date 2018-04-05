@@ -23,7 +23,7 @@ vdt = Vdt(Vdt.compile('<div></div>'));
 
 * @description 渲染模板
 * @param data `{Object}` 用来渲染模板的数据
-* @return {Html DOM} 返回渲染出来的dom
+* @return {HtmlElement} 返回渲染出来的dom
 
 ### `vdt.renderString([data])`
 
@@ -35,7 +35,14 @@ vdt = Vdt(Vdt.compile('<div></div>'));
 
 * @description 更新模板
 * @param data `{Object}` 用来更新模板的数据，如果传入该数据，则原始数据将会被它替换掉
-* @return {Html DOM} 返回更新后的dom
+* @return {HtmlElement} 返回更新后的dom
+
+### `vdt.hydrate(data, dom)`
+
+* @description 给已存在的dom建立到vdt的绑定。这在前后端同构的项目中，可以用于前端混合
+* @param data `{Object}` 用来混合的数据
+* @param dom `{HtmlElement}` 将要混合的dom元素
+* @return {HtmlElement} 返回混合后的dom
 
 ### `vdt.data`
 

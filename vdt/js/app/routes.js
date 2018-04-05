@@ -1,4 +1,5 @@
 import App from './app';
+import Vdt from 'vdt';
 
 var router = Router({
     '/': function() {
@@ -27,5 +28,5 @@ var router = Router({
 
 router.init('/');
 
-window.Vdt = Intact.Vdt;
+window.Vdt = Vdt;
 window.App = App;

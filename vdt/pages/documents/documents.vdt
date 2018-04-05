@@ -28,10 +28,10 @@ var nav = [
     {
         title: 'ADVANCED',
         subNav: [
-            // {
-                // title: 'Html属性',
-                // href: 'property'
-            // },
+            {
+                title: '双向绑定(v-model)',
+                href: 'model'
+            },
             {
                 title: 'key属性',
                 href: 'key'
@@ -45,12 +45,21 @@ var nav = [
                 href: 'keyword'
             },
             {
-                title: '可变标签',
+                title: 'h函数(vNode)',
                 href: 'variable-tag'
             },
             {
                 title: 'class属性',
                 href: 'class'
+            }
+        ]
+    },
+    {
+        title: 'CHANGELOG',
+        subNav: [
+            {
+                title: '更新日志',
+                href: 'changelog'
             }
         ]
     }
