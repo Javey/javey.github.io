@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "build:vdt": "gulp build"
+      "build:vdt": "gulp dev"
   },
   "dependencies": {
     "advanced": "^0.3.10",
