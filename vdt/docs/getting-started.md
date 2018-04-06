@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/vdt.svg)](https://badge.fury.io/js/vdt)
 [![Build Status](https://travis-ci.org/Javey/vdt.js.svg?branch=master)](https://travis-ci.org/Javey/vdt.js)
-[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)](https://github.com/Javey/vdt.js)
+[![GitHub stars](https://img.shields.io/github/stars/Javey/vdt.js.svg?style=social&label=Stars)](https://github.com/Javey/vdt.js)
 
 ## 功能特性 
 
