@@ -19,7 +19,7 @@
 
 * <!-- {.example-template} -->
     ```jsx
-    <button ev-click={onClick.bind(this)}>点击了{count}次</button>
+    <button ev-click={onClick.bind(self)}>点击了{count}次</button>
     ```
 * <!-- {.example-js} -->
     ```js
@@ -27,15 +27,15 @@
     vdt.render({
         count: 0,
         onClick: function() {
-            this.data.count++;
+            this.count++;
             // 调用update方法去更新dom
-            this.update();
+            vdt.update();
         }
     })
     ```
 <!-- {ul:.example.dom} -->
 
-__如果事件处理函数中需要引用`this`，则绑定方法时记得手动`bind(this)`__
+__事件处理函数中`this`默认指向`window`，我们可以`bind(self)`让它指向渲染到模板的数据`__
 
 ## 传入参数 
 
@@ -47,7 +47,7 @@ __如果事件处理函数中需要引用`this`，则绑定方法时记得手动
         点击下面的名字
         <ul>
             <li v-for={users} 
-                ev-click={onClick.bind(this, value)}
+                ev-click={onClick.bind(self, value)}
             >{value}</li>
         </ul>
     </div>
@@ -70,9 +70,9 @@ __如果事件处理函数中需要引用`this`，则绑定方法时记得手动
 
 * <!-- {.example-template} -->
     ```jsx
-    <div ev-click={onClickParent.bind(this)}>
+    <div ev-click={onClickParent.bind(self)}>
         点击父元素
-        <p ev-click={onClickChild.bind(this)}>点击子元素</p>
+        <p ev-click={onClickChild.bind(self)}>点击子元素</p>
     </div>
     ```
 * <!-- {.example-js} -->
@@ -93,9 +93,9 @@ __如果事件处理函数中需要引用`this`，则绑定方法时记得手动
 
 * <!-- {.example-template} -->
     ```jsx
-    <div ev-click={onClickParent.bind(this)}>
+    <div ev-click={onClickParent.bind(self)}>
         点击父元素
-        <p ev-click={onClickChild.bind(this)}>点击子元素</p>
+        <p ev-click={onClickChild.bind(self)}>点击子元素</p>
     </div>
     ```
 * <!-- {.example-js} -->
