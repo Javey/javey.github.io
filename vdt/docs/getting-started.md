@@ -1,5 +1,8 @@
 `Vdt`：一个基于虚拟DOM的模板引擎
 
+[![npm version](https://badge.fury.io/js/vdt.svg)](https://badge.fury.io/js/vdt)
+[![Build Status](https://travis-ci.org/Javey/vdt.js.svg?branch=master)](https://travis-ci.org/Javey/vdt.js)
+
 ## 功能特性 
 
 * 基于虚拟DOM，更新速度快
