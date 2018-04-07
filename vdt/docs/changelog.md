@@ -3,7 +3,7 @@
 1. add: 支持模板返回`undefined`
 2. add: `block`名称支持连字符`-`
 3. add: `block`支持`v-if`指令 
-4. add: 支持传递上下为`context`给组件
+4. add: 支持传递上下文`context`给组件
 5. add: 组件支持`block`传递代码片段
 6. add: 使用`<t:parent>`继承模板时，可以直接书写子元素，该元素会当做`scope.chilren`传给parent
 7. add: 支持使用字符串当做`ref`值
