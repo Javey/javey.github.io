@@ -7,5 +7,8 @@ webpackConfig.module.rules.push({
     test: /\.json$/,
     loader: 'json-loader'
 });
+webpackConfig.module.noParse = [
+    /node_modules\/benchmark/
+];
 
 module.exports = webpackConfig;

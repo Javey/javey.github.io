@@ -19,6 +19,9 @@ var router = Router({
         on: function() {
             router.replaceRoute('/documents/getting-started');
         }
+    },
+    '/benchmark': function() {
+        require(['../../pages/benchmark'], App.run());
     }
 }).configure({
     notfound: function() {

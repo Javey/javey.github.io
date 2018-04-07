@@ -55,11 +55,15 @@ var nav = [
         ]
     },
     {
-        title: 'CHANGELOG',
+        title: 'OHTHER',
         subNav: [
             {
                 title: '更新日志',
                 href: 'changelog'
+            },
+            {
+                title: '基准测试',
+                url: '#/benchmark'
             }
         ]
     }
@@ -74,7 +78,8 @@ var currentNav = {};
             <ul>
                 <li v-for={{ value.subNav }} class={{ {active: value.href === self.get('index'), 'c-ellipsis': true} }}>
                     {{ (function() { value.href === self.get('index') && (currentNav = value)})() }}
-                    <a href={{ '#/documents/' + value.href }}>{{ value.title }}</a>
+                    <a v-if={{ value.href }} href={{ '#/documents/' + value.href }}>{{ value.title }}</a>
+                    <a v-else-if={{ value.url }} href={{ value.url }}>{{ value.title }}</a>
                 </li>
             </ul>
         </div>

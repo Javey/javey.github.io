@@ -1,0 +1,24 @@
+{
+  "name": "vdt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "art-template": "^4.12.2",
+    "benchmark": "^2.1.4",
+    "handlebars": "^4.0.11",
+    "highcharts": "^6.0.7",
+    "lodash": "^4.17.5",
+    "mustache": "^2.3.0",
+    "underscore": "^1.8.3"
+  }
+}
