@@ -123,6 +123,10 @@ module.exports = {
 
 如果你想在模板中使用es6语法，还可以加上[babel-loader](4)
 
+```shell
+npm install babel-loader --save-dev
+```
+
 ```js
 rules: [
     {
