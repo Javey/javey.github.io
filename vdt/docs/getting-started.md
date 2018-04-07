@@ -95,6 +95,50 @@ vdt.data.name = 'Javascript'
 vdt.update();
 ```
 
+### webpack
+
+当项目使用webpack构建时，可以使用[vdt-loader](3)将模板提取成单独文件。webpack配置如下：
+
+```bash
+npm install vdt-loader --save-dev
+```
+
+```js
+module.exports = {
+    ...
+    module: {
+        rules: [
+            {
+                test: /\.vdt$/,
+                use: [
+                    {
+                        loader: 'vdt-loader',
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+如果你想在模板中使用es6语法，还可以加上[babel-loader](4)
+
+```js
+rules: [
+    {
+        test: /\.vdt$/,
+        use: [
+            {
+                loader: 'babel-loader',
+            },
+            {
+                loader: 'vdt-loader',
+            }
+        ]
+    }
+]
+```
+
 ### NodeJs
 
 * 作为[Express][2]的middleware，用于实时编译Vdt模板，返回js代码
@@ -171,3 +215,5 @@ vdt.update();
 
 [1]: https://github.com/Matt-Esch/virtual-dom
 [2]: http://www.expressjs.com.cn/
+[3]: https://github.com/Javey/vdt-loader 
+[4]: https://github.com/babel/babel-loader
