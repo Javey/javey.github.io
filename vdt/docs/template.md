@@ -5,31 +5,6 @@ Vdt中默认使用一对大括号`{}`作为分隔符，在`{}`中书写合法的
 
 __为了提高编译速度，Vdt不会分析`{}`中js表达式的合法性，也不会检测变量是否未定义__
 
-以下是合法表达式
-
-```html
-<div>{ 1 }</div>                                  // 合法，Number，<div>1</div>
-
-<div>{ 'abc' }</div>                              // 合法，String，<div>abc</div>
-
-<div>{ null }</div>                               // 合法，null，将被渲染成空节点，<div></div>
-
-<div>{ undefined }</div>                          // 合法，undefined，同上，<div></div>
-
-var a = <div>{ 1 }</div>
-<div>{ a } </div>                                 // 合法，模板引用，<div><div>1</div></div>
-
-<div>{ [1, 'abc', a, undefined, null] }</div>     // 合法，由合法类型组成的数组，<div>1abc<div>1</div></div>
-
-<div>{ true ? 'a' : 'b' }</div>                   // 合法，String，<div>a</div>
-
-<div>{ ['a', 'b', 'c'].map(function(item) {
-    return item + '1';
-}) }</div>                                        // 合法，Array<String>，<div>a1b1c1</div>
-
-<div ev-click={function() {alert(1)}}></div>      // 合法，事件取值类型为Function
-```
-
 以下写法不合法
 
 ```html
@@ -37,8 +12,6 @@ var a = <div>{ 1 }</div>
 
 <div>{ if (true) { 'a' } else { 'b' } }<div>      // 不合法，if语句不是表达式，可以使用三元操作符
 ```
-
-理解上述规则后，下面的概念也就一目了然了：__其实都是在大括号中`{}`书写上述数据类型的表达式（即：右值）__
 
 ## 变量
 
