@@ -17,7 +17,11 @@
     noWith: false,
     server: false,
     skipWhitespace: false,
-    disableSplitText: false
+    disableSplitText: false,
+
+    // @since v1.3.1
+    skipWhitespace: true,
+    indent: '    '
 }
 ```
 
@@ -103,6 +107,8 @@ vdt.render({
 
 是否去掉两个标签之间的空白字符，默认会保留
 
+> `@since v1.3.1` 默认会去掉空白字符
+
 ### `disableSplitText`
 
 当前后端同构时，后端返回的字符串是否使用`<!---->`分割，默认会。
@@ -111,3 +117,9 @@ vdt.render({
 浏览器接受到该html字符串，会将`12`渲染成一个文本节点，但其实它是两个变量的绑定（`a`和`b`），
 当前端混合该dom时，就会出错。而分割后，会返回`<span>1<!---->2</span>`，混合时会忽略注释，将
 文本当做两个节点处理。
+
+### `indent`
+
+`@since v1.3.1`
+
+模板文件编译后的代码缩进风格，默认4个空格缩进

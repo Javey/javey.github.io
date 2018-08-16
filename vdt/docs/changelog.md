@@ -1,3 +1,15 @@
+# v1.3.0
+
+1. add: 对于组件可以双向绑定任意属性，而非仅仅只是`value`属性 [Javey/Intact#7](https://github.com/Javey/Intact/issues/7)
+2. add: 更详细的报错信息，可以标示出具体的错误位置 [#9](https://github.com/Javey/vdt.js/issues/9) 
+3. add: 支持同一事件绑定多次回调函数，可以在`v-model`占用了事件属性后，再次绑定该事件属性，详见[双向绑定(v-model)](https://javey.github.io/vdt.html#/documents/model) [Javey/Intact#9](https://github.com/Javey/Intact/issues/9) 
+4. add: 新增虚拟标签`template`用于包裹多个元素，`template`只会渲染子元素，自身不会被渲染，详见[模板语法 template](https://javey.github.io/vdt.html#/documents/template) [#10](https://github.com/Javey/vdt.js/issues/10)
+5. add: 支持带参数的`block`，详见[模板继承 带参数的block](https://javey.github.io/vdt.html#/documents/extend) [#8](https://github.com/Javey/vdt.js/issues/8)
+6. add: 模板编译后的代码进行了美化，方便调试
+
+7. change: 现在`skipWhitespace`也会去掉标签和插值分隔符之间的空白字符 [#11](https://github.com/Javey/vdt.js/issues/11)
+
+
 # v1.2.0
 
 1. add: 支持模板返回`undefined`

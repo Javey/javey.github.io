@@ -16,6 +16,10 @@ var nav = [
                 href: 'template'
             },
             {
+                title: '模板继承',
+                href: 'extend'
+            },
+            {
                 title: 'Vdt实例',
                 href: 'instance'
             },
