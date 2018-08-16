@@ -54,7 +54,7 @@ npm install vdt --save
 ```
 
 ```html
-<script type="text/javascript" src="node_modules/vdt/dist/vdt.js"></script>
+<script type="text/javascript" src="node_modules/vdt/dist/vdt.min.js"></script>
 ```
 
 ### 与webpack或browserify结合使用
