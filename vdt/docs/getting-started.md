@@ -85,7 +85,8 @@ define(['path/to/vdt'], function(Vdt) { });
 var vdt = Vdt('<div>{name}</div>');
 
 // 渲染 
-vdt.render({name: 'Vdt'});
+var dom = vdt.render({name: 'Vdt'});
+document.body.appendChild(dom);
 
 // 更新 
 vdt.update({name: 'Javascript'});
