@@ -11,46 +11,48 @@ filetype off                  " required
 
 call plug#begin('~/.vim/plugged')
 
-    Plug 'taglist.vim'
-    Plug 'SuperTab'
-    Plug 'winmanager'
-    Plug 'minibufexpl.vim'
-    Plug 'bufexplorer.zip'
+    " Plug 'vim-scripts/taglist.vim'
+    Plug 'vim-scripts/SuperTab'
+    Plug 'vim-scripts/winmanager'
+    Plug 'vim-scripts/minibufexpl.vim'
+    Plug 'vim-scripts/bufexplorer.zip'
     Plug 'scrooloose/nerdtree'
-    Plug 'The-NERD-Commenter'
+    Plug 'vim-scripts/The-NERD-Commenter'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     " Plugin 'jistr/vim-nerdtree-tabs'
-    Plug 'Markdown'
+    Plug 'vim-scripts/Markdown'
 
     function! BuildYCM(info)
-	  " info is a dictionary with 3 fields
-	  " - name:   name of the plugin
-	  " - status: 'installed', 'updated', or 'unchanged'
-	  " - force:  set on PlugInstall! or PlugUpdate!
-	  if a:info.status == 'installed' || a:info.force
-		!./install.py --clang-completer --tern-completer 
-	  endif
+        " info is a dictionary with 3 fields
+        " - name:   name of the plugin
+        " - status: 'installed', 'updated', or 'unchanged'
+        " - force:  set on PlugInstall! or PlugUpdate!
+        if a:info.status == 'installed' || a:info.force
+            !sudo apt-get -y install build-essential cmake
+            !sudo apt-get -y install build-essential cmake3
+            !sudo apt-get -y install python-dev python3-dev
+            !./install.py --clang-completer
+        endif
 	endfunction
 
     Plug 'Valloric/YouCompleteMe', {'do': function('BuildYCM')}
-    Plug 'delimitMate.vim'
-    Plug 'snipMate'
+    Plug 'vim-scripts/delimitMate.vim'
+    Plug 'vim-scripts/snipMate'
     Plug 'marijnh/tern_for_vim'
     Plug 'ternjs/tern_for_vim'
     Plug 'othree/tern_for_vim_coffee'
     Plug 'kchmck/vim-coffee-script'
     Plug 'wavded/vim-stylus'
-    Plug 'DoxygenToolkit.vim'
+    Plug 'vim-scripts/DoxygenToolkit.vim'
     Plug 'lepture/vim-velocity'
-    Plug 'git://github.com/mxw/vim-jsx.git'
-    Plug 'git://github.com/blockloop/vim-swigjs.git'
+    Plug 'mxw/vim-jsx'
+    Plug 'blockloop/vim-swigjs'
     " 语法检测插件
-    Plug 'git://github.com/scrooloose/syntastic.git'
+    Plug 'scrooloose/syntastic'
     Plug 'isRuslan/vim-es6'
-    Plug 'Shougo/neocomplete.vim'
 
     " haskell
-    Plug 'git://github.com/bitc/vim-hdevtools.git'
+    Plug 'bitc/vim-hdevtools'
     Plug 'eagletmt/ghcmod-vim'
     Plug 'eagletmt/neco-ghc'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
